@@ -12,6 +12,8 @@ import GamePlay from './GamePlay'
 import GameEnd from './GameEnd'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
+console.log("🔍 DEBUG - VITE_SOCKET_URL:", import.meta.env.VITE_SOCKET_URL)
+console.log("🔍 DEBUG - SOCKET_URL final:", SOCKET_URL)
 const socket = io(SOCKET_URL)
 
 export default function Lobby() {
