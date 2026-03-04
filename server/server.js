@@ -74,17 +74,14 @@ function assignRoles(users, impostorCount) {
 }
 
 io.on("connection", (socket) => {
-  console.log("=== Usuario conectado ===")
-  console.log("ID:", socket.id)
-  console.log("Origin:", socket.handshake.headers.origin)
-  console.log("========================")
+  // Usuario conectado
 
   // Agregar usuario a la lista de conectados
   connectedUsers.push({id: socket.id, name: null, roomCode: null})
 
   // Establecer nombre del usuario
   socket.on("setName", (name) => {
-    console.log(`Usuario ${socket.id} estableció su nombre como: ${name}`)
+    // Nombre establecido
     const user = connectedUsers.find(u => u.id === socket.id)
     if (user) {
       user.name = name
@@ -96,7 +93,7 @@ io.on("connection", (socket) => {
     const { roomName } = data
     const code = generateRoomCode()
     
-    console.log(`Usuario ${socket.id} está creando sala "${roomName}" con código ${code}`)
+    // Creando sala
     
     // Crear la sala
     rooms[code] = {
@@ -125,7 +122,7 @@ io.on("connection", (socket) => {
         isHost: true
       })
       
-      console.log(`Sala ${code} creada. Usuarios: ${rooms[code].users.length}`)
+      // Sala creada
     }
   })
 
@@ -133,7 +130,7 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (data) => {
     const { roomName, roomCode } = data
     
-    console.log(`Usuario ${socket.id} intenta unirse a sala ${roomCode} (${roomName})`)
+    // Usuario uniéndose a sala
     
     // Validar que la sala existe
     if (!rooms[roomCode]) {
@@ -167,7 +164,7 @@ io.on("connection", (socket) => {
         users: rooms[roomCode].users
       })
       
-      console.log(`Usuario ${socket.id} se unió a sala ${roomCode}. Total usuarios: ${rooms[roomCode].users.length}`)
+      // Usuario unido correctamente
     }
   })
 
@@ -177,7 +174,7 @@ io.on("connection", (socket) => {
     
     if (user && user.roomCode) {
       const roomCode = user.roomCode
-      console.log(`Usuario ${socket.id} está saliendo de sala ${roomCode}`)
+      // Usuario saliendo de sala
       
       // Remover usuario de la sala
       if (rooms[roomCode]) {
@@ -186,7 +183,7 @@ io.on("connection", (socket) => {
         
         // Si la sala quedó vacía, eliminarla
         if (rooms[roomCode].users.length === 0) {
-          console.log(`Sala ${roomCode} eliminada (sin usuarios)`)
+          // Sala eliminada
           delete rooms[roomCode]
         } else {
           // Notificar a los demás usuarios
@@ -214,7 +211,7 @@ io.on("connection", (socket) => {
       
       // Verificar que es el anfitrión
       if (room && room.host === socket.id) {
-        console.log(`Anfitrión ${socket.id} iniciando configuración en sala ${roomCode}`)
+        // Iniciando configuración de juego
         
         room.gameState = "settings"
         
@@ -239,7 +236,7 @@ io.on("connection", (socket) => {
       
       // Verificar que es el anfitrión
       if (room && room.host === socket.id) {
-        console.log(`Anfitrión ${socket.id} configuró el juego:`, settings)
+        // Juego configurado
         
         room.gameState = "countdown"
         room.gameSettings = settings
@@ -258,7 +255,7 @@ io.on("connection", (socket) => {
             // Seleccionar jugador que empieza aleatoriamente
             const starterUser = room.users[Math.floor(Math.random() * room.users.length)]
             
-            console.log(`Juego iniciado en sala ${roomCode}. Palabra: ${word.word}. Empieza: ${starterUser.name}`)
+            // Juego iniciado
             
             // Enviar rol y palabra/pista/categoría a cada usuario
             room.users.forEach(u => {
@@ -289,7 +286,7 @@ io.on("connection", (socket) => {
       
       // Verificar que es el anfitrión
       if (room && room.host === socket.id && room.gameState === "playing") {
-        console.log(`Anfitrión ${socket.id} terminó el juego en sala ${roomCode}`)
+        // Juego terminado
         
         room.gameState = "ended"
         
@@ -309,7 +306,7 @@ io.on("connection", (socket) => {
       
       // Verificar que es el anfitrión
       if (room && room.host === socket.id) {
-        console.log(`Anfitrión ${socket.id} reiniciando juego en sala ${roomCode}`)
+        // Reiniciando juego
         
         const settings = room.gameSettings
         room.gameState = "countdown"
@@ -328,7 +325,7 @@ io.on("connection", (socket) => {
             // Seleccionar jugador que empieza aleatoriamente
             const starterUser = room.users[Math.floor(Math.random() * room.users.length)]
             
-            console.log(`Juego reiniciado en sala ${roomCode}. Palabra: ${word.word}. Empieza: ${starterUser.name}`)
+            // Juego reiniciado
             
             // Enviar rol y palabra/pista/categoría a cada usuario
             room.users.forEach(u => {
@@ -359,7 +356,7 @@ io.on("connection", (socket) => {
       
       // Verificar que es el anfitrión
       if (room && room.host === socket.id) {
-        console.log(`Anfitrión ${socket.id} volviendo a sala ${roomCode}`)
+        // Volviendo a sala
         
         room.gameState = "waiting"
         room.currentWord = null
@@ -373,7 +370,7 @@ io.on("connection", (socket) => {
 
   // Desconexión
   socket.on("disconnect", () => {
-    console.log("Usuario desconectado:", socket.id)
+    // Usuario desconectado
     
     const user = connectedUsers.find(u => u.id === socket.id)
     
@@ -386,7 +383,7 @@ io.on("connection", (socket) => {
         
         // Si la sala quedó vacía, eliminarla
         if (rooms[roomCode].users.length === 0) {
-          console.log(`Sala ${roomCode} eliminada (sin usuarios)`)
+          // Sala eliminada
           delete rooms[roomCode]
         } else {
           // Notificar a los demás usuarios

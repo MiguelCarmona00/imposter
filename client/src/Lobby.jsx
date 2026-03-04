@@ -12,8 +12,6 @@ import GamePlay from './GamePlay'
 import GameEnd from './GameEnd'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
-console.log("🔍 DEBUG - VITE_SOCKET_URL:", import.meta.env.VITE_SOCKET_URL)
-console.log("🔍 DEBUG - SOCKET_URL final:", SOCKET_URL)
 const socket = io(SOCKET_URL)
 
 export default function Lobby() {
@@ -43,12 +41,11 @@ export default function Lobby() {
     useEffect(() => {
         // Conexión establecida
         socket.on("connect", () => {
-            console.log("Conectado al servidor con ID:", socket.id)
+            // Conexión exitosa
         })
 
         // Sala creada exitosamente
         socket.on("roomCreated", (data) => {
-            console.log("Sala creada:", data)
             setRoomCode(data.code)
             setRoomName(data.name)
             setRoomUsers(data.users)
@@ -58,7 +55,6 @@ export default function Lobby() {
 
         // Unido a sala exitosamente
         socket.on("roomJoined", (data) => {
-            console.log("Unido a sala:", data)
             setRoomCode(data.code)
             setRoomName(data.name)
             setRoomUsers(data.users)
@@ -69,25 +65,21 @@ export default function Lobby() {
 
         // Error al unirse a sala
         socket.on("joinError", (errorMessage) => {
-            console.log("Error al unirse:", errorMessage)
             setJoinError(errorMessage)
         })
 
         // Usuario se unió a la sala
         socket.on("userJoined", (data) => {
-            console.log("Usuario se unió:", data)
             setRoomUsers(data.users)
         })
 
         // Usuario salió de la sala
         socket.on("userLeft", (data) => {
-            console.log("Usuario salió:", data)
             setRoomUsers(data.users)
         })
 
         // Sala abandonada exitosamente
         socket.on("roomLeft", () => {
-            console.log("Sala abandonada")
             setRoomCode("")
             setRoomName("")
             setRoomUsers([])
@@ -97,26 +89,22 @@ export default function Lobby() {
 
         // Mostrar ajustes de juego (solo anfitrión)
         socket.on("showGameSettings", (data) => {
-            console.log("Mostrar ajustes:", data)
             setMaxImpostors(data.maxImpostors)
             setCurrentView("game-settings")
         })
 
         // Esperar ajustes (invitados)
         socket.on("waitingForSettings", () => {
-            console.log("Esperando ajustes del anfitrión")
             setCurrentView("waiting-for-settings")
         })
 
         // Iniciar cuenta atrás
         socket.on("startCountdown", () => {
-            console.log("Iniciando cuenta atrás")
             setCurrentView("countdown")
         })
 
         // Juego iniciado
         socket.on("gameStarted", (data) => {
-            console.log("Juego iniciado:", data)
             setMyRole(data.role)
             setCurrentWord(data.word)
             setCurrentHint(data.hint)
@@ -127,13 +115,11 @@ export default function Lobby() {
 
         // Juego terminado
         socket.on("gameEnded", () => {
-            console.log("Juego terminado")
             setCurrentView("game-end")
         })
 
         // Volver a sala
         socket.on("backToWaiting", () => {
-            console.log("Volviendo a sala")
             setMyRole(null)
             setCurrentWord(null)
             setCurrentHint(null)
