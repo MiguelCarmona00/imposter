@@ -1,0 +1,390 @@
+.username-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.username-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  height: 50vh;
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 215, 0, 0.1);
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  animation: fadeInUp 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+/* Decoración: As de picas superior izquierda */
+.username-card::before {
+  content: '♠';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  font-size: 3rem;
+  color: #ffd700;
+  text-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.8),
+    0 0 40px rgba(255, 215, 0, 0.4),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: pulseGold 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+/* Animación de pulsación para los ases de picas */
+@keyframes pulseGold {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));
+  }
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.username-title {
+  color: #ffd700;
+  font-size: 2.5rem;
+  margin: 0;
+  text-align: center;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.username-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+}
+
+
+/* Decoración: As de picas inferior derecha del formulario */
+.username-form::after {
+  content: '♠';
+  position: absolute;
+  bottom: -110px;
+  right: -60px;
+  font-size: 3rem;
+  color: #ffd700;
+  text-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.8),
+    0 0 40px rgba(255, 215, 0, 0.4),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: pulseGold 3s ease-in-out infinite 1.5s;
+  z-index: 10;
+}
+
+.username-input {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  color: #ffd700;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.username-input::placeholder {
+  color: #7a7a7a;
+  opacity: 1;
+}
+
+.username-input:focus {
+  border-color: #ffd700;
+  box-shadow: 
+    inset 0 2px 8px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(255, 215, 0, 0.4),
+    0 0 30px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.username-input:hover {
+  border-color: #daa520;
+}
+
+.username-button {
+  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  background-size: 200% 100%;
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  color: #000000;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 
+    0 4px 15px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.username-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.username-button:hover {
+  background-position: 100% 0;
+  box-shadow: 
+    0 6px 25px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  border-color: #f4c430;
+}
+
+.username-button:hover::before {
+  left: 100%;
+}
+
+.username-button:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 10px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.username-button:focus-visible {
+  outline: 3px solid #ffd700;
+  outline-offset: 3px;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablets y pantallas medianas (768px - 1024px) */
+@media (max-width: 1024px) {
+  .username-card {
+    max-width: 420px;
+    padding: 2.5rem 2rem;
+  }
+
+  .username-title {
+    font-size: 2.2rem;
+  }
+
+  .username-card::before {
+    font-size: 2.8rem;
+    top: -18px;
+    left: -18px;
+  }
+
+  .username-form::after {
+    font-size: 2.8rem;
+    bottom: -100px;
+    right: -50px;
+  }
+}
+
+/* Tablets pequeñas y móviles grandes (481px - 767px) */
+@media (max-width: 767px) {
+  .username-container {
+    padding: 1.5rem;
+  }
+
+  .username-card {
+    max-width: 100%;
+    height: auto;
+    min-height: 400px;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .username-title {
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+  }
+
+  .username-form {
+    gap: 1.5rem;
+  }
+
+  .username-input {
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem;
+  }
+
+  .username-button {
+    font-size: 1rem;
+    padding: 0.9rem 1.5rem;
+    letter-spacing: 1.2px;
+  }
+
+  .username-card::before {
+    font-size: 2.5rem;
+    top: -15px;
+    left: -15px;
+  }
+
+  .username-form::after {
+    font-size: 2.5rem;
+    bottom: -80px;
+    right: -40px;
+  }
+}
+
+/* Móviles (320px - 480px) */
+@media (max-width: 480px) {
+  .username-container {
+    padding: 1rem;
+  }
+
+  .username-card {
+    max-width: 100%;
+    height: auto;
+    min-height: 350px;
+    padding: 1.5rem 1.2rem;
+    border-radius: 12px;
+    border-width: 1.5px;
+  }
+
+  .username-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .username-form {
+    gap: 1.2rem;
+  }
+
+  .username-input {
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+  }
+
+  .username-button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.2rem;
+    letter-spacing: 1px;
+    border-radius: 10px;
+  }
+
+  .username-card::before {
+    font-size: 2rem;
+    top: -12px;
+    left: -12px;
+  }
+
+  .username-form::after {
+    font-size: 2rem;
+    bottom: -60px;
+    right: -30px;
+  }
+}
+
+/* Móviles muy pequeños (menos de 360px) */
+@media (max-width: 359px) {
+  .username-container {
+    padding: 0.75rem;
+  }
+
+  .username-card {
+    padding: 1.2rem 1rem;
+    min-height: 320px;
+  }
+
+  .username-title {
+    font-size: 1.3rem;
+  }
+
+  .username-form {
+    gap: 1rem;
+  }
+
+  .username-input {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .username-button {
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .username-card::before {
+    font-size: 1.8rem;
+    top: -10px;
+    left: -10px;
+  }
+
+  .username-form::after {
+    font-size: 1.8rem;
+    bottom: -50px;
+    right: -25px;
+  }
+}
+
+/* Landscape en móviles */
+@media (max-height: 600px) and (orientation: landscape) {
+  .username-card {
+    height: auto;
+    min-height: auto;
+    padding: 1.5rem 2rem;
+    justify-content: center;
+  }
+
+  .username-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .username-form {
+    gap: 1rem;
+  }
+
+  .username-input,
+  .username-button {
+    padding: 0.7rem 1.2rem;
+  }
+
+  .username-card::before {
+    font-size: 2rem;
+  }
+
+  .username-form::after {
+    font-size: 2rem;
+    bottom: -50px;
+  }
+}

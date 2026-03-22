@@ -1,0 +1,389 @@
+.room-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.room-title {
+  color: #ffd700;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 1.5px;
+}
+
+/* Grid principal para los dos bloques */
+.room-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.room-code-section,
+.players-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.room-code-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #ffd700;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.room-code-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ffd700, #b8860b, #ffd700, #daa520);
+  background-size: 300% 300%;
+  border-radius: 16px;
+  z-index: -1;
+  animation: gradientShift 6s ease infinite;
+  opacity: 0.3;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.room-code-label {
+  color: #ffd700;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.room-code-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  margin: 1rem 0;
+  color: #ffd700;
+  text-shadow: 
+    0 0 15px rgba(255, 215, 0, 0.6),
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: monospace;
+}
+
+.copy-button {
+  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  background-size: 200% 100%;
+  color: #000;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 10px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.copy-button:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 15px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+.players-section-title {
+  color: #ffd700;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.players-list {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.2),
+    inset 0 2px 8px rgba(0, 0, 0, 0.4);
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.player-item {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  color: #ffd700;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.player-item:last-child {
+  margin-bottom: 0;
+}
+
+.player-item.is-current-user {
+  background: linear-gradient(135deg, #0d5a1a 0%, #16a038 100%);
+  border-color: #4CAF50;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+  font-weight: 600;
+}
+
+.start-game-button {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #2d7a3e 0%, #4CAF50 50%, #2d7a3e 100%);
+  background-size: 200% 100%;
+  color: white;
+  border: 2px solid #4CAF50;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  box-shadow: 
+    0 4px 15px rgba(76, 175, 80, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.start-game-button:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(76, 175, 80, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.start-game-button:active {
+  transform: translateY(0);
+}
+
+.warning-message {
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  color: #ffd700;
+  text-align: center;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.leave-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #8b0000 0%, #f44336 50%, #8b0000 100%);
+  background-size: 200% 100%;
+  color: white;
+  border: 2px solid #f44336;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 
+    0 4px 10px rgba(244, 67, 54, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.leave-button:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 15px rgba(244, 67, 54, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.leave-button:active {
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablets y pantallas medianas (768px - 1024px) */
+@media (max-width: 1024px) {
+  .room-main-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Tablets pequeñas y móviles grandes (481px - 767px) */
+@media (max-width: 767px) {
+  .room-container {
+    padding: 1.5rem;
+  }
+
+  .room-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Cambiar a diseño vertical en móviles */
+  .room-main-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .room-code-card {
+    padding: 1.25rem;
+    min-height: auto;
+  }
+
+  .room-code-label {
+    font-size: 1.3rem;
+  }
+
+  .room-code-value {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+  }
+
+  .copy-button {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .players-section-title {
+    font-size: 1.3rem;
+  }
+
+  .player-item {
+    font-size: 1rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .start-game-button {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .leave-button {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.5rem;
+  }
+}
+
+/* Móviles (320px - 480px) */
+@media (max-width: 480px) {
+  .room-container {
+    padding: 1rem;
+  }
+
+  .room-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 1px;
+  }
+
+  .room-main-grid {
+    gap: 1.25rem;
+  }
+
+  .room-code-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .room-code-label {
+    font-size: 1.1rem;
+  }
+
+  .room-code-value {
+    font-size: 1.6rem;
+    letter-spacing: 0.2rem;
+  }
+
+  .copy-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .players-section-title {
+    font-size: 1.2rem;
+  }
+
+  .players-list {
+    padding: 0.75rem;
+  }
+
+  .player-item {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .start-game-button {
+    font-size: 1rem;
+    padding: 0.9rem 1.25rem;
+  }
+
+  .warning-message {
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .leave-button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.25rem;
+  }
+}
+
+/* Móviles muy pequeños (menos de 360px) */
+@media (max-width: 359px) {
+  .room-title {
+    font-size: 1.4rem;
+  }
+
+  .room-code-value {
+    font-size: 1.4rem;
+    letter-spacing: 0.15rem;
+  }
+
+  .players-section-title {
+    font-size: 1.1rem;
+  }
+
+  .player-item {
+    font-size: 0.9rem;
+  }
+}

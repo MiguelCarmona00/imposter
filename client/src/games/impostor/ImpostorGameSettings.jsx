@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import '../../styles/ImpostorGameSettings.css'
 
-export default function GameSettings({ maxImpostors, onSubmit }) {
+export default function ImpostorGameSettings({ maxImpostors, onSubmit }) {
     const [impostorCount, setImpostorCount] = useState(1)
     const [showHint, setShowHint] = useState(true)
     const [showCategory, setShowCategory] = useState(true)
@@ -11,47 +12,47 @@ export default function GameSettings({ maxImpostors, onSubmit }) {
     }
 
     return (
-        <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <h1>Configuración del Juego</h1>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '1.5rem' }}>
-                    <label htmlFor="impostorCount" style={{ display: 'block', marginBottom: '0.5rem' }}>
+        <div className="impostor-settings-container">
+            <h1 className="impostor-settings-title">Configuración del Juego</h1>
+            <form className="settings-form" onSubmit={handleSubmit}>
+                <div className="form-field">
+                    <label htmlFor="impostorCount" className="form-label">
                         Cantidad de impostores:
                     </label>
                     <input 
                         type="number" 
                         id="impostorCount"
+                        className="form-input"
                         min="1"
                         max={maxImpostors}
                         value={impostorCount}
                         onChange={(e) => setImpostorCount(parseInt(e.target.value))}
-                        style={{ width: '100%', padding: '0.5rem' }}
                         required
                     />
-                    <small style={{ color: '#666' }}>
+                    <small className="form-help-text">
                         Máximo: {maxImpostors} (debe haber al menos un jugador normal)
                     </small>
                 </div>
 
-                <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                <div className="checkbox-field">
+                    <label className="checkbox-label">
                         <input 
                             type="checkbox"
+                            className="checkbox-input"
                             checked={showHint}
                             onChange={(e) => setShowHint(e.target.checked)}
-                            style={{ marginRight: '0.5rem', width: '20px', height: '20px' }}
                         />
                         <span>Mostrar pista al impostor</span>
                     </label>
                 </div>
 
-                <div style={{ marginBottom: '2rem' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                <div className="checkbox-field">
+                    <label className="checkbox-label">
                         <input 
                             type="checkbox"
+                            className="checkbox-input"
                             checked={showCategory}
                             onChange={(e) => setShowCategory(e.target.checked)}
-                            style={{ marginRight: '0.5rem', width: '20px', height: '20px' }}
                         />
                         <span>Mostrar categoría al impostor</span>
                     </label>
@@ -59,16 +60,7 @@ export default function GameSettings({ maxImpostors, onSubmit }) {
 
                 <button 
                     type="submit"
-                    style={{ 
-                        width: '100%', 
-                        padding: '1rem', 
-                        fontSize: '1.2rem',
-                        backgroundColor: '#4CAF50',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                    }}
+                    className="start-button"
                 >
                     Comenzar Partida
                 </button>

@@ -1,26 +1,28 @@
 import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 import UserNameInput from './UserNameInput'
+import GameSelector from './GameSelector'
 import RoomSelection from './RoomSelection'
 import CreateRoomForm from './CreateRoomForm'
 import JoinRoomForm from './JoinRoomForm'
 import Room from './Room'
-import GameSettings from './GameSettings'
-import WaitingForSettings from './WaitingForSettings'
-import Countdown from './Countdown'
-import GamePlay from './GamePlay'
-import GameEnd from './GameEnd'
+import ImpostorGameSettings from './games/impostor/ImpostorGameSettings'
+import ImpostorWaitingForSettings from './games/impostor/ImpostorWaitingForSettings'
+import ImpostorCountdown from './games/impostor/ImpostorCountdown'
+import ImpostorGamePlay from './games/impostor/ImpostorGamePlay'
+import ImpostorGameEnd from './games/impostor/ImpostorGameEnd'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
 const socket = io(SOCKET_URL)
 
 export default function Lobby() {
     // Estados de navegación
-    const [currentView, setCurrentView] = useState("name-input") // "name-input" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end"
+    const [currentView, setCurrentView] = useState("name-input") // "name-input" | "game-selection" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end"
     
     // Estados de usuario
     const [myName, setMyName] = useState("")
     const [isHost, setIsHost] = useState(false)
+    const [selectedGame, setSelectedGame] = useState("")
     
     // Estados de sala
     const [roomCode, setRoomCode] = useState("")
@@ -150,6 +152,11 @@ export default function Lobby() {
     const handleNameSubmit = (name) => {
         setMyName(name)
         socket.emit("setName", name)
+        setCurrentView("game-selection")
+    }
+
+    const handleGameSelect = (gameId) => {
+        setSelectedGame(gameId)
         setCurrentView("room-selection")
     }
 
@@ -204,6 +211,10 @@ export default function Lobby() {
         return <UserNameInput onNameSubmit={handleNameSubmit} />
     }
 
+    if (currentView === "game-selection") {
+        return <GameSelector onGameSelect={handleGameSelect} />
+    }
+
     if (currentView === "room-selection") {
         return (
             <RoomSelection 
@@ -248,44 +259,59 @@ export default function Lobby() {
     }
 
     if (currentView === "game-settings") {
-        return (
-            <GameSettings 
-                maxImpostors={maxImpostors}
-                onSubmit={handleSubmitGameSettings}
-            />
-        )
+        // Renderizar componente de configuración según el juego seleccionado
+        if (selectedGame === "impostor") {
+            return (
+                <ImpostorGameSettings 
+                    maxImpostors={maxImpostors}
+                    onSubmit={handleSubmitGameSettings}
+                />
+            )
+        }
     }
 
     if (currentView === "waiting-for-settings") {
-        return <WaitingForSettings />
+        // Renderizar componente de espera según el juego seleccionado
+        if (selectedGame === "impostor") {
+            return <ImpostorWaitingForSettings />
+        }
     }
 
     if (currentView === "countdown") {
-        return <Countdown />
+        // Renderizar countdown según el juego seleccionado
+        if (selectedGame === "impostor") {
+            return <ImpostorCountdown />
+        }
     }
 
     if (currentView === "playing") {
-        return (
-            <GamePlay 
-                role={myRole}
-                word={currentWord}
-                hint={currentHint}
-                category={currentCategory}
-                starterName={starterName}
-                isHost={isHost}
-                onEndGame={handleEndGame}
-            />
-        )
+        // Renderizar gameplay según el juego seleccionado
+        if (selectedGame === "impostor") {
+            return (
+                <ImpostorGamePlay 
+                    role={myRole}
+                    word={currentWord}
+                    hint={currentHint}
+                    category={currentCategory}
+                    starterName={starterName}
+                    isHost={isHost}
+                    onEndGame={handleEndGame}
+                />
+            )
+        }
     }
 
     if (currentView === "game-end") {
-        return (
-            <GameEnd 
-                isHost={isHost}
-                onRestart={handleRestartGame}
-                onBackToRoom={handleBackToRoom}
-            />
-        )
+        // Renderizar fin de juego según el juego seleccionado
+        if (selectedGame === "impostor") {
+            return (
+                <ImpostorGameEnd 
+                    isHost={isHost}
+                    onRestart={handleRestartGame}
+                    onBackToRoom={handleBackToRoom}
+                />
+            )
+        }
     }
 
     return null
