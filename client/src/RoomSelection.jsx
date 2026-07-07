@@ -1,4 +1,4 @@
-export default function RoomSelection({ onCreateRoom, onJoinRoom, userName }) {
+export default function RoomSelection({ onCreateRoom, onJoinRoom, onBack, userName }) {
     return (
         <div>
             <h2>¿Qué deseas hacer?</h2>
@@ -10,6 +10,9 @@ export default function RoomSelection({ onCreateRoom, onJoinRoom, userName }) {
                     Unirse a Sala
                 </button>
             </div>
+            <button onClick={onBack} style={{ marginTop: '1rem' }}>
+                Volver al menú
+            </button>
         </div>
     )
 }

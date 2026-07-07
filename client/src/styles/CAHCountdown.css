@@ -1,0 +1,67 @@
+.cah-countdown-container {
+  text-align: center;
+  padding: 2rem;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cah-countdown-title {
+  margin-bottom: 2rem;
+  color: #ffd700;
+  font-size: 2rem;
+  font-weight: 600;
+  text-shadow:
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.cah-countdown-number {
+  font-size: 10rem;
+  font-weight: bold;
+  animation: cahCountdownPulse 1s ease-in-out;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+}
+
+.cah-countdown-number.three {
+  color: #f44336;
+  text-shadow: 0 0 30px rgba(244, 67, 54, 0.8), 0 0 60px rgba(244, 67, 54, 0.4);
+}
+
+.cah-countdown-number.two {
+  color: #ff9800;
+  text-shadow: 0 0 30px rgba(255, 152, 0, 0.8), 0 0 60px rgba(255, 152, 0, 0.4);
+}
+
+.cah-countdown-number.one {
+  color: #4CAF50;
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.8), 0 0 60px rgba(76, 175, 80, 0.4);
+}
+
+.cah-countdown-number.go {
+  color: #ffd700;
+  text-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 0 0 80px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes cahCountdownPulse {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .cah-countdown-container {
+    padding: 1rem;
+    min-height: 35vh;
+  }
+
+  .cah-countdown-title {
+    font-size: 1.3rem;
+  }
+
+  .cah-countdown-number {
+    font-size: 5rem;
+  }
+}

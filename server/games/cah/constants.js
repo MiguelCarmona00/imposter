@@ -1,0 +1,7 @@
+module.exports = {
+  HAND_SIZE: 10,
+  MIN_PLAYERS: 3,
+  DEFAULT_POINTS_TO_WIN: 7,
+  MIN_POINTS_TO_WIN: 3,
+  MAX_POINTS_TO_WIN: 15
+}

@@ -1,34 +1,13 @@
+import games from './gameConfig'
 import './styles/GameSelector.css'
 
 export default function GameSelector({ onGameSelect }) {
-    const games = [
-        {
-            id: 'impostor',
-            name: 'El Impostor',
-            description: 'Adivina quién es el impostor entre los jugadores',
-            icon: '🎭',
-            minPlayers: 3,
-            maxPlayers: 20,
-            available: true
-        },
-        // Aquí se pueden añadir más minijuegos en el futuro
-        // {
-        //     id: 'another-game',
-        //     name: 'Otro Juego',
-        //     description: 'Descripción del juego',
-        //     icon: '🎮',
-        //     minPlayers: 2,
-        //     maxPlayers: 10,
-        //     available: false
-        // }
-    ]
-
     return (
         <div className="game-selector-container">
             <h1 className="game-selector-title">
                 Selecciona un Minijuego
             </h1>
-            
+
             <div className="games-grid">
                 {games.map(game => (
                     <div

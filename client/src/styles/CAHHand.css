@@ -1,0 +1,190 @@
+.cah-hand-waiting {
+  text-align: center;
+  color: #ffd700;
+  font-size: 1.1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #666;
+  border-radius: 12px;
+}
+
+.cah-hand-container {
+  text-align: center;
+}
+
+.cah-hand-instructions {
+  color: #ffd700;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cah-hand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cah-white-card {
+  background: #fff;
+  color: #111;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cah-white-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.cah-white-card.is-selected {
+  border-color: #ffd700;
+  box-shadow:
+    0 0 0 3px rgba(255, 215, 0, 0.5),
+    0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.cah-white-card.is-discard-mode {
+  border-color: #a33;
+}
+
+.cah-white-card.is-discarding {
+  border-color: #e74c3c;
+  background: #fdeceb;
+  color: #7a1f1f;
+  text-decoration: line-through;
+  box-shadow:
+    0 0 0 3px rgba(231, 76, 60, 0.45),
+    0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.cah-white-card.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cah-white-card.is-disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cah-discard-instructions {
+  color: #ff8a80;
+}
+
+.cah-hand-actions,
+.cah-discard-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cah-hand-discard-button {
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ff8a80;
+  background: transparent;
+  border: 2px solid #a33;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cah-hand-discard-button:hover {
+  background: rgba(231, 76, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+.cah-hand-cancel-button {
+  padding: 0.9rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ddd;
+  background: transparent;
+  border: 2px solid #666;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cah-hand-cancel-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cah-hand-discard-confirm-button {
+  padding: 0.9rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #7a1f1f 0%, #e74c3c 50%, #7a1f1f 100%);
+  background-size: 200% 100%;
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.cah-hand-discard-confirm-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cah-hand-discard-confirm-button:not(:disabled):hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+}
+
+.cah-hand-submit-button {
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000;
+  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  background-size: 200% 100%;
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.cah-hand-submit-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cah-hand-submit-button:not(:disabled):hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .cah-hand-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+
+  .cah-white-card {
+    font-size: 0.85rem;
+    padding: 0.75rem 0.5rem;
+    min-height: 75px;
+  }
+}

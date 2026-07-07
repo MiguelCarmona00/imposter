@@ -1,0 +1,2677 @@
+[
+  {
+    "id": "b-25",
+    "packId": "cah-base-set",
+    "text": "_____ + _____ = Hipsters",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-83",
+    "packId": "cah-base-set",
+    "text": "_____ es una señal inequívoca de la decadencia de la humanidad.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-201",
+    "packId": "cah-second-expansion",
+    "text": "_____ estaría lamentablemente incompleto sin _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-202",
+    "packId": "cah-base-set",
+    "text": "_____ solo pasaría en mis peores pesadillas.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-317",
+    "packId": "cah-base-set",
+    "text": "_____: bueno hasta la última gota.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-331",
+    "packId": "cah-base-set",
+    "text": "_____: probado por niños, aprobado por mamás.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-332",
+    "packId": "cah-base-set",
+    "text": "_____: probado por niños, aprobado por mamás.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "El español no distingue la variante con guiones del original inglés; queda idéntica a la carta b-331.",
+    "duplicateOf": "b-331"
+  },
+  {
+    "id": "b-339",
+    "packId": "cah-base-set",
+    "text": "_____: ¡una vez que empiezas, no puedes parar!",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó el eslogan de Pringles (juego de palabras 'pop/stop') a la versión real usada en español, sin la rima original."
+  },
+  {
+    "id": "b-355",
+    "packId": "cah-base-set",
+    "text": "_____? Ah, sí. Hay porno de eso.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-361",
+    "packId": "cah-base-set",
+    "text": "_____? Hay una app para eso.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-364",
+    "packId": "cah-base-set",
+    "text": "_____? Ya, no.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó la expresión inglesa 'yeah, nah' (afirmar y luego negar) a un equivalente coloquial en español."
+  },
+  {
+    "id": "b-376",
+    "packId": "cah-base-set",
+    "text": "_____. Increíble en la teoría, un desastre en la práctica.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-377",
+    "packId": "cah-base-set",
+    "text": "_____. ¡Apuesto a que no puedes quedarte con solo uno!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-379",
+    "packId": "cah-base-set",
+    "text": "_____. Choca esos cinco, bro.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-385",
+    "packId": "cah-base-set",
+    "text": "_____. ¡Es una trampa!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-396",
+    "packId": "cah-base-set",
+    "text": "_____. Eso sí que fue heavy.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó el uso de 'metal' como sinónimo de intenso/genial a 'heavy', más natural en español coloquial."
+  },
+  {
+    "id": "b-400",
+    "packId": "cah-base-set",
+    "text": "_____. Así es como quiero morir.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-401",
+    "packId": "cah-base-set",
+    "text": "_____. La mejor manera de darle sabor a tu vida sexual.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-556",
+    "packId": "cah-base-set",
+    "text": "★✰✰✰✰ ¡NO vayan a este lugar! ¡Encontré _____ en mi pollo Kung Pao!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-570",
+    "packId": "cah-base-set",
+    "text": "El 50% de todos los matrimonios terminan en _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-626",
+    "packId": "cah-base-set",
+    "text": "Un estudio de laboratorio reciente demuestra que los universitarios tienen un 50% menos de sexo después de estar expuestos a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-628",
+    "packId": "cah-second-expansion",
+    "text": "Un nuevo estudio asombroso ha demostrado que los chimpancés han desarrollado su propia versión primitiva de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-629",
+    "packId": "cah-base-set",
+    "text": "Una cena romántica a la luz de las velas estaría incompleta sin _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-631",
+    "packId": "cah-base-set",
+    "text": "Una cena romántica, a la luz de las velas, estaría incompleta sin _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": "",
+    "duplicateOf": "b-629"
+  },
+  {
+    "id": "b-638",
+    "packId": "cah-base-set",
+    "text": "Una entrevista de trabajo exitosa comienza con un apretón de manos firme y termina con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-651",
+    "packId": "cah-base-set",
+    "text": "ABC presenta: \"_____: La historia de _____.\"",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-701",
+    "packId": "cah-base-set",
+    "text": "Después de ocho años en la Casa Blanca, ¿cómo se relaja finalmente Obama?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-703",
+    "packId": "cah-base-set",
+    "text": "Después de cuatro discos de platino y tres premios Grammy, es hora de volver a mis raíces, a lo que me inspiró a hacer música en primer lugar: _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-706",
+    "packId": "cah-base-set",
+    "text": "Después del huracán Katrina, Sean Penn les llevó _____ a todos los habitantes de Nueva Orleans.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-707",
+    "packId": "cah-base-set",
+    "text": "Después del huracán Katrina, Sean Penn le llevó _____ a la gente de Nueva Orleans.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-714",
+    "packId": "cah-second-expansion",
+    "text": "Después de meses de debate, la Asamblea General de Occupy Wall Street solo pudo ponerse de acuerdo en \"¡Más _____!\"",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-715",
+    "packId": "cah-base-set",
+    "text": "Después de meses de práctica con _____, creo que por fin estoy listo para _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-731",
+    "packId": "cah-base-set",
+    "text": "Después del terremoto, Sean Penn le llevó _____ a la gente de Haití.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-757",
+    "packId": "cah-base-set",
+    "text": "Las políticas de Air Canada ahora prohíben _____ en los aviones.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Air Canada es una aerolínea poco reconocible fuera de Norteamérica; se mantuvo el nombre real de la marca."
+  },
+  {
+    "id": "b-761",
+    "packId": "cah-base-set",
+    "text": "Las normas de seguridad aeroportuaria ahora prohíben _____ en los aviones.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-788",
+    "packId": "cah-base-set",
+    "text": "La medicina alternativa ahora está adoptando los poderes curativos de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-815",
+    "packId": "cah-first-expansion",
+    "text": "Un tribunal internacional ha declarado a _____ culpable de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-831",
+    "packId": "cah-first-expansion",
+    "text": "¡Y me habría salido con la mía de no haber sido por _____!",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó la frase icónica de los villanos de Scooby-Doo a su forma habitual en el doblaje al español."
+  },
+  {
+    "id": "b-839",
+    "packId": "cah-base-set",
+    "text": "Y el Óscar a _____ es para _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-840",
+    "packId": "cah-base-set",
+    "text": "Y el BAFTA a _____ es para _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-845",
+    "packId": "cah-base-set",
+    "text": "¿Y qué trajiste para mostrar y contar?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "'Show and tell' es una actividad escolar típica de EE.UU. sin nombre fijo en español; se tradujo de forma descriptiva."
+  },
+  {
+    "id": "b-854",
+    "packId": "cah-base-set",
+    "text": "Los antropólogos han descubierto recientemente una tribu primitiva que adora a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-865",
+    "packId": "cah-base-set",
+    "text": "Arby's: Tenemos _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Arby's es una cadena de comida rápida estadounidense poco conocida en países hispanohablantes; se mantuvo el nombre de la marca."
+  },
+  {
+    "id": "b-867",
+    "packId": "cah-base-set",
+    "text": "¿Estás pensando lo mismo que yo, B1?\n\nCreo que sí, B2: ¡es hora de _____!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-895",
+    "packId": "cah-base-set",
+    "text": "Como propósito de Año Nuevo, juro dejar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-909",
+    "packId": "cah-base-set",
+    "text": "Como madre de cinco niños revoltosos, no soy ajena a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-910",
+    "packId": "cah-base-set",
+    "text": "Como madre de cinco niños revoltosos, no soy ajena a _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "El español no distingue 'mom' de la variante británica 'mum'; queda idéntica a la carta b-909.",
+    "duplicateOf": "b-909"
+  },
+  {
+    "id": "b-963",
+    "packId": "cah-first-expansion",
+    "text": "¡Uy, qué locura! Acabo de ver a este skater meter un kickflip de 720 grados hacia _____!",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó la jerga de skaters 'sick' (genial) a una expresión equivalente en español."
+  },
+  {
+    "id": "b-988",
+    "packId": "cah-second-expansion",
+    "text": "Antes de _____, lo único que teníamos era _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1001",
+    "packId": "cah-second-expansion",
+    "text": "Antes de postularme a presidente, debo destruir toda evidencia de mi relación con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1037",
+    "packId": "cah-base-set",
+    "text": "¡Apuesto a que no puedes quedarte con solo uno!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1043",
+    "packId": "cah-base-set",
+    "text": "BILLY MAYS AQUÍ PARA _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Billy Mays es un presentador de infomerciales muy famoso en EE.UU. pero poco identificable para el público hispanohablante; se mantuvo el nombre."
+  },
+  {
+    "id": "b-1061",
+    "packId": "cah-base-set",
+    "text": "El nuevo reality show de Bravo presenta a ocho celebridades venidas a menos conviviendo con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1069",
+    "packId": "cah-base-set",
+    "text": "Presentado por Bud Light®, la cerveza oficial de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1070",
+    "packId": "cah-base-set",
+    "text": "Presentado por Molson Canadian, la cerveza oficial de _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Molson Canadian es una marca de cerveza canadiense poco conocida fuera de Norteamérica; se mantuvo el nombre de la marca."
+  },
+  {
+    "id": "b-1071",
+    "packId": "cah-base-set",
+    "text": "Presentado por XXXX Gold, la cerveza oficial de _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "XXXX Gold es una marca de cerveza australiana prácticamente desconocida fuera de Australia; se mantuvo el nombre de la marca."
+  },
+  {
+    "id": "b-1079",
+    "packId": "cah-base-set",
+    "text": "Pero antes de matarlo, señor Bond, debo mostrarle _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1123",
+    "packId": "cah-base-set",
+    "text": "CBC presenta: \"_____: la historia de _____.\"",
+    "pick": 2,
+    "needsReview": true,
+    "reviewReason": "CBC es la cadena pública de Canadá, poco reconocida en países hispanohablantes; se mantuvo el nombre tal cual."
+  },
+  {
+    "id": "b-1124",
+    "packId": "cah-base-set",
+    "text": "Channel 4 presenta _____, la historia de _____.",
+    "pick": 2,
+    "needsReview": true,
+    "reviewReason": "Channel 4 es una cadena británica poco reconocida en países hispanohablantes; se mantuvo el nombre tal cual."
+  },
+  {
+    "id": "b-1126",
+    "packId": "cah-base-set",
+    "text": "El nuevo reality show de Channel 5 presenta a ocho celebridades venidas a menos conviviendo con _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Channel 5 es una cadena británica poco reconocida en países hispanohablantes; se mantuvo el nombre tal cual."
+  },
+  {
+    "id": "b-1127",
+    "packId": "cah-base-set",
+    "text": "El Canal 9 se complace en presentar su nuevo programa de variedades: \"¡Ey, Ey, Es _____!\"",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia al programa australiano 'Hey Hey It's Saturday', prácticamente desconocido fuera de Australia; se adaptó el título de forma literal."
+  },
+  {
+    "id": "b-1128",
+    "packId": "cah-second-expansion",
+    "text": "El juego de las charadas se arruinó para mí para siempre cuando mi mamá tuvo que actuar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1129",
+    "packId": "cah-base-set",
+    "text": "Charlie y la _____ de chocolate.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se reordenó la frase para conservar la referencia a 'Charlie y la fábrica de chocolate', ya que el orden de palabras en español difiere del inglés."
+  },
+  {
+    "id": "b-1131",
+    "packId": "cah-base-set",
+    "text": "¡Mira esto! A este paso de baile lo llamo: \"_____\".",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se adaptó la interjección urbana 'yo' del inglés, sin equivalente directo natural en español."
+  },
+  {
+    "id": "b-1153",
+    "packId": "cah-base-set",
+    "text": "¡Haz Clic Aquí para _____!!!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1177",
+    "packId": "cah-base-set",
+    "text": "Esta temporada, la clásica obra existencialista de Samuel Beckett: Esperando a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1180",
+    "packId": "cah-base-set",
+    "text": "Esta temporada en Broadway, _____: El Musical.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1185",
+    "packId": "cah-base-set",
+    "text": "Esta temporada navideña en los cines, \"Star Wars: El ascenso de _____.\"",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1216",
+    "packId": "cah-base-set",
+    "text": "¡Cielos! ¡Nunca había visto _____ como esto! Acerquémonos un poco.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación de la interjección australiana 'Crikey' (estilo Steve Irwin) a una expresión neutra en español."
+  },
+  {
+    "id": "b-1221",
+    "packId": "cah-base-set",
+    "text": "CTV presenta \"_____: La historia de _____.\"",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1232",
+    "packId": "cah-base-set",
+    "text": "Papi, ¿por qué está llorando mami?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1234",
+    "packId": "cah-base-set",
+    "text": "Papi, ¿por qué está llorando mami?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Variante regional 'mommy'/'mummy' no distinguible en español; traducción idéntica a la carta b-1232.",
+    "duplicateOf": "b-1232"
+  },
+  {
+    "id": "b-1250",
+    "packId": "cah-base-set",
+    "text": "Querida Abby, tengo problemas con _____ y me gustaría tu consejo.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1251",
+    "packId": "cah-base-set",
+    "text": "Querida consejera sentimental, tengo problemas con _____ y necesito tu consejo.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1266",
+    "packId": "cah-base-set",
+    "text": "Estimado señor o señora, lamentamos informarle que la Oficina de _____ ha denegado su solicitud de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1267",
+    "packId": "cah-first-expansion",
+    "text": "Querido profesor suplente, ¿podrías dejar de _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1320",
+    "packId": "cah-base-set",
+    "text": "¡Doctor, se ha pasado de la raya! ¡El cuerpo humano no fue hecho para soportar tanto _____!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1321",
+    "packId": "cah-first-expansion",
+    "text": "DOCTOR:\n¿Cuál parece ser el problema?\n\nTÚ:\n_____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1379",
+    "packId": "cah-base-set",
+    "text": "Amigo, no entres a ese baño. Hay _____ ahí dentro.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1380",
+    "packId": "cah-base-set",
+    "text": "Amigo, no entres a ese baño. Hay _____ ahí dentro.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Variante regional 'bathroom'/'washroom' no distinguible en español; traducción idéntica a la carta b-1379.",
+    "duplicateOf": "b-1379"
+  },
+  {
+    "id": "b-1385",
+    "packId": "cah-base-set",
+    "text": "Debido a un fiasco de relaciones públicas, Walmart ya no ofrece _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1399",
+    "packId": "cah-base-set",
+    "text": "Durante su infancia, Salvador Dalí pintó cientos de cuadros de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1400",
+    "packId": "cah-second-expansion",
+    "text": "Durante su crisis de los cuarenta, mi papá se obsesionó con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1401",
+    "packId": "cah-base-set",
+    "text": "Durante su breve carrera como boxeador, el Mesías peleó bajo el nombre de Jesús \"_____\" Cristo.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1407",
+    "packId": "cah-base-set",
+    "text": "Durante la poco conocida Época Marrón de Picasso, este pintó cientos de cuadros de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1413",
+    "packId": "cah-base-set",
+    "text": "Durante el sexo, me gusta pensar en _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1480",
+    "packId": "cah-second-expansion",
+    "text": "¡Todos al suelo! No queremos lastimar a nadie. Solo venimos por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1522",
+    "packId": "cah-base-set",
+    "text": "¡Por fin! Un servicio que te entrega _____ directo a la puerta de tu casa.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1561",
+    "packId": "cah-base-set",
+    "text": "En mi turno, gastaré cuatro monedas de oro y asignaré a mis tres trabajadores a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1603",
+    "packId": "cah-base-set",
+    "text": "¡Consejo útil! Cuando tu hombre te pida sexo oral, sorpréndelo con _____ en su lugar.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1604",
+    "packId": "cah-base-set",
+    "text": "Los historiadores del futuro coincidirán en que _____ marcó el comienzo de la decadencia de Estados Unidos.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1605",
+    "packId": "cah-first-expansion",
+    "text": "Los historiadores del futuro coincidirán en que _____ marcó el comienzo de la decadencia de Estados Unidos.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Duplicado exacto del contenido de la carta b-1604 (en inglés solo variaba la capitalización).",
+    "duplicateOf": "b-1604"
+  },
+  {
+    "id": "b-1716",
+    "packId": "cah-base-set",
+    "text": "¿Problemas con _____? ¡Prueba _____!",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1728",
+    "packId": "cah-first-expansion",
+    "text": "Quien controla _____ controla el mundo.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1746",
+    "packId": "cah-base-set",
+    "text": "Aquí está la iglesia,\nAquí está el campanario,\nAbre las puertas,\nY ahí está _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación de una rima infantil tradicional en inglés ('Here is the church...') sin equivalente establecido en español."
+  },
+  {
+    "id": "b-1759",
+    "packId": "cah-base-set",
+    "text": "Oigan, ¡bienvenidos a Boston Pizza! ¿Les gustaría empezar bien la noche con _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1760",
+    "packId": "cah-base-set",
+    "text": "Oigan, ¡bienvenidos a Chili's! ¿Les gustaría empezar bien la noche con _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1761",
+    "packId": "cah-base-set",
+    "text": "Oigan, ¡bienvenidos a Sizzler! ¿Les gustaría empezar bien la noche con _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1763",
+    "packId": "cah-base-set",
+    "text": "Oigan, ¡bienvenidos a TGIF! ¿Les gustaría empezar bien la noche con _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1768",
+    "packId": "cah-base-set",
+    "text": "¡Hola, Reddit! Soy _____. Pregúntenme lo que quieran.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1833",
+    "packId": "cah-base-set",
+    "text": "¿Cómo hago para mantener mi estado de relación?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-1844",
+    "packId": "cah-base-set",
+    "text": "¿Cómo perdí mi virginidad?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2038",
+    "packId": "cah-base-set",
+    "text": "No sé con qué armas se peleará la Tercera Guerra Mundial, pero la Cuarta Guerra Mundial se peleará con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2063",
+    "packId": "cah-base-set",
+    "text": "Bebo para olvidar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2097",
+    "packId": "cah-base-set",
+    "text": "Salgo adelante con un poco de ayuda de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2102",
+    "packId": "cah-base-set",
+    "text": "Tengo 99 problemas, pero _____ no es uno.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2212",
+    "packId": "cah-base-set",
+    "text": "Sé que cuando suena ese hotline bling, solo puede significar una cosa: _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a la letra de la canción 'Hotline Bling' de Drake; se mantiene en inglés por ser una cita reconocible."
+  },
+  {
+    "id": "b-2219",
+    "packId": "cah-base-set",
+    "text": "Aprendí de la peor manera que no puedes animar a un amigo de luto con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2220",
+    "packId": "cah-first-expansion",
+    "text": "Dejé Hamilton porque escuché sobre la obsesión de _____ con _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2290",
+    "packId": "cah-base-set",
+    "text": "Nunca entendí realmente _____ hasta que me topé con _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2351",
+    "packId": "cah-second-expansion",
+    "text": "Pasé toda mi vida trabajando para lograr _____, solo para que _____ lo arruinara.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2352",
+    "packId": "cah-base-set",
+    "text": "Veo, veo, con mi ojito, veo _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2451",
+    "packId": "cah-second-expansion",
+    "text": "Pasé de _____ a _____, todo gracias a _____.",
+    "pick": 3,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2477",
+    "packId": "cah-base-set",
+    "text": "Ojalá no hubiera perdido el manual de instrucciones de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2563",
+    "packId": "cah-base-set",
+    "text": "Esta semana voy a hacer una limpieza. Nada de comida, solo jugo de kale y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2575",
+    "packId": "cah-base-set",
+    "text": "Soy LeBron James, y cuando no estoy metiendo clavadas, me encanta _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2581",
+    "packId": "cah-base-set",
+    "text": "No soy médico, pero estoy bastante seguro de que lo que tienes se llama \"_____.\"",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2617",
+    "packId": "cah-base-set",
+    "text": "Lo siento, profesor, pero no pude terminar mi tarea por culpa de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2618",
+    "packId": "cah-base-set",
+    "text": "Lo siento, señor, pero no pude terminar mi tarea por culpa de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2648",
+    "packId": "cah-base-set",
+    "text": "Yo no soy como el resto de ustedes. Soy demasiado rico y estoy demasiado ocupado para _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2678",
+    "packId": "cah-second-expansion",
+    "text": "Si Dios no quisiera que disfrutáramos de _____, no nos habría dado _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2766",
+    "packId": "cah-base-set",
+    "text": "Si no puedes estar con quien amas, ama a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2789",
+    "packId": "cah-base-set",
+    "text": "SI te gusta _____, PUEDE QUE SEAS UN PALETO.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación del término cultural estadounidense 'redneck' sin equivalente exacto en español."
+  },
+  {
+    "id": "b-2818",
+    "packId": "cah-base-set",
+    "text": "Dentro de 1000 años, cuando el dinero en papel sea un recuerdo lejano, ¿cómo pagaremos por bienes y servicios?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2820",
+    "packId": "cah-base-set",
+    "text": "Dentro de 1000 años, cuando el dinero en papel sea solo un recuerdo lejano, _____ será nuestra moneda.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2832",
+    "packId": "cah-first-expansion",
+    "text": "En un apuro, _____ puede ser un buen sustituto de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2840",
+    "packId": "cah-base-set",
+    "text": "En un mundo devastado por _____, nuestro único consuelo es _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2841",
+    "packId": "cah-base-set",
+    "text": "En un mundo devastado por _____, nuestro único consuelo es _____.",
+    "pick": 2,
+    "needsReview": true,
+    "reviewReason": "Duplicado exacto de la carta b-2840 (en inglés variaba solo la puntuación).",
+    "duplicateOf": "b-2840"
+  },
+  {
+    "id": "b-2847",
+    "packId": "cah-base-set",
+    "text": "En un intento por llegar a un público más amplio, el Museo Nacional de Australia inauguró una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2849",
+    "packId": "cah-base-set",
+    "text": "En un intento por llegar a un público más amplio, el Museo Smithsoniano de Historia Natural inauguró una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2856",
+    "packId": "cah-base-set",
+    "text": "En Australia, _____ es el doble de grande y el doble de mortal.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2857",
+    "packId": "cah-base-set",
+    "text": "En la prisión de Belmarsh, se dice que puedes cambiar 200 cigarrillos por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2868",
+    "packId": "cah-base-set",
+    "text": "En su última película, Tracy Beaker lucha por primera vez contra _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2884",
+    "packId": "cah-base-set",
+    "text": "En su nuevo álbum autoproducido, Kanye West rapea sobre los sonidos de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2885",
+    "packId": "cah-base-set",
+    "text": "En su nueva comedia de verano, Rob Schneider interpreta a _____ atrapado en el cuerpo de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2886",
+    "packId": "cah-second-expansion",
+    "text": "En su truco más nuevo y arriesgado, David Blaine debe escapar de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2889",
+    "packId": "cah-first-expansion",
+    "text": "En su nueva campaña turística, Detroit proclama con orgullo que por fin ha eliminado _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2896",
+    "packId": "cah-base-set",
+    "text": "En la cárcel del condado de Los Ángeles se dice que puedes cambiar 200 cigarrillos por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2898",
+    "packId": "cah-base-set",
+    "text": "En la nueva película de M. Night Shyamalan, Bruce Willis descubre que _____ en realidad había sido _____ todo este tiempo.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2899",
+    "packId": "cah-base-set",
+    "text": "En sus últimos momentos, Michael Jackson pensó en _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2922",
+    "packId": "cah-base-set",
+    "text": "En Roma se rumorea que el Vaticano tiene una sala secreta dedicada a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2923",
+    "packId": "cah-first-expansion",
+    "text": "En algunas culturas, _____ se considera un buen augurio.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2935",
+    "packId": "cah-first-expansion",
+    "text": "En un futuro lejano, los historiadores coincidirán en que _____ marcó el comienzo de la decadencia de Estados Unidos.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2953",
+    "packId": "cah-base-set",
+    "text": "En la nueva película original de Disney Channel, Hannah Montana lidia por primera vez con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2966",
+    "packId": "cah-base-set",
+    "text": "En el séptimo círculo del infierno, los pecadores deben soportar _____ por toda la eternidad.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-2990",
+    "packId": "cah-base-set",
+    "text": "En tu discurso de padrino de boda, hablaría de aquella vez en que nos encontramos _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3000",
+    "packId": "cah-base-set",
+    "text": "En vez de carbón, Papá Noel ahora les da a los niños malos _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Variante regional 'Father Christmas' vs 'Santa'; se usaron nombres distintos para diferenciar esta carta de la siguiente."
+  },
+  {
+    "id": "b-3001",
+    "packId": "cah-base-set",
+    "text": "En vez de carbón, Santa Claus ahora les da a los niños malos _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Carta duplicada de la anterior (Santa vs Father Christmas); se mantuvo un nombre distinto para diferenciarla."
+  },
+  {
+    "id": "b-3018",
+    "packId": "cah-base-set",
+    "text": "¡Presentamos al increíble dúo de superhéroe y compañero! ¡Son _____ y _____!",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3019",
+    "packId": "cah-base-set",
+    "text": "¡Presentamos el Béisbol X-tremo! ¡Es como el béisbol, pero con _____!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3078",
+    "packId": "cah-base-set",
+    "text": "¡Es una trampa!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3118",
+    "packId": "cah-base-set",
+    "text": "No es _____ lo que pone a prueba una relación, es _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3149",
+    "packId": "cah-base-set",
+    "text": "Solo una vez, me gustaría escucharte decir: \"Gracias, mamá. Gracias por _____.\"",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3150",
+    "packId": "cah-base-set",
+    "text": "Solo una vez, me gustaría escucharte decir: \"Gracias, mami. Gracias por _____.\"",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Variante regional duplicada (Mom/Mum); se usó otro término cariñoso para diferenciarla de la carta anterior."
+  },
+  {
+    "id": "b-3151",
+    "packId": "cah-base-set",
+    "text": "¡Acabo de ver este video que me indignó! ¡Compartan, por favor! #Stop_____",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3174",
+    "packId": "cah-base-set",
+    "text": "Niños, no necesito drogas para colocarme. Me coloco con _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Juego de palabras con 'high' adaptado usando el modismo español 'colocarse'."
+  },
+  {
+    "id": "b-3241",
+    "packId": "cah-base-set",
+    "text": "La vida de los aborígenes cambió para siempre cuando el hombre blanco les presentó _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3242",
+    "packId": "cah-base-set",
+    "text": "La vida de los indios americanos cambió para siempre cuando el hombre blanco les presentó _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3249",
+    "packId": "cah-base-set",
+    "text": "La vida era difícil para los cavernícolas antes de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3255",
+    "packId": "cah-base-set",
+    "text": "Lifetime® presenta _____: la historia de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3256",
+    "packId": "cah-base-set",
+    "text": "Lifetime® presenta \"_____: la historia de _____.\"",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": "",
+    "duplicateOf": "b-3255"
+  },
+  {
+    "id": "b-3265",
+    "packId": "cah-second-expansion",
+    "text": "Sana, sana, colita de rana, si no sana hoy, sanará con _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se reemplazó la rima infantil inglesa 'Little Miss Muffet' por una rima infantil equivalente en español."
+  },
+  {
+    "id": "b-3287",
+    "packId": "cah-base-set",
+    "text": "Quererte es fácil porque eres _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3297",
+    "packId": "cah-base-set",
+    "text": "Las Grandes Ligas de Béisbol han prohibido _____ por darles una ventaja injusta a los jugadores.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3301",
+    "packId": "cah-base-set",
+    "text": "Escribe un haiku.",
+    "pick": 3,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3328",
+    "packId": "cah-base-set",
+    "text": "Tío, no entres a ese baño. Hay _____ ahí dentro.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación del término coloquial británico 'mate'; se usó 'tío' como equivalente."
+  },
+  {
+    "id": "b-3329",
+    "packId": "cah-base-set",
+    "text": "Tío, no entres a ese váter. Hay _____ ahí dentro.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Carta duplicada de la anterior (bathroom/toilet); se usó 'váter' para diferenciarla."
+  },
+  {
+    "id": "b-3338",
+    "packId": "cah-base-set",
+    "text": "Tal vez nació así. Tal vez sea _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se pierde el juego de palabras original con el eslogan publicitario de Maybelline ('Maybe it's Maybelline'); traducción literal."
+  },
+  {
+    "id": "b-3354",
+    "packId": "cah-second-expansion",
+    "text": "Los miembros de la élite social de Nueva York pagan miles de dólares solo por experimentar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3356",
+    "packId": "cah-base-set",
+    "text": "Men's Wearhouse: te va a gustar _____. Te lo garantizo.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a una marca y eslogan estadounidenses poco conocidos en el mundo hispanohablante."
+  },
+  {
+    "id": "b-3359",
+    "packId": "cah-first-expansion",
+    "text": "La nueva épica de acción de tres horas de Michael Bay enfrenta a _____ contra _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3363",
+    "packId": "cah-base-set",
+    "text": "Los historiadores militares recuerdan a Alejandro Magno por su brillante uso de _____ contra los persas.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3389",
+    "packId": "cah-base-set",
+    "text": "El dinero no puede comprarme amor, pero sí puede comprarme _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3402",
+    "packId": "cah-base-set",
+    "text": "Señor y señora Díaz, los llamamos porque estamos preocupados por Cynthia. ¿Son conscientes de que su hija es _____?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3405",
+    "packId": "cah-base-set",
+    "text": "El nuevo reality show de MTV presenta a ocho celebridades venidas a menos conviviendo con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3446",
+    "packId": "cah-second-expansion",
+    "text": "Mi patria, tierra querida, dulce tierra de _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación libre de la referencia al himno patriótico estadounidense 'My Country, 'Tis of Thee', sin equivalente directo en español."
+  },
+  {
+    "id": "b-3494",
+    "packId": "cah-base-set",
+    "text": "Compatriotas: ¡antes de que termine esta década, tendremos _____ en la luna!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3556",
+    "packId": "cah-second-expansion",
+    "text": "Mi mamá se volvió loca cuando revisó el historial de mi navegador y encontró _____.com/_____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3557",
+    "packId": "cah-base-set",
+    "text": "Mi mamá se pone feliz cuando la visito, pero yo solo voy para ser _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3581",
+    "packId": "cah-second-expansion",
+    "text": "Mi nueva estrella porno favorita es Joey \"_____\" McGee.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3615",
+    "packId": "cah-base-set",
+    "text": "Mi plan para dominar el mundo comienza con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3616",
+    "packId": "cah-first-expansion",
+    "text": "Mi nombre de estrella porno sería _____; y soy famoso por _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3706",
+    "packId": "cah-base-set",
+    "text": "Lo próximo de J.K. Rowling: Harry Potter y la Cámara de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3707",
+    "packId": "cah-base-set",
+    "text": "Lo próximo de J.K. Rowling: Harry Potter y la cámara de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": "",
+    "duplicateOf": "b-3706"
+  },
+  {
+    "id": "b-3712",
+    "packId": "cah-base-set",
+    "text": "A continuación en ESPN2: la Serie Mundial de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3713",
+    "packId": "cah-base-set",
+    "text": "A continuación en Eurosport: el Campeonato Mundial de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3714",
+    "packId": "cah-base-set",
+    "text": "A continuación en Wide World of Sports de Nine: el Campeonato Mundial de _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se mantuvo el nombre del programa deportivo australiano original 'Wide World of Sports' por no tener equivalente en español."
+  },
+  {
+    "id": "b-3716",
+    "packId": "cah-base-set",
+    "text": "A continuación en Sky Sports: el Campeonato Mundial de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3719",
+    "packId": "cah-base-set",
+    "text": "A continuación en TSN: la Serie Mundial de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3721",
+    "packId": "cah-first-expansion",
+    "text": "La próxima temporada en Man vs. Wild, Bear Grylls debe sobrevivir en las profundidades del Amazonas con solo _____ y su ingenio.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "El título del programa de Bear Grylls varía según la región (España/Latinoamérica); se mantuvo el título original en inglés."
+  },
+  {
+    "id": "b-3722",
+    "packId": "cah-second-expansion",
+    "text": "La próxima vez en el show del Dr. Phil: cómo hablar con tu hijo sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3726",
+    "packId": "cah-base-set",
+    "text": "A continuación en Channel 4: las Pesadillas de _____ de Ramsay.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Se reestructuró la frase para conservar el hueco en una posición natural en español."
+  },
+  {
+    "id": "b-3730",
+    "packId": "cah-first-expansion",
+    "text": "La próxima semana en Discovery Channel, un hombre debe sobrevivir en las profundidades del Amazonas con solo _____ y su ingenio.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3765",
+    "packId": "cah-base-set",
+    "text": "Nadie espera a la Inquisición Española. Nuestras armas principales son el miedo, la sorpresa y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3802",
+    "packId": "cah-base-set",
+    "text": "Ahora en el Museo Nacional de Australia: una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3803",
+    "packId": "cah-base-set",
+    "text": "Ahora en el Museo de Historia Natural: una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3804",
+    "packId": "cah-base-set",
+    "text": "Ahora en el Royal Ontario Museum: una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3805",
+    "packId": "cah-base-set",
+    "text": "Ahora en el Smithsonian: una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3822",
+    "packId": "cah-base-set",
+    "text": "Oh, Canadá, hacemos guardia por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3857",
+    "packId": "cah-base-set",
+    "text": "¡Oye! ¡Muéstranos _____!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3859",
+    "packId": "cah-base-set",
+    "text": "El viejo MacDonald tenía _____. Ia, ia, oh.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3916",
+    "packId": "cah-second-expansion",
+    "text": "Solo hay dos cosas seguras en la vida: la muerte y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3917",
+    "packId": "cah-base-set",
+    "text": "Solo tú puedes prevenir _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-3962",
+    "packId": "cah-base-set",
+    "text": "¡Penalización! _____: ¡son 5 minutos en el banquillo de castigo!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4021",
+    "packId": "cah-base-set",
+    "text": "Qantas ahora prohíbe _____ en los aviones.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4066",
+    "packId": "cah-base-set",
+    "text": "Se rumorea que el plato favorito de Vladimir Putin es _____ relleno de _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4091",
+    "packId": "cah-base-set",
+    "text": "La ciencia jamás podrá explicar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4092",
+    "packId": "cah-first-expansion",
+    "text": "La ciencia jamás podrá explicar el origen de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4149",
+    "packId": "cah-base-set",
+    "text": "Skidamarink a dink a dink, skidamarink a doo, amo _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a una canción infantil en inglés sin equivalente directo en español; se mantuvo la onomatopeya original."
+  },
+  {
+    "id": "b-4187",
+    "packId": "cah-base-set",
+    "text": "Lo siento, todos, acabo de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4208",
+    "packId": "cah-base-set",
+    "text": "Paso 1: _____.\nPaso 2: _____.\nPaso 3: Ganancias.",
+    "pick": 2,
+    "needsReview": true,
+    "reviewReason": "Referencia a un meme de internet (los gnomos de South Park); se tradujo 'Profit' como 'Ganancias'."
+  },
+  {
+    "id": "b-4233",
+    "packId": "cah-base-set",
+    "text": "Estudios demuestran que las ratas de laboratorio resuelven laberintos un 50% más rápido después de haber estado expuestas a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4286",
+    "packId": "cah-base-set",
+    "text": "Gracias a Dios por el alcohol y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4306",
+    "packId": "cah-base-set",
+    "text": "Así es, maté a _____. ¿Cómo, preguntas? _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4382",
+    "packId": "cah-base-set",
+    "text": "La cita a ciegas iba fatal hasta que descubrimos nuestro interés común por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4396",
+    "packId": "cah-first-expansion",
+    "text": "La CIA ahora interroga a los agentes enemigos sometiéndolos repetidamente a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4398",
+    "packId": "cah-base-set",
+    "text": "La excursión de la clase quedó completamente arruinada por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4451",
+    "packId": "cah-second-expansion",
+    "text": "Las cinco etapas del duelo: negación, ira, negociación, _____, aceptación.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4452",
+    "packId": "cah-base-set",
+    "text": "Los cuatro jinetes del Apocalipsis: la Peste, la Guerra, el Hambre y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4466",
+    "packId": "cah-second-expansion",
+    "text": "El proceso de sanación comenzó cuando me uní a un grupo de apoyo para víctimas de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4467",
+    "packId": "cah-base-set",
+    "text": "Las colinas cobran vida con el sonido de _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a la canción de la película 'Sonrisas y lágrimas' (The Sound of Music); traducción literal, no se usó la letra del doblaje oficial."
+  },
+  {
+    "id": "b-4550",
+    "packId": "cah-base-set",
+    "text": "El niño del barrio no usó nieve para su muñeco de nieve, usó _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4552",
+    "packId": "cah-base-set",
+    "text": "La nueva Chevy Tahoe. Con la potencia y el espacio para llevar _____ a todas partes.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4659",
+    "packId": "cah-base-set",
+    "text": "La excursión escolar quedó completamente arruinada por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4660",
+    "packId": "cah-base-set",
+    "text": "La excursión del colegio quedó completamente arruinada por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4662",
+    "packId": "cah-base-set",
+    "text": "El viaje escolar quedó completamente arruinado por _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4671",
+    "packId": "cah-base-set",
+    "text": "El secreto de un matrimonio duradero es comunicación, comunicación y _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4672",
+    "packId": "cah-first-expansion",
+    "text": "El secreto para poder traer de vuelta a Estados Unidos a tu perro callejero africano adoptado es _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4692",
+    "packId": "cah-base-set",
+    "text": "El Museo de Historia Natural del Smithsonian acaba de inaugurar una exhibición interactiva sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4696",
+    "packId": "cah-first-expansion",
+    "text": "Los gobiernos socialistas de Escandinavia han declarado que el acceso a _____ es un derecho humano básico.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4715",
+    "packId": "cah-base-set",
+    "text": "TFL pide disculpas por el retraso en el servicio de trenes debido a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4716",
+    "packId": "cah-base-set",
+    "text": "El tema del Festival de Eurovisión del año que viene es: «Somos _____».",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4739",
+    "packId": "cah-base-set",
+    "text": "Estados Unidos ha comenzado a lanzar _____ en paracaídas a los niños de Afganistán.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4750",
+    "packId": "cah-second-expansion",
+    "text": "Ya están los votos, y la nueva mascota del instituto es _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4844",
+    "packId": "cah-base-set",
+    "text": "Decían que estábamos locos. Decían que no podíamos meter _____ dentro de _____. Estaban equivocados.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4886",
+    "packId": "cah-base-set",
+    "text": "Así es como termina el mundo\nAsí es como termina el mundo\nNo con un estallido, sino con _____.",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Cita del poema 'Los hombres huecos' de T. S. Eliot; adaptación literaria, revisar contra traducciones oficiales."
+  },
+  {
+    "id": "b-4888",
+    "packId": "cah-second-expansion",
+    "text": "Habla su capitán. Abróchense los cinturones y prepárense para _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4889",
+    "packId": "cah-base-set",
+    "text": "Habla su piloto. Por favor, prepárense para _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4894",
+    "packId": "cah-second-expansion",
+    "text": "La Cosmo de este mes: «Dale sabor a tu vida sexual llevando _____ al dormitorio».",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4902",
+    "packId": "cah-base-set",
+    "text": "Esta temporada en el Steppenwolf, la clásica obra existencialista de Samuel Beckett: Esperando a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4904",
+    "packId": "cah-base-set",
+    "text": "Esta temporada en el Old Vic, la clásica obra existencialista de Samuel Beckett: Esperando a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4905",
+    "packId": "cah-base-set",
+    "text": "Esta temporada en el Princess of Wales Theatre, la clásica obra existencialista de Samuel Beckett: Esperando a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4906",
+    "packId": "cah-base-set",
+    "text": "Esta temporada en la Ópera de Sídney, la clásica obra existencialista de Samuel Beckett: Esperando a _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4907",
+    "packId": "cah-first-expansion",
+    "text": "Esta temporada en Man vs. Wild, Bear Grylls debe sobrevivir en las profundidades del Amazonas usando solo _____ y su ingenio.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4980",
+    "packId": "cah-base-set",
+    "text": "Hoy en el show de Jerry Springer: «¡Ayuda! ¡Mi hijo es _____!»",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4981",
+    "packId": "cah-base-set",
+    "text": "Hoy en el show de Maury: «¡Ayuda! ¡Mi hijo es _____!»",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-4984",
+    "packId": "cah-base-set",
+    "text": "Hoy en The Jeremy Kyle Show: «¡Ayuda! ¡Mi hijo es _____!»",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5003",
+    "packId": "cah-second-expansion",
+    "text": "Esta noche en 20/20: Lo que no sabes sobre _____ podría matarte.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5013",
+    "packId": "cah-base-set",
+    "text": "La noticia principal de esta noche: lo que no sabes sobre _____ podría matarte.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5052",
+    "packId": "cah-base-set",
+    "text": "Las normas de la TSA ahora prohíben _____ en los aviones.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5057",
+    "packId": "cah-base-set",
+    "text": "Resulta que _____-Man no fue el héroe que necesitábamos ni el que queríamos.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5068",
+    "packId": "cah-base-set",
+    "text": "Oigan, chicos, sé que fue idea mía, pero tengo serias dudas sobre _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5069",
+    "packId": "cah-base-set",
+    "text": "UKIP: ¡_____ Primero!",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5122",
+    "packId": "cah-base-set",
+    "text": "¡La guerra! ¿Para qué sirve?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5200",
+    "packId": "cah-base-set",
+    "text": "Bueno, si me disculpan, caballeros, tengo una cita con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5216",
+    "packId": "cah-base-set",
+    "text": "¿A qué estoy renunciando por Cuaresma?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5224",
+    "packId": "cah-base-set",
+    "text": "¿Qué me están ocultando mis padres?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5226",
+    "packId": "cah-base-set",
+    "text": "¿Qué están usando los administradores escolares para frenar el desenfrenado embarazo adolescente?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5234",
+    "packId": "cah-base-set",
+    "text": "¿Qué provocó la ruptura de los Wiggles originales?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5237",
+    "packId": "cah-base-set",
+    "text": "¿Qué hizo que la orgía se detuviera en seco?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5238",
+    "packId": "cah-first-expansion",
+    "text": "¿Qué llegó hoy por correo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5255",
+    "packId": "cah-base-set",
+    "text": "¿Qué traje de Ámsterdam?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5256",
+    "packId": "cah-base-set",
+    "text": "¿Qué traje de Bali?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5258",
+    "packId": "cah-base-set",
+    "text": "¿Qué traje de México?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5276",
+    "packId": "cah-base-set",
+    "text": "¿Qué lanzó Estados Unidos en paracaídas a los niños de Afganistán?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5279",
+    "packId": "cah-base-set",
+    "text": "¿Qué cenó Vin Diesel?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5302",
+    "packId": "cah-base-set",
+    "text": "¿A qué huelen los viejos?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5326",
+    "packId": "cah-base-set",
+    "text": "¿Qué prefiere Dick Cheney?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5345",
+    "packId": "cah-base-set",
+    "text": "¿Qué no quieres encontrarte en tu comida china?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5347",
+    "packId": "cah-base-set",
+    "text": "¿Qué no quieres encontrarte en tu kebab?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5348",
+    "packId": "cah-base-set",
+    "text": "¿Qué no quieres encontrarte en tu pollo Kung Pao?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5349",
+    "packId": "cah-base-set",
+    "text": "¿Qué no quieres encontrarte en tu ternera mongola?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5356",
+    "packId": "cah-base-set",
+    "text": "¿Qué acabó con mi última relación?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5367",
+    "packId": "cah-base-set",
+    "text": "¿Qué mejora con la edad?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5372",
+    "packId": "cah-base-set",
+    "text": "¿Qué me provoca gases incontrolables?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5379",
+    "packId": "cah-base-set",
+    "text": "¿Qué le ha estado complicando la vida a la colonia nudista?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5380",
+    "packId": "cah-first-expansion",
+    "text": "¡Lo que se ha visto no se puede dejar de ver! Acabo de presenciar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5386",
+    "packId": "cah-base-set",
+    "text": "¿Qué ayuda a Barack Obama a relajarse?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5389",
+    "packId": "cah-base-set",
+    "text": "¿Qué ayuda a Obama a relajarse?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5402",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es el placer culposo de Batman?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5412",
+    "packId": "cah-base-set",
+    "text": "¿En qué está pensando George W. Bush ahora mismo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5490",
+    "packId": "cah-base-set",
+    "text": "¿En qué se entretenía Margaret Thatcher en sus últimos años?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5497",
+    "packId": "cah-base-set",
+    "text": "¿Qué dejó esta mancha en mi sofá?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5500",
+    "packId": "cah-base-set",
+    "text": "¿Qué hizo tan incómodo mi primer beso?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5515",
+    "packId": "cah-base-set",
+    "text": "¿Qué hace que la vida valga la pena?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5517",
+    "packId": "cah-base-set",
+    "text": "¿Qué me hace un auténtico australiano de pura cepa?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación del modismo australiano 'true blue Aussie'."
+  },
+  {
+    "id": "b-5532",
+    "packId": "cah-base-set",
+    "text": "¿Qué nunca falla para animar la fiesta?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5599",
+    "packId": "cah-base-set",
+    "text": "¿Qué nunca falla a la hora de follar?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5611",
+    "packId": "cah-base-set",
+    "text": "¿Qué llevaré al pasado para convencer a la gente de que soy un poderoso hechicero?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5620",
+    "packId": "cah-base-set",
+    "text": "¿Qué le parecería a la abuela perturbador, pero extrañamente encantador?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5640",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es el mejor amigo de una chica?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5656",
+    "packId": "cah-second-expansion",
+    "text": "¿Qué me está cortando el rollo, tío?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Adaptación de la jerga hippie/estoner 'harshing my mellow'."
+  },
+  {
+    "id": "b-5676",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es mi anti-droga?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5684",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es mi poder secreto?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5695",
+    "packId": "cah-base-set",
+    "text": "¿Qué está usando Teach for America para inspirar a los estudiantes de barrios marginales a triunfar?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a un programa educativo estadounidense sin equivalente directo en español."
+  },
+  {
+    "id": "b-5698",
+    "packId": "cah-base-set",
+    "text": "¿Qué es ese olor?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5699",
+    "packId": "cah-base-set",
+    "text": "¿Qué es ese sonido?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5708",
+    "packId": "cah-base-set",
+    "text": "¿Qué está usando el gobierno canadiense para inspirar a los estudiantes rurales a triunfar?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5709",
+    "packId": "cah-base-set",
+    "text": "¿Qué es lo más costroso?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Traducción literal de 'crusty'; comprobar que suene natural en español."
+  },
+  {
+    "id": "b-5714",
+    "packId": "cah-first-expansion",
+    "text": "¿Cuál es el regalo que nunca deja de dar?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5723",
+    "packId": "cah-base-set",
+    "text": "¿Qué es lo más emo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5725",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es la nueva dieta de moda?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5728",
+    "packId": "cah-base-set",
+    "text": "¿Cuál es el próximo juguete del Happy Meal®?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5729",
+    "packId": "cah-base-set",
+    "text": "¿Cuál será el próximo dúo de superhéroe y compañero?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5741",
+    "packId": "cah-base-set",
+    "text": "¿De qué hay toneladas en el cielo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5742",
+    "packId": "cah-base-set",
+    "text": "¿De qué hay toneladas en el cielo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": "",
+    "duplicateOf": "b-5741"
+  },
+  {
+    "id": "b-5789",
+    "packId": "cah-base-set",
+    "text": "Cuando todo lo demás falla, siempre puedo masturbarme pensando en _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5790",
+    "packId": "cah-first-expansion",
+    "text": "Al ser preguntados sobre la mayor amenaza que enfrenta el país, el 60% de los estadounidenses respondió _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5806",
+    "packId": "cah-base-set",
+    "text": "Cuando sea multimillonario, erigiré una estatua de 20 metros para conmemorar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5807",
+    "packId": "cah-base-set",
+    "text": "Cuando sea multimillonario, erigiré una estatua de 20 metros para conmemorar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": "",
+    "duplicateOf": "b-5806"
+  },
+  {
+    "id": "b-5808",
+    "packId": "cah-base-set",
+    "text": "Cuando sea multimillonario, erigiré una estatua de 50 pies para conmemorar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5814",
+    "packId": "cah-base-set",
+    "text": "Cuando sea presidente de los Estados Unidos, crearé el Departamento de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5815",
+    "packId": "cah-base-set",
+    "text": "Cuando sea presidente, crearé el Departamento de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5816",
+    "packId": "cah-base-set",
+    "text": "Cuando sea primer ministro de Canadá, crearé el Departamento de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5817",
+    "packId": "cah-base-set",
+    "text": "Cuando sea primer ministro de Canadá, crearé el Ministerio de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5819",
+    "packId": "cah-base-set",
+    "text": "Cuando sea primer ministro, crearé el Departamento de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5820",
+    "packId": "cah-base-set",
+    "text": "Cuando sea primer ministro, crearé el Ministerio de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5845",
+    "packId": "cah-base-set",
+    "text": "Cuando hice caca, ¿qué salió de mi trasero?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5846",
+    "packId": "cah-first-expansion",
+    "text": "Cuando hice caca, ¿qué salió?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5865",
+    "packId": "cah-base-set",
+    "text": "Cuando estaba drogado con ácido, _____ se convirtió en _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5876",
+    "packId": "cah-base-set",
+    "text": "Cuando estoy haciendo caca, me gusta pensar en _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5899",
+    "packId": "cah-base-set",
+    "text": "Como el Faraón no cedía, Moisés invocó una Plaga de _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5933",
+    "packId": "cah-base-set",
+    "text": "Si lo piensas bien, _____ no es más que _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5974",
+    "packId": "cah-base-set",
+    "text": "Mientras Estados Unidos competía con la Unión Soviética por llegar a la Luna, el gobierno mexicano destinó millones de pesos a investigar _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5983",
+    "packId": "cah-base-set",
+    "text": "A la gente blanca le gusta _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-5997",
+    "packId": "cah-base-set",
+    "text": "¿Quién se robó las galletas del frasco de galletas?",
+    "pick": 1,
+    "needsReview": true,
+    "reviewReason": "Referencia a una canción infantil en inglés; verificar que se entienda igual en español."
+  },
+  {
+    "id": "b-6023",
+    "packId": "cah-base-set",
+    "text": "¿Por qué estoy pegajoso?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6031",
+    "packId": "cah-base-set",
+    "text": "¿Por qué no puedo dormir por las noches?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6052",
+    "packId": "cah-base-set",
+    "text": "¿Por qué me duele todo el cuerpo?",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6123",
+    "packId": "cah-base-set",
+    "text": "Con suficiente tiempo y presión, _____ se convertirá en _____.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6212",
+    "packId": "cah-second-expansion",
+    "text": "No has vivido de verdad hasta que has experimentado _____ y _____ al mismo tiempo.",
+    "pick": 2,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6301",
+    "packId": "cah-second-expansion",
+    "text": "Tu persistencia es admirable, querido príncipe. Pero no puedes ganarte mi corazón solo con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  },
+  {
+    "id": "b-6302",
+    "packId": "cah-base-set",
+    "text": "Se te ha suspendido la autorización de seguridad debido a tu vergonzoso pasado relacionado con _____.",
+    "pick": 1,
+    "needsReview": false,
+    "reviewReason": ""
+  }
+]

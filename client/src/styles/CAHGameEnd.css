@@ -1,0 +1,77 @@
+.cah-end-container {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.cah-end-title {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #ffd700;
+  text-shadow:
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 215, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.cah-end-reason {
+  color: #999;
+  margin-bottom: 1.5rem;
+}
+
+.cah-end-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cah-end-button {
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  color: white;
+  border: 2px solid;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cah-restart-button {
+  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  background-size: 200% 100%;
+  border-color: #ffd700;
+  color: #000;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.cah-restart-button:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+}
+
+.cah-back-button {
+  background: linear-gradient(135deg, #1565C0 0%, #2196F3 50%, #1565C0 100%);
+  background-size: 200% 100%;
+  border-color: #2196F3;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cah-back-button:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+}
+
+.cah-waiting-message {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  color: #999;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #666;
+  border-radius: 12px;
+}

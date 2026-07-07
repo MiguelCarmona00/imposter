@@ -1,0 +1,67 @@
+.cah-gameplay-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.cah-gameplay-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.cah-gameplay-title {
+  color: #ffd700;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.cah-notice {
+  color: #64b5f6;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.cah-error {
+  color: #ff6b6b;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.cah-gameplay-body {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cah-gameplay-main {
+  flex: 2 1 420px;
+}
+
+.cah-czar-badge {
+  text-align: center;
+  color: #ffd700;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.cah-progress-text {
+  text-align: center;
+  color: #999;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .cah-gameplay-container {
+    padding: 1.25rem;
+  }
+
+  .cah-gameplay-title {
+    font-size: 1.3rem;
+  }
+}

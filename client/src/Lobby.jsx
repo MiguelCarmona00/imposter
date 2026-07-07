@@ -11,6 +11,11 @@ import ImpostorWaitingForSettings from './games/impostor/ImpostorWaitingForSetti
 import ImpostorCountdown from './games/impostor/ImpostorCountdown'
 import ImpostorGamePlay from './games/impostor/ImpostorGamePlay'
 import ImpostorGameEnd from './games/impostor/ImpostorGameEnd'
+import CAHGameSettings from './games/cah/CAHGameSettings'
+import CAHWaitingForSettings from './games/cah/CAHWaitingForSettings'
+import CAHCountdown from './games/cah/CAHCountdown'
+import CAHGamePlay from './games/cah/CAHGamePlay'
+import CAHGameEnd from './games/cah/CAHGameEnd'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
 const socket = io(SOCKET_URL)
@@ -18,27 +23,32 @@ const socket = io(SOCKET_URL)
 export default function Lobby() {
     // Estados de navegación
     const [currentView, setCurrentView] = useState("name-input") // "name-input" | "game-selection" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end"
-    
+
     // Estados de usuario
     const [myName, setMyName] = useState("")
     const [isHost, setIsHost] = useState(false)
     const [selectedGame, setSelectedGame] = useState("")
-    
+
     // Estados de sala
     const [roomCode, setRoomCode] = useState("")
     const [roomName, setRoomName] = useState("")
     const [roomUsers, setRoomUsers] = useState([])
-    
-    // Estados de juego
+
+    // Estados de juego - Impostor
     const [myRole, setMyRole] = useState(null)
     const [currentWord, setCurrentWord] = useState(null)
     const [currentHint, setCurrentHint] = useState(null)
     const [currentCategory, setCurrentCategory] = useState(null)
     const [starterName, setStarterName] = useState("")
     const [maxImpostors, setMaxImpostors] = useState(1)
-    
-    // Estado de error
+
+    // Estado de juego - Cartas Contra la Humanidad (un único objeto: CAH tiene mucho
+    // más estado por ronda que el Impostor, así que agruparlo evita sumar 15 useState sueltos)
+    const [cahState, setCahState] = useState(null)
+
+    // Estados de error
     const [joinError, setJoinError] = useState("")
+    const [settingsError, setSettingsError] = useState("")
 
     useEffect(() => {
         // Conexión establecida
@@ -89,9 +99,18 @@ export default function Lobby() {
             setCurrentView("room-selection")
         })
 
-        // Mostrar ajustes de juego (solo anfitrión)
+        // Error al configurar el juego (p.ej. faltan jugadores, ajustes inválidos)
+        socket.on("gameSettingsError", (message) => {
+            setSettingsError(message)
+        })
+
+        // Mostrar ajustes de juego (solo anfitrión) - el payload distingue el juego
         socket.on("showGameSettings", (data) => {
-            setMaxImpostors(data.maxImpostors)
+            if ("maxImpostors" in data) {
+                setMaxImpostors(data.maxImpostors)
+            } else {
+                setCahState(prev => ({ ...(prev || {}), ...data }))
+            }
             setCurrentView("game-settings")
         })
 
@@ -105,18 +124,30 @@ export default function Lobby() {
             setCurrentView("countdown")
         })
 
-        // Juego iniciado
+        // Juego iniciado (señal genérica de navegación; los datos de CAH llegan por cahRoundStart)
         socket.on("gameStarted", (data) => {
-            setMyRole(data.role)
-            setCurrentWord(data.word)
-            setCurrentHint(data.hint)
-            setCurrentCategory(data.category)
-            setStarterName(data.starterName)
+            if (data && data.role) {
+                setMyRole(data.role)
+                setCurrentWord(data.word)
+                setCurrentHint(data.hint)
+                setCurrentCategory(data.category)
+                setStarterName(data.starterName)
+            }
             setCurrentView("playing")
         })
 
         // Juego terminado
-        socket.on("gameEnded", () => {
+        socket.on("gameEnded", (data) => {
+            if (data) {
+                const winner = (data.finalScores || []).find(s => s.userId === data.winnerUserId)
+                setCahState(prev => ({
+                    ...(prev || {}),
+                    finalScores: data.finalScores,
+                    winnerUserId: data.winnerUserId,
+                    winnerName: winner ? winner.name : null,
+                    endReason: data.reason
+                }))
+            }
             setCurrentView("game-end")
         })
 
@@ -127,7 +158,66 @@ export default function Lobby() {
             setCurrentHint(null)
             setCurrentCategory(null)
             setStarterName("")
+            setCahState(null)
+            setSettingsError("")
             setCurrentView("in-room")
+        })
+
+        // --- Eventos propios de Cartas Contra la Humanidad ---
+
+        socket.on("cahRoundStart", (data) => {
+            setCahState(prev => ({
+                ...(prev || {}),
+                phase: "submitting",
+                round: data.round,
+                isCzar: data.isCzar,
+                czarName: data.czarName,
+                blackCard: data.blackCard,
+                hand: data.hand,
+                scores: data.scores,
+                pointsToWin: data.pointsToWin,
+                notice: data.notice,
+                submittedCount: 0,
+                totalNeeded: data.isCzar ? 0 : undefined,
+                revealSubmissions: null,
+                roundResult: null,
+                hasSubmitted: false,
+                hasDiscarded: false,
+                cahError: ""
+            }))
+        })
+
+        socket.on("cahSubmissionsProgress", (data) => {
+            setCahState(prev => ({
+                ...(prev || {}),
+                submittedCount: data.submittedCount,
+                totalNeeded: data.totalNeeded
+            }))
+        })
+
+        socket.on("cahRevealSubmissions", (data) => {
+            setCahState(prev => ({
+                ...(prev || {}),
+                phase: "revealing",
+                revealSubmissions: data.submissions
+            }))
+        })
+
+        socket.on("cahRoundResult", (data) => {
+            setCahState(prev => ({
+                ...(prev || {}),
+                phase: "result",
+                roundResult: data,
+                scores: data.scores
+            }))
+        })
+
+        socket.on("cahDiscardConfirmed", (data) => {
+            setCahState(prev => ({ ...(prev || {}), hand: data.hand, hasDiscarded: true }))
+        })
+
+        socket.on("cahError", (data) => {
+            setCahState(prev => ({ ...(prev || {}), cahError: data.message }))
         })
 
         // Limpieza
@@ -139,12 +229,19 @@ export default function Lobby() {
             socket.off("userJoined")
             socket.off("userLeft")
             socket.off("roomLeft")
+            socket.off("gameSettingsError")
             socket.off("showGameSettings")
             socket.off("waitingForSettings")
             socket.off("startCountdown")
             socket.off("gameStarted")
             socket.off("gameEnded")
             socket.off("backToWaiting")
+            socket.off("cahRoundStart")
+            socket.off("cahSubmissionsProgress")
+            socket.off("cahRevealSubmissions")
+            socket.off("cahRoundResult")
+            socket.off("cahDiscardConfirmed")
+            socket.off("cahError")
         }
     }, [])
 
@@ -169,12 +266,16 @@ export default function Lobby() {
         setCurrentView("join-room")
     }
 
+    const handleBackToGameSelection = () => {
+        setCurrentView("game-selection")
+    }
+
     const handleCreateRoomSubmit = (name) => {
-        socket.emit("createRoom", { roomName: name })
+        socket.emit("createRoom", { roomName: name, game: selectedGame })
     }
 
     const handleJoinRoomSubmit = (name, code) => {
-        socket.emit("joinRoom", { roomName: name, roomCode: code })
+        socket.emit("joinRoom", { roomName: name, roomCode: code, game: selectedGame })
     }
 
     const handleLeaveRoom = () => {
@@ -187,6 +288,7 @@ export default function Lobby() {
     }
 
     const handleStartGame = () => {
+        setSettingsError("")
         socket.emit("startGameSetup")
     }
 
@@ -206,6 +308,24 @@ export default function Lobby() {
         socket.emit("backToRoom")
     }
 
+    // Handlers - Cartas Contra la Humanidad
+    const handleSubmitCahCards = (cardIds) => {
+        setCahState(prev => ({ ...(prev || {}), hasSubmitted: true }))
+        socket.emit("cahSubmitCards", { cardIds })
+    }
+
+    const handleDiscardCahCards = (cardIds) => {
+        socket.emit("cahDiscardCards", { cardIds })
+    }
+
+    const handleCzarPick = (submissionId) => {
+        socket.emit("cahCzarPick", { submissionId })
+    }
+
+    const handleCahNextRound = () => {
+        socket.emit("cahNextRound")
+    }
+
     // Renderizado condicional según vista actual
     if (currentView === "name-input") {
         return <UserNameInput onNameSubmit={handleNameSubmit} />
@@ -217,17 +337,18 @@ export default function Lobby() {
 
     if (currentView === "room-selection") {
         return (
-            <RoomSelection 
+            <RoomSelection
                 userName={myName}
                 onCreateRoom={handleCreateRoom}
                 onJoinRoom={handleJoinRoom}
+                onBack={handleBackToGameSelection}
             />
         )
     }
 
     if (currentView === "create-room") {
         return (
-            <CreateRoomForm 
+            <CreateRoomForm
                 onSubmit={handleCreateRoomSubmit}
                 onBack={handleBack}
             />
@@ -236,7 +357,7 @@ export default function Lobby() {
 
     if (currentView === "join-room") {
         return (
-            <JoinRoomForm 
+            <JoinRoomForm
                 onSubmit={handleJoinRoomSubmit}
                 onBack={handleBack}
                 error={joinError}
@@ -246,24 +367,36 @@ export default function Lobby() {
 
     if (currentView === "in-room") {
         return (
-            <Room 
+            <Room
                 roomName={roomName}
                 roomCode={roomCode}
                 users={roomUsers}
                 mySocketId={socket.id}
                 isHost={isHost}
+                selectedGame={selectedGame}
                 onLeaveRoom={handleLeaveRoom}
                 onStartGame={handleStartGame}
+                settingsError={settingsError}
             />
         )
     }
 
     if (currentView === "game-settings") {
-        // Renderizar componente de configuración según el juego seleccionado
         if (selectedGame === "impostor") {
             return (
-                <ImpostorGameSettings 
+                <ImpostorGameSettings
                     maxImpostors={maxImpostors}
+                    onSubmit={handleSubmitGameSettings}
+                />
+            )
+        }
+        if (selectedGame === "cah") {
+            return (
+                <CAHGameSettings
+                    minPointsToWin={cahState?.minPointsToWin}
+                    maxPointsToWin={cahState?.maxPointsToWin}
+                    suggestedPointsToWin={cahState?.suggestedPointsToWin}
+                    error={settingsError}
                     onSubmit={handleSubmitGameSettings}
                 />
             )
@@ -271,24 +404,27 @@ export default function Lobby() {
     }
 
     if (currentView === "waiting-for-settings") {
-        // Renderizar componente de espera según el juego seleccionado
         if (selectedGame === "impostor") {
             return <ImpostorWaitingForSettings />
+        }
+        if (selectedGame === "cah") {
+            return <CAHWaitingForSettings />
         }
     }
 
     if (currentView === "countdown") {
-        // Renderizar countdown según el juego seleccionado
         if (selectedGame === "impostor") {
             return <ImpostorCountdown />
+        }
+        if (selectedGame === "cah") {
+            return <CAHCountdown />
         }
     }
 
     if (currentView === "playing") {
-        // Renderizar gameplay según el juego seleccionado
         if (selectedGame === "impostor") {
             return (
-                <ImpostorGamePlay 
+                <ImpostorGamePlay
                     role={myRole}
                     word={currentWord}
                     hint={currentHint}
@@ -299,14 +435,38 @@ export default function Lobby() {
                 />
             )
         }
+        if (selectedGame === "cah") {
+            return (
+                <CAHGamePlay
+                    cahState={cahState}
+                    isHost={isHost}
+                    myId={socket.id}
+                    onSubmitCards={handleSubmitCahCards}
+                    onDiscardCards={handleDiscardCahCards}
+                    onCzarPick={handleCzarPick}
+                    onNextRound={handleCahNextRound}
+                    onEndGame={handleEndGame}
+                />
+            )
+        }
     }
 
     if (currentView === "game-end") {
-        // Renderizar fin de juego según el juego seleccionado
         if (selectedGame === "impostor") {
             return (
-                <ImpostorGameEnd 
+                <ImpostorGameEnd
                     isHost={isHost}
+                    onRestart={handleRestartGame}
+                    onBackToRoom={handleBackToRoom}
+                />
+            )
+        }
+        if (selectedGame === "cah") {
+            return (
+                <CAHGameEnd
+                    cahState={cahState}
+                    isHost={isHost}
+                    myId={socket.id}
                     onRestart={handleRestartGame}
                     onBackToRoom={handleBackToRoom}
                 />

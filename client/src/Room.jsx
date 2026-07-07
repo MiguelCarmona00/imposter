@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { getGameConfig } from './gameConfig'
 import './styles/Room.css'
 
-export default function Room({ roomName, roomCode, users, mySocketId, isHost, onLeaveRoom, onStartGame }) {
+export default function Room({ roomName, roomCode, users, mySocketId, isHost, selectedGame, onLeaveRoom, onStartGame, settingsError }) {
     const [copied, setCopied] = useState(false)
-    
-    const canStartGame = isHost && users.length >= 4
+
+    const minPlayers = getGameConfig(selectedGame)?.minPlayers ?? 1
+    const canStartGame = isHost && users.length >= minPlayers
 
     const handleCopyCode = async () => {
         try {
@@ -61,11 +63,17 @@ export default function Room({ roomName, roomCode, users, mySocketId, isHost, on
 
             {!canStartGame && isHost && (
                 <p className="warning-message">
-                    ℹ️ Se necesitan al menos 4 jugadores para comenzar
+                    ℹ️ Se necesitan al menos {minPlayers} jugadores para comenzar
                 </p>
             )}
 
-            <button 
+            {settingsError && (
+                <p className="warning-message" style={{ color: 'red' }}>
+                    {settingsError}
+                </p>
+            )}
+
+            <button
                 onClick={onLeaveRoom} 
                 className="leave-button"
             >

@@ -1,0 +1,54 @@
+.cah-reveal-container {
+  text-align: center;
+}
+
+.cah-reveal-instructions {
+  color: #ffd700;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.cah-reveal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.cah-reveal-submission {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: default;
+  font-family: inherit;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cah-reveal-submission.is-clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cah-reveal-submission.is-clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.6), 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.cah-reveal-card-text {
+  color: #111;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .cah-reveal-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}

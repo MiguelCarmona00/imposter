@@ -1,0 +1,940 @@
+[
+  {
+    "name": "Hilarious!",
+    "whiteCount": 538,
+    "blackCount": 128,
+    "whiteNew": 470,
+    "blackNew": 113
+  },
+  {
+    "name": "Rotten Apples: The Tasteless Adult Party Game",
+    "whiteCount": 454,
+    "blackCount": 130,
+    "whiteNew": 434,
+    "blackNew": 128
+  },
+  {
+    "name": "Skewered And Roasted",
+    "whiteCount": 480,
+    "blackCount": 101,
+    "whiteNew": 462,
+    "blackNew": 101
+  },
+  {
+    "name": "WTF Did You Say?!?",
+    "whiteCount": 475,
+    "blackCount": 100,
+    "whiteNew": 457,
+    "blackNew": 98
+  },
+  {
+    "name": "Bad Campaign, The Presidential Party Game!",
+    "whiteCount": 450,
+    "blackCount": 90,
+    "whiteNew": 435,
+    "blackNew": 90
+  },
+  {
+    "name": "Conspiracy Theory",
+    "whiteCount": 468,
+    "blackCount": 70,
+    "whiteNew": 451,
+    "blackNew": 68
+  },
+  {
+    "name": "Depravity",
+    "whiteCount": 431,
+    "blackCount": 99,
+    "whiteNew": 425,
+    "blackNew": 98
+  },
+  {
+    "name": "Trumped UpCards: The World's Biggest Deck*",
+    "whiteCount": 438,
+    "blackCount": 90,
+    "whiteNew": 422,
+    "blackNew": 90
+  },
+  {
+    "name": "The Game Without Decency",
+    "whiteCount": 358,
+    "blackCount": 150,
+    "whiteNew": 346,
+    "blackNew": 147
+  },
+  {
+    "name": "Cards Against Profanity",
+    "whiteCount": 425,
+    "blackCount": 77,
+    "whiteNew": 412,
+    "blackNew": 75
+  },
+  {
+    "name": "Evil Apples",
+    "whiteCount": 399,
+    "blackCount": 100,
+    "whiteNew": 388,
+    "blackNew": 96
+  },
+  {
+    "name": "Kiwis Versus Morality",
+    "whiteCount": 392,
+    "blackCount": 95,
+    "whiteNew": 355,
+    "blackNew": 91
+  },
+  {
+    "name": "The Catholic Card Game: Base Deck",
+    "whiteCount": 400,
+    "blackCount": 81,
+    "whiteNew": 390,
+    "blackNew": 78
+  },
+  {
+    "name": "Dick",
+    "whiteCount": 375,
+    "blackCount": 100,
+    "whiteNew": 362,
+    "blackNew": 95
+  },
+  {
+    "name": "Bards Dispense Profanity",
+    "whiteCount": 375,
+    "blackCount": 100,
+    "whiteNew": 362,
+    "blackNew": 95
+  },
+  {
+    "name": "Cards Against/For South Africa",
+    "whiteCount": 359,
+    "blackCount": 105,
+    "whiteNew": 308,
+    "blackNew": 93
+  },
+  {
+    "name": "That's What She Said Game",
+    "whiteCount": 400,
+    "blackCount": 58,
+    "whiteNew": 397,
+    "blackNew": 55
+  },
+  {
+    "name": "Kids Create Absurdity",
+    "whiteCount": 350,
+    "blackCount": 100,
+    "whiteNew": 340,
+    "blackNew": 97
+  },
+  {
+    "name": "Cads Against Adulting",
+    "whiteCount": 349,
+    "blackCount": 100,
+    "whiteNew": 331,
+    "blackNew": 96
+  },
+  {
+    "name": "Dirty Nasty Filthy",
+    "whiteCount": 303,
+    "blackCount": 142,
+    "whiteNew": 291,
+    "blackNew": 137
+  },
+  {
+    "name": "Not Parent Approved",
+    "whiteCount": 340,
+    "blackCount": 100,
+    "whiteNew": 323,
+    "blackNew": 98
+  },
+  {
+    "name": "Kids Against Maturity",
+    "whiteCount": 272,
+    "blackCount": 150,
+    "whiteNew": 265,
+    "blackNew": 142
+  },
+  {
+    "name": "Cads About Matrimony Poly Pack",
+    "whiteCount": 318,
+    "blackCount": 81,
+    "whiteNew": 282,
+    "blackNew": 73
+  },
+  {
+    "name": "Disgruntled Decks: Air Force Edition",
+    "whiteCount": 305,
+    "blackCount": 90,
+    "whiteNew": 295,
+    "blackNew": 88
+  },
+  {
+    "name": "Disgruntled Decks: Navy Edition",
+    "whiteCount": 304,
+    "blackCount": 90,
+    "whiteNew": 296,
+    "blackNew": 90
+  },
+  {
+    "name": "KinderPerfect (Commercial Set)",
+    "whiteCount": 324,
+    "blackCount": 70,
+    "whiteNew": 314,
+    "blackNew": 68
+  },
+  {
+    "name": "Disgruntled Decks: Army Edition",
+    "whiteCount": 304,
+    "blackCount": 90,
+    "whiteNew": 298,
+    "blackNew": 87
+  },
+  {
+    "name": "Disgruntled Decks: Marine Corps/Jarhead Edition",
+    "whiteCount": 302,
+    "blackCount": 88,
+    "whiteNew": 288,
+    "blackNew": 88
+  },
+  {
+    "name": "Personally Incorrect",
+    "whiteCount": 291,
+    "blackCount": 98,
+    "whiteNew": 280,
+    "blackNew": 98
+  },
+  {
+    "name": "Kiwis Against Morality",
+    "whiteCount": 298,
+    "blackCount": 50,
+    "whiteNew": 285,
+    "blackNew": 45
+  },
+  {
+    "name": "Fun in the Oven",
+    "whiteCount": 259,
+    "blackCount": 40,
+    "whiteNew": 253,
+    "blackNew": 38
+  },
+  {
+    "name": "Cads About Matrimony",
+    "whiteCount": 231,
+    "blackCount": 55,
+    "whiteNew": 226,
+    "blackNew": 53
+  },
+  {
+    "name": "Charlie Foxtrot",
+    "whiteCount": 205,
+    "blackCount": 65,
+    "whiteNew": 199,
+    "blackNew": 62
+  },
+  {
+    "name": "Babies vs. Parents",
+    "whiteCount": 186,
+    "blackCount": 80,
+    "whiteNew": 179,
+    "blackNew": 79
+  },
+  {
+    "name": "Humanity Hates Trump: Base Set",
+    "whiteCount": 199,
+    "blackCount": 50,
+    "whiteNew": 188,
+    "blackNew": 48
+  },
+  {
+    "name": "2016 Election Game",
+    "whiteCount": 198,
+    "blackCount": 50,
+    "whiteNew": 195,
+    "blackNew": 50
+  },
+  {
+    "name": "Cards About Toronto",
+    "whiteCount": 198,
+    "blackCount": 40,
+    "whiteNew": 194,
+    "blackNew": 38
+  },
+  {
+    "name": "Cards for the Masses",
+    "whiteCount": 110,
+    "blackCount": 110,
+    "whiteNew": 107,
+    "blackNew": 107
+  },
+  {
+    "name": "The Catholic Card Game: Five Deck Expansion Pack",
+    "whiteCount": 174,
+    "blackCount": 41,
+    "whiteNew": 165,
+    "blackNew": 41
+  },
+  {
+    "name": "Cats Abiding Horribly: Episode I - The Dirty Goblin",
+    "whiteCount": 140,
+    "blackCount": 65,
+    "whiteNew": 135,
+    "blackNew": 62
+  },
+  {
+    "name": "Potheads Against Sanity",
+    "whiteCount": 103,
+    "blackCount": 95,
+    "whiteNew": 99,
+    "blackNew": 93
+  },
+  {
+    "name": "KinderPerfect: A Timeout For Parents (Kickstarter Set)",
+    "whiteCount": 172,
+    "blackCount": 22,
+    "whiteNew": 153,
+    "blackNew": 20
+  },
+  {
+    "name": "JadedAid: A Card Game to Save Humanitarians",
+    "whiteCount": 159,
+    "blackCount": 35,
+    "whiteNew": 154,
+    "blackNew": 34
+  },
+  {
+    "name": "Cads About Maternity - A game for bad mommies",
+    "whiteCount": 155,
+    "blackCount": 30,
+    "whiteNew": 150,
+    "blackNew": 28
+  },
+  {
+    "name": "Cows Grilling Hamburgers - Patty Pack #1",
+    "whiteCount": 125,
+    "blackCount": 42,
+    "whiteNew": 110,
+    "blackNew": 37
+  },
+  {
+    "name": "Clones Attack Hilarity #2",
+    "whiteCount": 110,
+    "blackCount": 40,
+    "whiteNew": 108,
+    "blackNew": 38
+  },
+  {
+    "name": "Disgruntled Decks: Coast Guard/Coastie Edition",
+    "whiteCount": 110,
+    "blackCount": 40,
+    "whiteNew": 109,
+    "blackNew": 40
+  },
+  {
+    "name": "Clones Attack Hilarity #1",
+    "whiteCount": 112,
+    "blackCount": 38,
+    "whiteNew": 111,
+    "blackNew": 36
+  },
+  {
+    "name": "Cats Abiding Horribly: Episode II - A New Low",
+    "whiteCount": 110,
+    "blackCount": 40,
+    "whiteNew": 109,
+    "blackNew": 40
+  },
+  {
+    "name": "Carps & Angsty Manatee - Volume 1",
+    "whiteCount": 130,
+    "blackCount": 20,
+    "whiteNew": 127,
+    "blackNew": 19
+  },
+  {
+    "name": "Cats Abiding Horribly: Episode III - The SJWs Strike Back",
+    "whiteCount": 110,
+    "blackCount": 40,
+    "whiteNew": 106,
+    "blackNew": 38
+  },
+  {
+    "name": "Carps & Angsty Manatee - Texas Edition",
+    "whiteCount": 124,
+    "blackCount": 25,
+    "whiteNew": 120,
+    "blackNew": 25
+  },
+  {
+    "name": "Carps & Angsty Manatee - Volume 2",
+    "whiteCount": 126,
+    "blackCount": 22,
+    "whiteNew": 121,
+    "blackNew": 20
+  },
+  {
+    "name": "Cards and Punishment Vol. One",
+    "whiteCount": 94,
+    "blackCount": 39,
+    "whiteNew": 90,
+    "blackNew": 39
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 2",
+    "whiteCount": 93,
+    "blackCount": 33,
+    "whiteNew": 91,
+    "blackNew": 33
+  },
+  {
+    "name": "Personally Incorrect - Expansion [Red Box]",
+    "whiteCount": 96,
+    "blackCount": 29,
+    "whiteNew": 94,
+    "blackNew": 27
+  },
+  {
+    "name": "Personally Incorrect - Expansion 2 [Yellow Box]",
+    "whiteCount": 90,
+    "blackCount": 35,
+    "whiteNew": 86,
+    "blackNew": 35
+  },
+  {
+    "name": "Cocks Abreast Hostility: Cock Pack One: Just The Tip",
+    "whiteCount": 100,
+    "blackCount": 25,
+    "whiteNew": 97,
+    "blackNew": 25
+  },
+  {
+    "name": "Cocks Abreast Hostility - Cock Pack Two: Fowls Deep",
+    "whiteCount": 100,
+    "blackCount": 25,
+    "whiteNew": 94,
+    "blackNew": 24
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 1",
+    "whiteCount": 87,
+    "blackCount": 33,
+    "whiteNew": 84,
+    "blackNew": 32
+  },
+  {
+    "name": "Bad Hombres Against Fake News Pack 1",
+    "whiteCount": 90,
+    "blackCount": 30,
+    "whiteNew": 87,
+    "blackNew": 30
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 3",
+    "whiteCount": 83,
+    "blackCount": 34,
+    "whiteNew": 77,
+    "blackNew": 31
+  },
+  {
+    "name": "Carbs of the Huge Manatee - Online Dating Expansion 1",
+    "whiteCount": 93,
+    "blackCount": 22,
+    "whiteNew": 93,
+    "blackNew": 22
+  },
+  {
+    "name": "Carbs of the Huge Manatee: General Expansion 1",
+    "whiteCount": 92,
+    "blackCount": 22,
+    "whiteNew": 90,
+    "blackNew": 21
+  },
+  {
+    "name": "Carbs of the Huge Manatee - Kink Expansion 1",
+    "whiteCount": 92,
+    "blackCount": 22,
+    "whiteNew": 84,
+    "blackNew": 22
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 5",
+    "whiteCount": 80,
+    "blackCount": 32,
+    "whiteNew": 76,
+    "blackNew": 31
+  },
+  {
+    "name": "Guards Against Insanity, Edition 3",
+    "whiteCount": 90,
+    "blackCount": 22,
+    "whiteNew": 89,
+    "blackNew": 21
+  },
+  {
+    "name": "Guards Against Insanity, Edition 2",
+    "whiteCount": 90,
+    "blackCount": 22,
+    "whiteNew": 89,
+    "blackNew": 21
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 7",
+    "whiteCount": 80,
+    "blackCount": 32,
+    "whiteNew": 77,
+    "blackNew": 31
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 4",
+    "whiteCount": 80,
+    "blackCount": 32,
+    "whiteNew": 75,
+    "blackNew": 31
+  },
+  {
+    "name": "Guards Against Insanity, Edition 4",
+    "whiteCount": 90,
+    "blackCount": 22,
+    "whiteNew": 86,
+    "blackNew": 22
+  },
+  {
+    "name": "Crabs Adjust Humidity: Volume 6",
+    "whiteCount": 80,
+    "blackCount": 32,
+    "whiteNew": 79,
+    "blackNew": 31
+  },
+  {
+    "name": "Guards Against Insanity, Edition 5",
+    "whiteCount": 90,
+    "blackCount": 22,
+    "whiteNew": 88,
+    "blackNew": 21
+  },
+  {
+    "name": "Guards Against Insanity, Edition 1",
+    "whiteCount": 80,
+    "blackCount": 32,
+    "whiteNew": 77,
+    "blackNew": 32
+  },
+  {
+    "name": "Pigs Against Profanity: Volume 3",
+    "whiteCount": 79,
+    "blackCount": 32,
+    "whiteNew": 77,
+    "blackNew": 32
+  },
+  {
+    "name": "Pigs Against Profanity: Volume 1",
+    "whiteCount": 80,
+    "blackCount": 31,
+    "whiteNew": 76,
+    "blackNew": 30
+  },
+  {
+    "name": "Cows Against Hamburgers - Patty Pack #1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 77,
+    "blackNew": 30
+  },
+  {
+    "name": "Crazy & Horrible Rabbit - Vol. 1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 68,
+    "blackNew": 29
+  },
+  {
+    "name": "Words Against Morality: Volume 4",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 77,
+    "blackNew": 28
+  },
+  {
+    "name": "Crows Adopt Vulgarity, Vol. 4",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 80,
+    "blackNew": 30
+  },
+  {
+    "name": "Words Against Morality: Volume 1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 79,
+    "blackNew": 29
+  },
+  {
+    "name": "Crows Adopt Vulgarity, Vol. 1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 78,
+    "blackNew": 26
+  },
+  {
+    "name": "Words Against Morality: Volume 2",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 77,
+    "blackNew": 28
+  },
+  {
+    "name": "Crows Adopt Vulgarity, Vol. 2",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 79,
+    "blackNew": 28
+  },
+  {
+    "name": "Cakes Athirst Hilarity Volume 2",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 77,
+    "blackNew": 29
+  },
+  {
+    "name": "Cakes Athirst Hilarity Volume 4",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 77,
+    "blackNew": 29
+  },
+  {
+    "name": "Cakes Athirst Hilarity Volume 1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 75,
+    "blackNew": 30
+  },
+  {
+    "name": "Cakes Athirst Hilarity Volume 3",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 76,
+    "blackNew": 30
+  },
+  {
+    "name": "Humanity Hates the Holidays \"Love\" Edition",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 75,
+    "blackNew": 29
+  },
+  {
+    "name": "Crows Adopt Vulgarity, Vol. 3",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 80,
+    "blackNew": 29
+  },
+  {
+    "name": "Cads About Matrimony: Expansion 1",
+    "whiteCount": 85,
+    "blackCount": 25,
+    "whiteNew": 64,
+    "blackNew": 24
+  },
+  {
+    "name": "Humanity Hates Trump: Expansion Pack 2 - Humanity Hates Hillary, Too",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 78,
+    "blackNew": 29
+  },
+  {
+    "name": "Humanity Hates Trump: Expansion Pack 1",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 76,
+    "blackNew": 29
+  },
+  {
+    "name": "Humanity Hates The Holidays",
+    "whiteCount": 80,
+    "blackCount": 30,
+    "whiteNew": 75,
+    "blackNew": 30
+  },
+  {
+    "name": "Cards and Punishment Vol. Two",
+    "whiteCount": 77,
+    "blackCount": 33,
+    "whiteNew": 76,
+    "blackNew": 33
+  },
+  {
+    "name": "Words Against Morality: Volume 3",
+    "whiteCount": 80,
+    "blackCount": 29,
+    "whiteNew": 76,
+    "blackNew": 29
+  },
+  {
+    "name": "Pigs Against Profanity: Volume 2",
+    "whiteCount": 79,
+    "blackCount": 30,
+    "whiteNew": 75,
+    "blackNew": 29
+  },
+  {
+    "name": "Clams Attempt Harmonica, Volume 1",
+    "whiteCount": 78,
+    "blackCount": 30,
+    "whiteNew": 73,
+    "blackNew": 28
+  },
+  {
+    "name": "The Worst Card Game: Colorado Edition",
+    "whiteCount": 72,
+    "blackCount": 36,
+    "whiteNew": 69,
+    "blackNew": 35
+  },
+  {
+    "name": "Carbs of the Huge Manatee: General Expansion 3",
+    "whiteCount": 90,
+    "blackCount": 18,
+    "whiteNew": 87,
+    "blackNew": 18
+  },
+  {
+    "name": "Carbs of the Huge Manatee: General Expansion 2",
+    "whiteCount": 90,
+    "blackCount": 18,
+    "whiteNew": 86,
+    "blackNew": 18
+  },
+  {
+    "name": "Carbs of the Huge Manatee: Dance Expansion 1",
+    "whiteCount": 90,
+    "blackCount": 18,
+    "whiteNew": 86,
+    "blackNew": 17
+  },
+  {
+    "name": "The Worst Card Game: 2016 National Edition",
+    "whiteCount": 89,
+    "blackCount": 18,
+    "whiteNew": 86,
+    "blackNew": 18
+  },
+  {
+    "name": "KinderPerfect: More Expansion Pack",
+    "whiteCount": 75,
+    "blackCount": 25,
+    "whiteNew": 74,
+    "blackNew": 24
+  },
+  {
+    "name": "That's What She Said Game - First Expansion",
+    "whiteCount": 50,
+    "blackCount": 50,
+    "whiteNew": 50,
+    "blackNew": 50
+  },
+  {
+    "name": "That's What She Said Game - Second Expansion",
+    "whiteCount": 70,
+    "blackCount": 30,
+    "whiteNew": 69,
+    "blackNew": 30
+  },
+  {
+    "name": "Cards With No Sexuality",
+    "whiteCount": 75,
+    "blackCount": 25,
+    "whiteNew": 74,
+    "blackNew": 25
+  },
+  {
+    "name": "KinderPerfect: Naughty Expansion Pack",
+    "whiteCount": 75,
+    "blackCount": 24,
+    "whiteNew": 74,
+    "blackNew": 23
+  },
+  {
+    "name": "KinderPerfect: Tween Expansion Pack",
+    "whiteCount": 75,
+    "blackCount": 24,
+    "whiteNew": 71,
+    "blackNew": 23
+  },
+  {
+    "name": "Not Parent Approved Expansion Pack #1",
+    "whiteCount": 60,
+    "blackCount": 20,
+    "whiteNew": 59,
+    "blackNew": 18
+  },
+  {
+    "name": "Not Parent Approved Expansion Pack #2",
+    "whiteCount": 60,
+    "blackCount": 20,
+    "whiteNew": 56,
+    "blackNew": 20
+  },
+  {
+    "name": "Blurbs Against Buffalo",
+    "whiteCount": 54,
+    "blackCount": 18,
+    "whiteNew": 53,
+    "blackNew": 18
+  },
+  {
+    "name": "JadedAid: Peace Corps Expansion Pack",
+    "whiteCount": 46,
+    "blackCount": 10,
+    "whiteNew": 44,
+    "blackNew": 9
+  },
+  {
+    "name": "Trumped UpCards: Astonishlingly Excellent Wealthcare! Expansion Pack",
+    "whiteCount": 43,
+    "blackCount": 12,
+    "whiteNew": 42,
+    "blackNew": 11
+  },
+  {
+    "name": "The Catholic Card Game: Generations Expansion Pack",
+    "whiteCount": 42,
+    "blackCount": 12,
+    "whiteNew": 39,
+    "blackNew": 11
+  },
+  {
+    "name": "The Catholic Card Game: Life Teen Expansion Pack",
+    "whiteCount": 45,
+    "blackCount": 9,
+    "whiteNew": 44,
+    "blackNew": 9
+  },
+  {
+    "name": "Trumped UpCards: Many Sides  Expansion Pack",
+    "whiteCount": 39,
+    "blackCount": 12,
+    "whiteNew": 38,
+    "blackNew": 11
+  },
+  {
+    "name": "Trumped UpCards: Alternative Facts Expansion Pack",
+    "whiteCount": 36,
+    "blackCount": 9,
+    "whiteNew": 32,
+    "blackNew": 8
+  },
+  {
+    "name": "Knitters Against Swatches Second Edition",
+    "whiteCount": 28,
+    "blackCount": 8,
+    "whiteNew": 28,
+    "blackNew": 8
+  },
+  {
+    "name": "Knitters Against Swatches First Edition",
+    "whiteCount": 30,
+    "blackCount": 6,
+    "whiteNew": 29,
+    "blackNew": 6
+  },
+  {
+    "name": "Cols Against Kentucky 2",
+    "whiteCount": 27,
+    "blackCount": 9,
+    "whiteNew": 24,
+    "blackNew": 9
+  },
+  {
+    "name": "Voter's Choice: The Second Expansion",
+    "whiteCount": 20,
+    "blackCount": 15,
+    "whiteNew": 20,
+    "blackNew": 15
+  },
+  {
+    "name": "Voter's Choice: The Fourth Expansion",
+    "whiteCount": 22,
+    "blackCount": 12,
+    "whiteNew": 22,
+    "blackNew": 11
+  },
+  {
+    "name": "Voter's Choice: The Third Expansion",
+    "whiteCount": 22,
+    "blackCount": 11,
+    "whiteNew": 22,
+    "blackNew": 11
+  },
+  {
+    "name": "Voter's Choice: The First Expansion",
+    "whiteCount": 20,
+    "blackCount": 8,
+    "whiteNew": 19,
+    "blackNew": 8
+  },
+  {
+    "name": "Cols Despite Kentucky",
+    "whiteCount": 18,
+    "blackCount": 0,
+    "whiteNew": 18,
+    "blackNew": 0
+  },
+  {
+    "name": "Conspiracy Theory - Kickstarter Bonus Cards Pack",
+    "whiteCount": 11,
+    "blackCount": 4,
+    "whiteNew": 10,
+    "blackNew": 4
+  },
+  {
+    "name": "Hidden Compartment Pack",
+    "whiteCount": 15,
+    "blackCount": 0,
+    "whiteNew": 12,
+    "blackNew": 0
+  },
+  {
+    "name": "Cats Abiding Horribly Bonus Cards 2",
+    "whiteCount": 5,
+    "blackCount": 5,
+    "whiteNew": 4,
+    "blackNew": 5
+  },
+  {
+    "name": "Cats Abiding Horribly Bonus Cards",
+    "whiteCount": 5,
+    "blackCount": 5,
+    "whiteNew": 5,
+    "blackNew": 5
+  },
+  {
+    "name": "Pax East 2013 Promo Pack A",
+    "whiteCount": 8,
+    "blackCount": 0,
+    "whiteNew": 8,
+    "blackNew": 0
+  },
+  {
+    "name": "Hanukkah LOL Pack",
+    "whiteCount": 7,
+    "blackCount": 0,
+    "whiteNew": 7,
+    "blackNew": 0
+  },
+  {
+    "name": "Humanity Hates Trump: Kickstarter Promo Cards",
+    "whiteCount": 5,
+    "blackCount": 0,
+    "whiteNew": 5,
+    "blackNew": 0
+  },
+  {
+    "name": "Black Box Press Kit",
+    "whiteCount": 1,
+    "blackCount": 0,
+    "whiteNew": 1,
+    "blackNew": 0
+  }
+]

@@ -1,0 +1,44 @@
+.cah-scoreboard {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  padding: 1.25rem;
+  min-width: 220px;
+}
+
+.cah-scoreboard-title {
+  color: #ffd700;
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
+.cah-scoreboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cah-scoreboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  color: #ccc;
+  margin: 0;
+}
+
+.cah-scoreboard-item.is-me {
+  background: rgba(255, 215, 0, 0.12);
+  color: #ffd700;
+}
+
+.cah-scoreboard-name {
+  font-weight: 600;
+}
+
+.cah-scoreboard-score {
+  font-weight: 700;
+  color: #ffd700;
+}
