@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { getGameConfig } from './gameConfig'
 import './styles/Room.css'
 
-export default function Room({ roomName, roomCode, users, mySocketId, isHost, selectedGame, onLeaveRoom, onStartGame, settingsError }) {
+export default function Room({ roomName, roomCode, users, mySocketId, isHost, selectedGame, onLeaveRoom, onStartGame, settingsError, usingSlowTransport }) {
     const [copied, setCopied] = useState(false)
 
     const minPlayers = getGameConfig(selectedGame)?.minPlayers ?? 1
@@ -70,6 +70,15 @@ export default function Room({ roomName, roomCode, users, mySocketId, isHost, se
             {settingsError && (
                 <p className="warning-message" style={{ color: 'red' }}>
                     {settingsError}
+                </p>
+            )}
+
+            {usingSlowTransport && (
+                <p className="warning-message">
+                    ⚠️ Tu conexión parece estar usando un modo más lento (sin WebSocket activo).
+                    Puede que sufras cortes con más frecuencia durante la partida — si te pasa,
+                    prueba con otro navegador, revisa el modo "Ahorro de datos" o desactiva
+                    extensiones/VPN.
                 </p>
             )}
 

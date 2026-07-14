@@ -23,3 +23,7 @@ server/data/cah/source/raw-official.json
 .idea/
 *.swp
 *.swo
+
+# Bóveda: notas de contexto para Claude Code entre sesiones, no es
+# documentación del proyecto ni código — nunca se sube al repo.
+Boveda/

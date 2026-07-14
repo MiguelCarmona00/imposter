@@ -1,8 +1,13 @@
 const express = require("express")
 const http = require("http")
+const crypto = require("crypto")
 const { Server } = require("socket.io")
 const cors = require("cors")
 const games = require("./games")
+
+// Cuánto se espera a que un jugador reconecte (misma pestaña, corte de red)
+// antes de tratar su desconexión como definitiva. Ver rebindConnection/finalizeDisconnect.
+const RECONNECT_GRACE_MS = 30000
 
 const app = express()
 app.use(cors())
@@ -21,7 +26,7 @@ const io = new Server(server, {
       // Cualquier IP de red local (192.168.x.x / 10.x.x.x) en el puerto de Vite,
       // para poder probar desde el móvil sin tener que fijar la IP a mano (cambia
       // con el DHCP del router).
-      const isLocalNetworkOrigin = /^http:\/\/(192\.168|10)\.\d{1,3}\.\d{1,3}\.\d{1,3}:5173$/.test(origin || "")
+      const isLocalNetworkOrigin = /^http:\/\/(192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}):5173$/.test(origin || "")
 
       // Permitir requests sin origin (como aplicaciones móviles), de la lista, o de la red local
       if (!origin || allowedOrigins.includes(origin) || isLocalNetworkOrigin) {
@@ -36,8 +41,13 @@ const io = new Server(server, {
 })
 
 // Estructura de datos
-let connectedUsers = [] // { id, name, roomCode }
+let connectedUsers = [] // { id, playerId, name, roomCode }
 let rooms = {} // { "ABCD": { name, code, host, users: [{id, name}], game, gameState, [game]: <estado propio del juego> } }
+
+// Desconexiones a la espera de que el mismo jugador (mismo playerId) reconecte
+// dentro de RECONNECT_GRACE_MS. Mientras una entrada está aquí, la sala/estado
+// de juego NO se toca — ver el handler de "disconnect" y finalizeDisconnect.
+let pendingDisconnects = {} // playerId -> { socketId, roomCode, timer }
 
 // Generar código de sala aleatorio (4 caracteres alfanuméricos)
 function generateRoomCode() {
@@ -62,11 +72,122 @@ function startCountdownThenPlay(io, room) {
   }, 3000)
 }
 
-io.on("connection", (socket) => {
-  // Usuario conectado
+// Si el host se fue definitivamente (expiró la gracia), la sala no puede
+// quedarse sin nadie que cumpla `room.host === socket.id` para siempre.
+function reassignHostIfNeeded(room) {
+  if (room.users.length > 0 && !room.users.some(u => u.id === room.host)) {
+    room.host = room.users[0].id
+  }
+}
 
-  // Agregar usuario a la lista de conectados
-  connectedUsers.push({id: socket.id, name: null, roomCode: null})
+// Limpieza real de una desconexión que no se recuperó a tiempo — es
+// exactamente lo que el handler de "disconnect" hacía al momento antes de
+// este cambio, solo que ahora se demora RECONNECT_GRACE_MS por si reconecta.
+function finalizeDisconnect(playerId) {
+  const pending = pendingDisconnects[playerId]
+  if (!pending) return
+  delete pendingDisconnects[playerId]
+
+  const { socketId, roomCode } = pending
+  connectedUsers = connectedUsers.filter(u => u.id !== socketId)
+
+  const room = rooms[roomCode]
+  if (!room) return
+
+  const wasPlaying = room.gameState === "playing"
+  room.users = room.users.filter(u => u.id !== socketId)
+
+  if (room.users.length === 0) {
+    delete rooms[roomCode]
+    return
+  }
+
+  reassignHostIfNeeded(room)
+
+  if (wasPlaying && typeof games[room.game].onPlayerDisconnect === "function") {
+    games[room.game].onPlayerDisconnect(io, room, socketId)
+  }
+
+  io.to(roomCode).emit("userLeft", {
+    users: room.users,
+    hostId: room.host
+  })
+}
+
+// Reconexión dentro de la gracia: el socket es nuevo pero el jugador es el
+// mismo (mismo playerId) — se reescribe su id viejo por el nuevo en todos los
+// sitios donde vive, y se avisa al módulo del juego activo por si tiene
+// estado propio indexado por id (manos, puntuaciones, turno del Czar, etc).
+function rebindConnection(socket, playerId, oldSocketId, roomCode) {
+  const newId = socket.id
+
+  const cu = connectedUsers.find(u => u.id === oldSocketId)
+  if (cu) {
+    cu.id = newId
+  } else {
+    connectedUsers.push({ id: newId, playerId, name: null, roomCode: null })
+  }
+
+  const room = rooms[roomCode]
+  if (!room) return // la sala desapareció por otra razón durante la gracia
+
+  const userEntry = room.users.find(u => u.id === oldSocketId)
+  if (userEntry) userEntry.id = newId
+  if (room.host === oldSocketId) room.host = newId
+
+  socket.join(roomCode)
+
+  if (typeof games[room.game].rebindPlayer === "function") {
+    games[room.game].rebindPlayer(room, oldSocketId, newId)
+  }
+
+  io.to(roomCode).emit("userJoined", {
+    users: room.users,
+    hostId: room.host
+  })
+}
+
+io.on("connection", (socket) => {
+  // Identidad persistente del jugador entre reconexiones (la manda el
+  // cliente en el "auth" de Socket.IO, generada y guardada en su sessionStorage).
+  // Si falta o es inválida, se genera una nueva — se comporta como hoy: un
+  // socket anónimo no recuperable.
+  const rawPlayerId = socket.handshake.auth && socket.handshake.auth.playerId
+  const playerId = (typeof rawPlayerId === "string" && rawPlayerId.length > 0 && rawPlayerId.length <= 100)
+    ? rawPlayerId
+    : crypto.randomUUID()
+
+  socket.playerId = playerId
+
+  const pending = pendingDisconnects[playerId]
+  if (pending) {
+    // Caso normal: el socket viejo ya se desconectó y está esperando gracia.
+    clearTimeout(pending.timer)
+    delete pendingDisconnects[playerId]
+    rebindConnection(socket, playerId, pending.socketId, pending.roomCode)
+  } else {
+    // El mismo playerId puede tener todavía una conexión VIVA (sin pasar por
+    // "disconnect" aún) — típico de recargar la página: el navegador no
+    // siempre avisa del cierre de la conexión vieja antes de que la nueva
+    // termine de conectar. Sin este caso, esa conexión nueva se trataría como
+    // un desconocido anónimo y se perdería la sala aunque no hubiera habido
+    // ningún corte real — es la condición de carrera que causaba el bug.
+    const existing = connectedUsers.find(u => u.playerId === playerId && u.id !== socket.id)
+    if (existing) {
+      const oldSocketId = existing.id
+      if (existing.roomCode) {
+        rebindConnection(socket, playerId, oldSocketId, existing.roomCode)
+      } else {
+        connectedUsers = connectedUsers.filter(u => u.id !== oldSocketId)
+        connectedUsers.push({ id: socket.id, playerId, name: null, roomCode: null })
+      }
+      const oldSocket = io.sockets.sockets.get(oldSocketId)
+      if (oldSocket) oldSocket.disconnect(true)
+    } else {
+      // Agregar usuario a la lista de conectados
+      connectedUsers.push({ id: socket.id, playerId, name: null, roomCode: null })
+    }
+  }
 
   // Establecer nombre del usuario
   socket.on("setName", (name) => {
@@ -112,6 +233,7 @@ io.on("connection", (socket) => {
         name: roomName,
         users: rooms[code].users,
         isHost: true,
+        hostId: rooms[code].host,
         game: game
       })
 
@@ -143,6 +265,16 @@ io.on("connection", (socket) => {
       return
     }
 
+    // La partida ya está en marcha — unirse ahora dejaría a este jugador solo
+    // viendo la sala de espera mientras bloquea al resto (p.ej. en CAH, cuenta
+    // para las cartas que hacen falta para pasar de ronda sin poder jugar
+    // ninguna). Hasta que exista un flujo real de "unirse a mitad de partida",
+    // se bloquea con un mensaje claro en vez de dejarlo entrar a medias.
+    if (rooms[roomCode].gameState !== "waiting") {
+      socket.emit("joinError", "La partida ya ha empezado — espera a que termine para unirte")
+      return
+    }
+
     // Agregar usuario a la sala
     const user = connectedUsers.find(u => u.id === socket.id)
     if (user) {
@@ -156,12 +288,14 @@ io.on("connection", (socket) => {
         name: rooms[roomCode].name,
         users: rooms[roomCode].users,
         isHost: false,
+        hostId: rooms[roomCode].host,
         game: rooms[roomCode].game
       })
 
       // Notificar a todos en la sala
       io.to(roomCode).emit("userJoined", {
-        users: rooms[roomCode].users
+        users: rooms[roomCode].users,
+        hostId: rooms[roomCode].host
       })
 
       // Usuario unido correctamente
@@ -186,9 +320,11 @@ io.on("connection", (socket) => {
           // Sala eliminada
           delete rooms[roomCode]
         } else {
+          reassignHostIfNeeded(rooms[roomCode])
           // Notificar a los demás usuarios
           io.to(roomCode).emit("userLeft", {
-            users: rooms[roomCode].users
+            users: rooms[roomCode].users,
+            hostId: rooms[roomCode].host
           })
         }
       }
@@ -307,6 +443,44 @@ io.on("connection", (socket) => {
     }
   })
 
+  // El cliente pide esto justo después de reconectar si recordaba estar en una
+  // sala (breadcrumb en su sessionStorage). Si el rebind ya ocurrió (mismo
+  // playerId, dentro de la gracia), acá simplemente se reconstruye para el
+  // cliente todo lo que necesita para restaurar la pantalla donde la dejó.
+  socket.on("requestResync", (data) => {
+    const user = connectedUsers.find(u => u.id === socket.id)
+    const room = user && user.roomCode ? rooms[user.roomCode] : null
+
+    if (!room) {
+      const roomCode = data && data.roomCode
+      const reason = roomCode && rooms[roomCode] ? "removedFromRoom" : "roomNotFound"
+      socket.emit("resyncFailed", { reason })
+      return
+    }
+
+    const gameModule = games[room.game]
+    const payload = {
+      roomCode: room.code,
+      roomName: room.name,
+      users: room.users,
+      hostId: room.host,
+      name: user.name,
+      game: room.game,
+      gameState: room.gameState
+    }
+
+    if (room.gameState === "settings" && socket.id === room.host) {
+      payload.settingsPayload = gameModule.getSettingsPayload(room)
+    }
+
+    if ((room.gameState === "playing" || room.gameState === "ended") &&
+        typeof gameModule.getResyncPayload === "function") {
+      payload.resync = gameModule.getResyncPayload(room, socket.id)
+    }
+
+    socket.emit("resyncOk", payload)
+  })
+
   // Registrar los eventos de socket propios de cada juego (p.ej. jugadas de CAH)
   Object.values(games).forEach(gameModule => {
     if (typeof gameModule.registerSocketHandlers === "function") {
@@ -318,40 +492,23 @@ io.on("connection", (socket) => {
     }
   })
 
-  // Desconexión
+  // Desconexión: no se destruye nada al momento — se guarda en espera por si
+  // el mismo jugador (mismo playerId) reconecta dentro de RECONNECT_GRACE_MS.
+  // La limpieza real (idéntica a la que había acá antes) vive en
+  // finalizeDisconnect, y solo corre si esa gracia expira sin reconexión.
   socket.on("disconnect", () => {
-    // Usuario desconectado
     const user = connectedUsers.find(u => u.id === socket.id)
 
-    // Si estaba en una sala, removerlo
-    if (user && user.roomCode) {
-      const roomCode = user.roomCode
-      const room = rooms[roomCode]
-
-      if (room) {
-        const wasPlaying = room.gameState === "playing"
-
-        room.users = room.users.filter(u => u.id !== socket.id)
-
-        // Si la sala quedó vacía, eliminarla
-        if (room.users.length === 0) {
-          // Sala eliminada
-          delete rooms[roomCode]
-        } else {
-          if (wasPlaying && typeof games[room.game].onPlayerDisconnect === "function") {
-            games[room.game].onPlayerDisconnect(io, room, socket.id)
-          }
-
-          // Notificar a los demás usuarios
-          io.to(roomCode).emit("userLeft", {
-            users: room.users
-          })
-        }
-      }
+    if (!user || !user.roomCode) {
+      connectedUsers = connectedUsers.filter(u => u.id !== socket.id)
+      return
     }
 
-    // Remover usuario de la lista de conectados
-    connectedUsers = connectedUsers.filter(u => u.id !== socket.id)
+    pendingDisconnects[socket.playerId] = {
+      socketId: socket.id,
+      roomCode: user.roomCode,
+      timer: setTimeout(() => finalizeDisconnect(socket.playerId), RECONNECT_GRACE_MS)
+    }
   })
 })
 

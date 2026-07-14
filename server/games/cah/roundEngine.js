@@ -26,7 +26,9 @@ function createInitialState() {
     submissions: {},
     submissionOwners: {},
     discards: {},
-    scores: {}
+    scores: {},
+    lastRoundResult: null,
+    endReason: null
   }
 }
 
@@ -295,14 +297,16 @@ function handleCzarPick(io, room, socketId, submissionId) {
   const reachedGoal = state.scores[winnerId] >= state.settings.pointsToWin
   state.phase = "result"
 
-  io.to(room.code).emit("cahRoundResult", {
+  const roundResult = {
     round: state.round,
     winnerUserId: winnerId,
     winnerName: state.playerNames[winnerId] || "?",
     winningCards,
     blackCard: state.currentBlackCard,
     scores: buildScoresPayload(state)
-  })
+  }
+  state.lastRoundResult = roundResult
+  io.to(room.code).emit("cahRoundResult", roundResult)
 
   if (reachedGoal) {
     room.gameState = "ended"
@@ -334,6 +338,7 @@ function handleNextRound(io, room, socketId) {
 
 function endGame(io, room, reason) {
   const state = room.cah
+  state.endReason = reason
   const finalScores = buildScoresPayload(state)
   io.to(room.code).emit("gameEnded", {
     reason,
@@ -377,6 +382,91 @@ function onPlayerDisconnect(io, room, socketId) {
   }
 }
 
+// Renombra la clave `oldId` -> `newId` dentro de un mapa indexado por id de
+// jugador, si existe. Usado por rebindPlayer para varios mapas del mismo tipo.
+function renameKey(obj, oldId, newId) {
+  if (oldId in obj) {
+    obj[newId] = obj[oldId]
+    delete obj[oldId]
+  }
+}
+
+// Reconexión: el jugador es el mismo, solo cambió su socket.id — hay que
+// renombrarlo en cada sitio del estado de la ronda donde aparece como clave
+// (o, en el caso de submissionOwners, como valor).
+function rebindPlayer(room, oldId, newId) {
+  const state = room.cah
+  if (!state) return
+
+  renameKey(state.hands, oldId, newId);
+  renameKey(state.scores, oldId, newId);
+  renameKey(state.playerNames, oldId, newId);
+  renameKey(state.submissions, oldId, newId);
+  renameKey(state.discards, oldId, newId);
+
+  if (state.czarId === oldId) state.czarId = newId
+  state.czarOrder = state.czarOrder.map(id => id === oldId ? newId : id)
+
+  Object.keys(state.submissionOwners).forEach(submissionId => {
+    if (state.submissionOwners[submissionId] === oldId) {
+      state.submissionOwners[submissionId] = newId
+    }
+  })
+
+  if (state.lastRoundResult && state.lastRoundResult.winnerUserId === oldId) {
+    state.lastRoundResult.winnerUserId = newId
+  }
+}
+
+// Reconstruye para `socketId` el equivalente a lo último que habría recibido
+// (cahRoundStart / cahRevealSubmissions / cahRoundResult según la fase en
+// curso, o el marcador final si la partida ya terminó) para restaurarlo tras
+// una reconexión sin tener que recargar la página.
+function getResyncPayload(room, socketId) {
+  const state = room.cah
+  if (!state) return null
+
+  if (room.gameState === "ended") {
+    const finalScores = buildScoresPayload(state)
+    return {
+      finalScores,
+      winnerUserId: finalScores.length ? finalScores[0].userId : null,
+      reason: state.endReason
+    }
+  }
+
+  if (!state.phase) return null
+
+  const isCzar = socketId === state.czarId
+  const payload = {
+    phase: state.phase,
+    round: state.round,
+    isCzar,
+    czarName: state.playerNames[state.czarId] || "?",
+    blackCard: state.currentBlackCard,
+    hand: isCzar ? [] : (state.hands[socketId] || []).map(id => whiteCardsById.get(id)).filter(Boolean),
+    scores: buildScoresPayload(state),
+    pointsToWin: state.settings.pointsToWin,
+    submittedCount: Object.keys(state.submissions).length,
+    totalNeeded: nonCzarCount(room, state),
+    hasSubmitted: !!state.submissions[socketId],
+    hasDiscarded: !!state.discards[socketId]
+  }
+
+  if (state.phase === "revealing") {
+    payload.revealSubmissions = Object.entries(state.submissionOwners).map(([submissionId, ownerId]) => ({
+      submissionId,
+      cards: (state.submissions[ownerId] || []).map(id => whiteCardsById.get(id)).filter(Boolean)
+    }))
+  }
+
+  if (state.phase === "result") {
+    payload.roundResult = state.lastRoundResult
+  }
+
+  return payload
+}
+
 module.exports = {
   MIN_PLAYERS,
   createInitialState,
@@ -388,5 +478,7 @@ module.exports = {
   handleSubmitCards,
   handleDiscardCards,
   handleCzarPick,
-  handleNextRound
+  handleNextRound,
+  rebindPlayer,
+  getResyncPayload
 }

@@ -1,0 +1,117 @@
+.connection-lost-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.connection-lost-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #ff4d4d;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  box-shadow:
+    0 0 30px rgba(255, 77, 77, 0.3),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 77, 77, 0.1);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.connection-lost-title {
+  color: #ff4d4d;
+  font-size: 2rem;
+  margin: 0 0 1rem;
+  text-shadow:
+    0 0 10px rgba(255, 77, 77, 0.5),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.connection-lost-message {
+  color: #e0e0e0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+}
+
+.connection-lost-button {
+  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  color: #000000;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow:
+    0 4px 15px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.connection-lost-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 25px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 480px) {
+  .connection-lost-card {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .connection-lost-title {
+    font-size: 1.6rem;
+  }
+
+  .connection-lost-message {
+    font-size: 0.95rem;
+  }
+
+  .connection-lost-button {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.5rem;
+  }
+}
+
+/* Banner no bloqueante de "Reconectando…" mientras se intenta recuperar la conexión */
+.reconnect-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  color: #000000;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  animation: reconnectPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes reconnectPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

@@ -1,0 +1,57 @@
+.room-code-badge {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 1.5px solid #b8860b;
+  border-radius: 10px;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.room-code-badge:hover {
+  border-color: #ffd700;
+  box-shadow: 0 2px 15px rgba(255, 215, 0, 0.3);
+}
+
+.room-code-badge-name {
+  color: #e0e0e0;
+  font-size: 0.7rem;
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.room-code-badge-code {
+  color: #ffd700;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+@media (max-width: 480px) {
+  .room-code-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .room-code-badge-name {
+    font-size: 0.6rem;
+    max-width: 9ch;
+  }
+
+  .room-code-badge-code {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+}

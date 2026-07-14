@@ -34,5 +34,7 @@ module.exports = {
   startGame: roundEngine.startGame,
   endGame: roundEngine.endGame,
   onPlayerDisconnect: roundEngine.onPlayerDisconnect,
-  registerSocketHandlers
+  registerSocketHandlers,
+  rebindPlayer: roundEngine.rebindPlayer,
+  getResyncPayload: roundEngine.getResyncPayload
 }
