@@ -1,9 +1,14 @@
 // Registro de minijuegos disponibles. Cada módulo expone la misma interfaz:
 //   MIN_PLAYERS, createInitialState(), getSettingsPayload(room),
 //   applySettings(room, settings), startGame(io, room), endGame(io, room, reason),
-//   onPlayerDisconnect(io, room, socketId)?, registerSocketHandlers(io, socket, getRoom)?,
+//   onPlayerDisconnect(io, room, socketId, reason)?, registerSocketHandlers(io, socket, getRoom)?,
 //   rebindPlayer(room, oldSocketId, newSocketId)?, getResyncPayload(room, socketId)?,
 //   supportsLateJoin?
+//
+// onPlayerDisconnect recibe `reason`: "disconnect" (se fue y agotó su gracia) o
+// "kicked" (lo expulsó el anfitrión). Las dos rutas comparten limpieza, pero el
+// juego puede querer tratarlas distinto — en CAH, al expulsado se le borra del
+// marcador y a quien perdió la conexión se le conserva para el marcador final.
 //
 // supportsLateJoin (opcional, por defecto false) declara que el juego admite que
 // alguien se una con la partida ya en marcha. El servidor se limita a aparcar a

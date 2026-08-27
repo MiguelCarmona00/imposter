@@ -414,9 +414,18 @@ function endGame(io, room, reason) {
   })
 }
 
-function onPlayerDisconnect(io, room, socketId) {
+function onPlayerDisconnect(io, room, socketId, reason) {
   const state = room.cah
   if (!state || !state.phase) return
+
+  // Al expulsado sí se le borra del marcador: se le ha echado, y dejarlo
+  // listado con sus puntos es justo lo que no se espera al pulsar el botón.
+  // A quien solo pierde la conexión se le conserva (ver más abajo), que es
+  // una situación distinta aunque compartan esta misma función.
+  if (reason === "kicked") {
+    delete state.scores[socketId]
+    delete state.playerNames[socketId]
+  }
 
   // Sin Czar + al menos 1 competidor no hay partida posible
   if (room.users.length < 2) {
@@ -429,7 +438,22 @@ function onPlayerDisconnect(io, room, socketId) {
   delete state.hands[socketId]
   delete state.submissions[socketId]
   delete state.discards[socketId]
-  // playerNames y scores se conservan: el scoreboard final debe seguir mostrando su nombre
+  // Si solo se ha desconectado, playerNames y scores se conservan: el marcador
+  // final debe seguir mostrando su nombre. Al expulsado ya se le borraron arriba.
+
+  // El marcador en partida vive en cahState.scores del cliente, que solo se
+  // rellena con cahRoundStart/cahRoundResult — sin este aviso, la tabla se
+  // queda con el jugador que ya no está hasta que acabe la ronda. (La lista de
+  // la sala de espera no sufre esto porque se refresca con "userLeft").
+  const updatedScores = buildScoresPayload(state)
+
+  // lastRoundResult es lo que se reenvía en un resync durante la fase de
+  // recuento; si no se actualiza, quien reconecte volvería a ver al expulsado.
+  if (state.lastRoundResult) {
+    state.lastRoundResult.scores = updatedScores
+  }
+
+  io.to(room.code).emit("cahScoresUpdate", { scores: updatedScores })
 
   if (wasCzar && (state.phase === "submitting" || state.phase === "revealing")) {
     // Se anula la ronda en curso (sin puntos) y se reparte una nueva con el siguiente Czar

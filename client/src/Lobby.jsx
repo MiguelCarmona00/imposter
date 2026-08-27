@@ -482,6 +482,25 @@ export default function Lobby() {
             }))
         })
 
+        // El marcador cambió sin que haya empezado ni terminado una ronda
+        // (alguien fue expulsado o se fue): sin esto la tabla se quedaría
+        // mostrando a quien ya no está hasta el siguiente reparto.
+        // Hay dos marcadores en pantalla y no leen del mismo sitio: el lateral
+        // usa cahState.scores, y el de la pantalla de recuento (donde está el
+        // botón de expulsar) usa roundResult.scores. Hay que refrescar ambos.
+        socket.on("cahScoresUpdate", (data) => {
+            setCahState(prev => {
+                if (!prev) return prev
+                return {
+                    ...prev,
+                    scores: data.scores,
+                    roundResult: prev.roundResult
+                        ? { ...prev.roundResult, scores: data.scores }
+                        : prev.roundResult
+                }
+            })
+        })
+
         socket.on("cahRoundResult", (data) => {
             setCahState(prev => ({
                 ...(prev || {}),
@@ -527,6 +546,7 @@ export default function Lobby() {
             socket.off("cahRoundStart")
             socket.off("cahSubmissionsProgress")
             socket.off("cahRevealSubmissions")
+            socket.off("cahScoresUpdate")
             socket.off("cahRoundResult")
             socket.off("cahDiscardConfirmed")
             socket.off("cahError")

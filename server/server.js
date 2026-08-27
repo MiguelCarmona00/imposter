@@ -114,7 +114,10 @@ function reassignHostIfNeeded(room) {
 // desconexión que agotó su gracia, y una expulsión por parte del anfitrión.
 // Deliberadamente compartido: duplicar esto significaría mantener dos versiones
 // de la lógica del Czar y que una se quedara atrás.
-function removePlayerFromRoom(socketId, roomCode) {
+// `reason` distingue los dos llamadores ("disconnect" | "kicked"): al juego le
+// importa, porque a un expulsado se le borra del marcador y a quien solo perdió
+// la conexión se le conserva para el marcador final.
+function removePlayerFromRoom(socketId, roomCode, reason = "disconnect") {
   connectedUsers = connectedUsers.filter(u => u.id !== socketId)
 
   const room = rooms[roomCode]
@@ -143,7 +146,7 @@ function removePlayerFromRoom(socketId, roomCode) {
 
   if (wasRoomUser && !wasPendingJoin && wasPlaying &&
       typeof games[room.game].onPlayerDisconnect === "function") {
-    games[room.game].onPlayerDisconnect(io, room, socketId)
+    games[room.game].onPlayerDisconnect(io, room, socketId, reason)
   }
 
   io.to(roomCode).emit("userLeft", {
@@ -483,7 +486,7 @@ io.on("connection", (socket) => {
     }
 
     const targetName = targetUser && targetUser.name
-    removePlayerFromRoom(targetId, room.code)
+    removePlayerFromRoom(targetId, room.code, "kicked")
 
     // removePlayerFromRoom lo saca de connectedUsers, que es lo correcto cuando
     // el socket se ha ido de verdad. En una expulsión sigue conectado, así que
