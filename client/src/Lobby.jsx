@@ -19,6 +19,7 @@ import CAHWaitingForSettings from './games/cah/CAHWaitingForSettings'
 import CAHCountdown from './games/cah/CAHCountdown'
 import CAHGamePlay from './games/cah/CAHGamePlay'
 import CAHGameEnd from './games/cah/CAHGameEnd'
+import CAHWaitingForNextRound from './games/cah/CAHWaitingForNextRound'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
 
@@ -51,7 +52,7 @@ const TRANSPORT_CHECK_DELAY_MS = 4000
 
 export default function Lobby() {
     // Estados de navegación
-    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting"
+    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting" | "waiting-for-next-round"
 
     // Estados de usuario
     const [myName, setMyName] = useState("")
@@ -96,6 +97,14 @@ export default function Lobby() {
     const [usingSlowTransport, setUsingSlowTransport] = useState(false)
     const transportCheckTimeoutRef = useRef(null)
 
+    // Espejo en ref de "estoy esperando a entrar a una partida en marcha": los
+    // handlers de socket se registran una sola vez, así que no pueden leer
+    // currentView (capturarían el valor del primer render).
+    const isLateJoinPendingRef = useRef(false)
+    useEffect(() => {
+        isLateJoinPendingRef.current = currentView === "waiting-for-next-round"
+    }, [currentView])
+
     useEffect(() => {
         const clearReconnectTimeout = () => {
             if (reconnectTimeoutRef.current) {
@@ -126,7 +135,7 @@ export default function Lobby() {
         }
 
         // Conexión establecida (primera vez o tras reconectar)
-        socket.on("connect", () => {
+        const handleConnect = () => {
             clearReconnectTimeout()
             setMySocketId(socket.id)
 
@@ -143,7 +152,20 @@ export default function Lobby() {
                 const transportName = socket.io.engine && socket.io.engine.transport && socket.io.engine.transport.name
                 setUsingSlowTransport(transportName === "polling")
             }, TRANSPORT_CHECK_DELAY_MS)
-        })
+        }
+
+        socket.on("connect", handleConnect)
+
+        // El socket se crea al cargar el módulo, antes del primer render, así que
+        // puede haber conectado ya cuando este efecto registra el handler (en
+        // local es lo normal) — y StrictMode además monta el efecto, lo limpia
+        // con socket.off("connect") y lo vuelve a montar, abriendo otra ventana.
+        // Si ese "connect" se perdió, nadie fija mySocketId (adiós al "(Tú)" y,
+        // peor, a isHost) ni pide el resync. Al estar ya conectado, el evento no
+        // se va a repetir: hay que ejecutar el handler a mano.
+        if (socket.connected) {
+            handleConnect()
+        }
 
         // Se cayó el transporte — Socket.IO reintenta solo por debajo; mientras
         // tanto no se toca currentView, solo se muestra un aviso no bloqueante.
@@ -176,6 +198,13 @@ export default function Lobby() {
             setSettingsError("")
 
             const amHost = payload.hostId === socket.id
+
+            // Reconectó mientras esperaba a entrar a una partida en marcha: no
+            // tiene estado de juego que restaurar, vuelve a la pantalla de espera.
+            if (payload.lateJoinPending) {
+                setCurrentView("waiting-for-next-round")
+                return
+            }
 
             if (payload.gameState === "waiting") {
                 setCurrentView("in-room")
@@ -283,6 +312,28 @@ export default function Lobby() {
         // Error al unirse a sala
         socket.on("joinError", (errorMessage) => {
             setJoinError(errorMessage)
+        })
+
+        // Se unió con la partida ya empezada: está dentro de la sala pero aún no
+        // juega. El servidor lo mete en la partida al pasar de ronda, y entonces
+        // llegan "gameStarted" + "cahRoundStart" como a cualquier otro jugador.
+        socket.on("lateJoinPending", (data) => {
+            setRoomCode(data.code)
+            setRoomName(data.name)
+            setRoomUsers(data.users)
+            setHostId(data.hostId)
+            setSelectedGame(data.game)
+            setBreadcrumb({ roomCode: data.code })
+            setJoinError("")
+            setCurrentView("waiting-for-next-round")
+        })
+
+        // La sala se cerró mientras esperaba a entrar — sin esto se quedaría
+        // mirando la pantalla de espera de una partida que ya no existe.
+        socket.on("lateJoinCancelled", () => {
+            if (!isLateJoinPendingRef.current) return
+            clearBreadcrumb()
+            setFatalError("roomNotFound")
         })
 
         // Usuario se unió a la sala
@@ -431,6 +482,8 @@ export default function Lobby() {
             socket.off("roomCreated")
             socket.off("roomJoined")
             socket.off("joinError")
+            socket.off("lateJoinPending")
+            socket.off("lateJoinCancelled")
             socket.off("userJoined")
             socket.off("userLeft")
             socket.off("roomLeft")
@@ -634,6 +687,10 @@ export default function Lobby() {
             if (selectedGame === "cah") {
                 return <CAHWaitingForSettings />
             }
+        }
+
+        if (currentView === "waiting-for-next-round") {
+            return <CAHWaitingForNextRound roomName={roomName} roomCode={roomCode} />
         }
 
         if (currentView === "countdown") {
