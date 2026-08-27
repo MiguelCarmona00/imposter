@@ -5,7 +5,7 @@ import CAHSubmissionsReveal from './CAHSubmissionsReveal'
 import CAHRoundResult from './CAHRoundResult'
 import '../../styles/CAHGamePlay.css'
 
-export default function CAHGamePlay({ cahState, isHost, myId, onSubmitCards, onDiscardCards, onCzarPick, onNextRound, onEndGame }) {
+export default function CAHGamePlay({ cahState, isHost, myId, onSubmitCards, onDiscardCards, onCzarPick, onNextRound, onEndGame, onKickPlayer }) {
     if (!cahState) return null
 
     const {
@@ -62,6 +62,7 @@ export default function CAHGamePlay({ cahState, isHost, myId, onSubmitCards, onD
                             myId={myId}
                             isHost={isHost}
                             onNextRound={onNextRound}
+                            onKickPlayer={onKickPlayer}
                         />
                     )}
                 </div>

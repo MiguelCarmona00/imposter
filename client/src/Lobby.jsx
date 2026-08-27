@@ -81,6 +81,10 @@ export default function Lobby() {
     // Estados de error
     const [joinError, setJoinError] = useState("")
     const [settingsError, setSettingsError] = useState("")
+    // Aviso tras ser expulsado: se muestra en la pantalla de selección de sala,
+    // que es donde acaba el expulsado, para que sepa qué ha pasado en vez de
+    // aparecer ahí de golpe sin explicación.
+    const [kickedNotice, setKickedNotice] = useState("")
 
     // Estados de conexión: la sala/partida sobreviven a un corte de red breve
     // (ver server.js RECONNECT_GRACE_MS) — isReconnecting es un aviso no
@@ -348,6 +352,31 @@ export default function Lobby() {
             setHostId(data.hostId)
         })
 
+        // El anfitrión te ha expulsado. Sin veto se puede volver a entrar con el
+        // mismo código (y si hay partida en marcha, entra por la cola de entrada
+        // tardía), así que se devuelve a la selección de sala y no a un error.
+        socket.on("kicked", (data) => {
+            clearBreadcrumb()
+            setRoomCode("")
+            setRoomName("")
+            setRoomUsers([])
+            setHostId(null)
+            setCahState(null)
+            setMyRole(null)
+            setCurrentWord(null)
+            setCurrentHint(null)
+            setCurrentCategory(null)
+            setStarterName("")
+            setSettingsError("")
+            setJoinError("")
+            setKickedNotice(
+                data && data.banned
+                    ? "El anfitrión te ha expulsado de la sala y no puedes volver a entrar."
+                    : "El anfitrión te ha expulsado de la sala. Puedes volver a entrar con el código."
+            )
+            setCurrentView("room-selection")
+        })
+
         // Sala abandonada exitosamente
         socket.on("roomLeft", () => {
             clearBreadcrumb()
@@ -484,6 +513,7 @@ export default function Lobby() {
             socket.off("joinError")
             socket.off("lateJoinPending")
             socket.off("lateJoinCancelled")
+            socket.off("kicked")
             socket.off("userJoined")
             socket.off("userLeft")
             socket.off("roomLeft")
@@ -516,15 +546,18 @@ export default function Lobby() {
     }
 
     const handleCreateRoom = () => {
+        setKickedNotice("")
         setCurrentView("create-room")
     }
 
     const handleJoinRoom = () => {
         setJoinError("")
+        setKickedNotice("")
         setCurrentView("join-room")
     }
 
     const handleBackToGameSelection = () => {
+        setKickedNotice("")
         setCurrentView("game-selection")
     }
 
@@ -584,6 +617,13 @@ export default function Lobby() {
         socket.emit("cahNextRound")
     }
 
+    // ban=false saca al jugador pero puede volver a entrar; ban=true además
+    // guarda su playerId para que no pueda. Solo el anfitrión puede llamarlo,
+    // y el servidor lo vuelve a comprobar por su cuenta.
+    const handleKickPlayer = (targetId, ban) => {
+        socket.emit("kickPlayer", { targetId, ban })
+    }
+
     const handleReload = () => {
         window.location.reload()
     }
@@ -615,6 +655,7 @@ export default function Lobby() {
             return (
                 <RoomSelection
                     userName={myName}
+                    notice={kickedNotice}
                     onCreateRoom={handleCreateRoom}
                     onJoinRoom={handleJoinRoom}
                     onBack={handleBackToGameSelection}
@@ -644,6 +685,7 @@ export default function Lobby() {
         if (currentView === "in-room") {
             return (
                 <Room
+                    onKickPlayer={handleKickPlayer}
                     roomName={roomName}
                     roomCode={roomCode}
                     users={roomUsers}
@@ -727,6 +769,7 @@ export default function Lobby() {
                             cahState={cahState}
                             isHost={isHost}
                             myId={mySocketId}
+                            onKickPlayer={handleKickPlayer}
                             onSubmitCards={handleSubmitCahCards}
                             onDiscardCards={handleDiscardCahCards}
                             onCzarPick={handleCzarPick}

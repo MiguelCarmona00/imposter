@@ -42,7 +42,7 @@ const io = new Server(server, {
 
 // Estructura de datos
 let connectedUsers = [] // { id, playerId, name, roomCode }
-let rooms = {} // { "ABCD": { name, code, host, users: [{id, name}], pendingJoins: [{id, name}], game, gameState, [game]: <estado propio del juego> } }
+let rooms = {} // { "ABCD": { name, code, host, users: [{id, name}], pendingJoins: [{id, name}], bannedPlayerIds: [], game, gameState, [game]: <estado propio del juego> } }
 
 // Desconexiones a la espera de que el mismo jugador (mismo playerId) reconecte
 // dentro de RECONNECT_GRACE_MS. Mientras una entrada está aquí, la sala/estado
@@ -105,15 +105,16 @@ function reassignHostIfNeeded(room) {
   }
 }
 
-// Limpieza real de una desconexión que no se recuperó a tiempo — es
-// exactamente lo que el handler de "disconnect" hacía al momento antes de
-// este cambio, solo que ahora se demora RECONNECT_GRACE_MS por si reconecta.
-function finalizeDisconnect(playerId) {
-  const pending = pendingDisconnects[playerId]
-  if (!pending) return
-  delete pendingDisconnects[playerId]
-
-  const { socketId, roomCode } = pending
+// Saca a un jugador de la sala y deja el estado consistente: reasigna
+// anfitrión si hacía falta y avisa al juego, que es quien sabe qué hacer si el
+// que se va era el Card Czar, si la ronda ya puede revelarse sin él, o si
+// quedan pocos jugadores para seguir.
+//
+// Lo usan dos caminos que son la misma cosa vista de dos maneras: una
+// desconexión que agotó su gracia, y una expulsión por parte del anfitrión.
+// Deliberadamente compartido: duplicar esto significaría mantener dos versiones
+// de la lógica del Czar y que una se quedara atrás.
+function removePlayerFromRoom(socketId, roomCode) {
   connectedUsers = connectedUsers.filter(u => u.id !== socketId)
 
   const room = rooms[roomCode]
@@ -149,6 +150,17 @@ function finalizeDisconnect(playerId) {
     users: room.users,
     hostId: room.host
   })
+}
+
+// Limpieza real de una desconexión que no se recuperó a tiempo — es
+// exactamente lo que el handler de "disconnect" hacía al momento antes de la
+// gracia de reconexión, solo que ahora se demora RECONNECT_GRACE_MS.
+function finalizeDisconnect(playerId) {
+  const pending = pendingDisconnects[playerId]
+  if (!pending) return
+  delete pendingDisconnects[playerId]
+
+  removePlayerFromRoom(pending.socketId, pending.roomCode)
 }
 
 // Reconexión dentro de la gracia: el socket es nuevo pero el jugador es el
@@ -258,6 +270,7 @@ io.on("connection", (socket) => {
       host: socket.id, // El creador es el anfitrión
       users: [],
       pendingJoins: [], // Esperando a entrar con la partida ya empezada (ver joinRoom)
+      bannedPlayerIds: [], // playerId de los expulsados con veto (ver kickPlayer)
       game: game,
       gameState: "waiting", // waiting | settings | countdown | playing | ended
       [game]: games[game].createInitialState()
@@ -305,6 +318,14 @@ io.on("connection", (socket) => {
     // Validar que es el mismo juego
     if (rooms[roomCode].game !== game) {
       socket.emit("joinError", "Esta sala pertenece a otro juego")
+      return
+    }
+
+    // Expulsado con veto por el anfitrión: se corta aquí, antes de mirar el
+    // estado de la partida, para que el veto valga igual con la sala en espera
+    // que con la partida en marcha (por la cola de entrada tardía).
+    if ((rooms[roomCode].bannedPlayerIds || []).includes(socket.playerId)) {
+      socket.emit("joinError", "El anfitrión te ha expulsado de esta sala")
       return
     }
 
@@ -410,6 +431,71 @@ io.on("connection", (socket) => {
 
       // Notificar al usuario que salió
       socket.emit("roomLeft")
+    }
+  })
+
+  // Expulsar a un jugador (solo anfitrión). Dos usos distintos:
+  //   - sin veto: sacar ya a quien se ha quedado tirado por conexión, en vez de
+  //     esperar los RECONNECT_GRACE_MS en que sigue contando para la ronda.
+  //     Puede volver a entrar, y si hay partida en marcha lo recoge la cola de
+  //     entrada tardía.
+  //   - con veto: además se guarda su playerId para que no pueda volver.
+  socket.on("kickPlayer", (data) => {
+    const user = connectedUsers.find(u => u.id === socket.id)
+    if (!user || !user.roomCode) return
+
+    const room = rooms[user.roomCode]
+    if (!room || room.host !== socket.id) return
+
+    const targetId = data && data.targetId
+    const ban = !!(data && data.ban)
+
+    if (!targetId || targetId === socket.id) return // el anfitrión no se expulsa a sí mismo
+
+    const inRoom = room.users.some(u => u.id === targetId)
+    const inQueue = (room.pendingJoins || []).some(p => p.id === targetId)
+    if (!inRoom && !inQueue) return
+
+    // El playerId es la identidad estable entre reconexiones; el socket.id no
+    // sirve para vetar porque cambia en cuanto vuelve a conectar.
+    const targetUser = connectedUsers.find(u => u.id === targetId)
+    const targetPlayerId = targetUser && targetUser.playerId
+
+    if (ban && targetPlayerId) {
+      if (!room.bannedPlayerIds) room.bannedPlayerIds = []
+      if (!room.bannedPlayerIds.includes(targetPlayerId)) {
+        room.bannedPlayerIds.push(targetPlayerId)
+      }
+    }
+
+    // Puede estar justo en su ventana de gracia (es el caso típico: se le
+    // expulsa precisamente porque se ha caído). Si no se cancela el temporizador,
+    // finalizeDisconnect correría después sobre un jugador ya retirado.
+    if (targetPlayerId && pendingDisconnects[targetPlayerId]) {
+      clearTimeout(pendingDisconnects[targetPlayerId].timer)
+      delete pendingDisconnects[targetPlayerId]
+    }
+
+    const targetSocket = io.sockets.sockets.get(targetId)
+    if (targetSocket) {
+      targetSocket.emit("kicked", { banned: ban })
+      targetSocket.leave(room.code)
+    }
+
+    const targetName = targetUser && targetUser.name
+    removePlayerFromRoom(targetId, room.code)
+
+    // removePlayerFromRoom lo saca de connectedUsers, que es lo correcto cuando
+    // el socket se ha ido de verdad. En una expulsión sigue conectado, así que
+    // hay que devolverlo a la lista sin sala: si no, joinRoom no lo encontraría
+    // y no podría volver a entrar a ninguna parte, ni siquiera sin veto.
+    if (targetSocket && targetSocket.connected) {
+      connectedUsers.push({
+        id: targetId,
+        playerId: targetPlayerId,
+        name: targetName,
+        roomCode: null
+      })
     }
   })
 

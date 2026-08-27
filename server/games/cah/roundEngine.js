@@ -435,7 +435,10 @@ function onPlayerDisconnect(io, room, socketId) {
     // Se anula la ronda en curso (sin puntos) y se reparte una nueva con el siguiente Czar
     if (state.currentBlackCard) state.blackDiscard.push(state.currentBlackCard.id)
     Object.values(state.submissions).forEach(cardIds => state.whiteDiscard.push(...cardIds))
-    dealRound(io, room, "El Card Czar se desconectó. Empieza una ronda nueva.")
+    // Neutro a propósito: esta ruta la disparan tanto una desconexión que agotó
+    // su gracia como una expulsión del anfitrión, y "se desconectó" sería falso
+    // en el segundo caso.
+    dealRound(io, room, "El Card Czar ya no está en la partida. Empieza una ronda nueva.")
     return
   }
 

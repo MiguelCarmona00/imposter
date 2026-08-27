@@ -1,7 +1,7 @@
 import CAHScoreboard from './CAHScoreboard'
 import '../../styles/CAHRoundResult.css'
 
-export default function CAHRoundResult({ result, myId, isHost, onNextRound }) {
+export default function CAHRoundResult({ result, myId, isHost, onNextRound, onKickPlayer }) {
     if (!result) return null
 
     return (
@@ -14,7 +14,11 @@ export default function CAHRoundResult({ result, myId, isHost, onNextRound }) {
                 ))}
             </div>
 
-            <CAHScoreboard scores={result.scores} myId={myId} />
+            <CAHScoreboard
+                scores={result.scores}
+                myId={myId}
+                onKick={isHost ? onKickPlayer : undefined}
+            />
 
             {isHost ? (
                 <button className="cah-next-round-button" onClick={onNextRound}>
