@@ -42,7 +42,7 @@ const io = new Server(server, {
 
 // Estructura de datos
 let connectedUsers = [] // { id, playerId, name, roomCode }
-let rooms = {} // { "ABCD": { name, code, host, users: [{id, name}], game, gameState, [game]: <estado propio del juego> } }
+let rooms = {} // { "ABCD": { name, code, host, users: [{id, name}], pendingJoins: [{id, name}], game, gameState, [game]: <estado propio del juego> } }
 
 // Desconexiones a la espera de que el mismo jugador (mismo playerId) reconecte
 // dentro de RECONNECT_GRACE_MS. Mientras una entrada está aquí, la sala/estado
@@ -59,8 +59,33 @@ function generateRoomCode() {
   return code
 }
 
+// Pasa a `room.users` a quien estuviera esperando entrada tardía, sin tocar el
+// estado del juego. Es para los momentos en que ya no hay partida en curso que
+// respetar (se vuelve a la sala, o arranca una partida nueva desde cero): ahí
+// no hay nada que "absorber con cuidado", simplemente pasan a ser uno más.
+// La absorción *durante* una partida es otra cosa y la hace el propio juego
+// (en CAH, absorbPendingJoins en el cambio de ronda).
+function absorbPendingIntoRoom(room) {
+  const pending = room.pendingJoins || []
+  room.pendingJoins = []
+
+  pending.forEach(p => {
+    if (!room.users.some(u => u.id === p.id)) {
+      room.users.push({ id: p.id, name: p.name })
+    }
+  })
+
+  return pending
+}
+
 // Iniciar cuenta atrás y, tras 3s, delegar el arranque de la partida al módulo del juego activo
 function startCountdownThenPlay(io, room) {
+  // Una partida nueva reparte de cero para todos: quien estuviera esperando
+  // entrar a la anterior entra ya como jugador normal desde la primera ronda.
+  if (absorbPendingIntoRoom(room).length > 0) {
+    io.to(room.code).emit("userJoined", { users: room.users, hostId: room.host })
+  }
+
   room.gameState = "countdown"
   io.to(room.code).emit("startCountdown")
 
@@ -95,16 +120,28 @@ function finalizeDisconnect(playerId) {
   if (!room) return
 
   const wasPlaying = room.gameState === "playing"
+  // Si solo estaba esperando entrada tardía, nunca llegó a existir para el
+  // juego: se le quita de la cola y no hay que avisar al módulo de nada.
+  const wasPendingJoin = (room.pendingJoins || []).some(p => p.id === socketId)
+  const wasRoomUser = room.users.some(u => u.id === socketId)
+
   room.users = room.users.filter(u => u.id !== socketId)
+  room.pendingJoins = (room.pendingJoins || []).filter(p => p.id !== socketId)
 
   if (room.users.length === 0) {
+    // Sin jugadores reales la sala se cierra; quien siguiera esperando entrar
+    // se quedaría mirando una pantalla que ya no lleva a ninguna parte.
+    if (room.pendingJoins.length > 0) {
+      io.to(roomCode).emit("lateJoinCancelled", { reason: "roomClosed" })
+    }
     delete rooms[roomCode]
     return
   }
 
   reassignHostIfNeeded(room)
 
-  if (wasPlaying && typeof games[room.game].onPlayerDisconnect === "function") {
+  if (wasRoomUser && !wasPendingJoin && wasPlaying &&
+      typeof games[room.game].onPlayerDisconnect === "function") {
     games[room.game].onPlayerDisconnect(io, room, socketId)
   }
 
@@ -134,6 +171,11 @@ function rebindConnection(socket, playerId, oldSocketId, roomCode) {
   const userEntry = room.users.find(u => u.id === oldSocketId)
   if (userEntry) userEntry.id = newId
   if (room.host === oldSocketId) room.host = newId
+
+  // El que reconecta puede ser alguien que todavía estaba en la cola de entrada
+  // tardía — sigue sin ser jugador, pero su sitio en la cola es suyo.
+  const pendingEntry = (room.pendingJoins || []).find(p => p.id === oldSocketId)
+  if (pendingEntry) pendingEntry.id = newId
 
   socket.join(roomCode)
 
@@ -215,6 +257,7 @@ io.on("connection", (socket) => {
       code: code,
       host: socket.id, // El creador es el anfitrión
       users: [],
+      pendingJoins: [], // Esperando a entrar con la partida ya empezada (ver joinRoom)
       game: game,
       gameState: "waiting", // waiting | settings | countdown | playing | ended
       [game]: games[game].createInitialState()
@@ -265,13 +308,41 @@ io.on("connection", (socket) => {
       return
     }
 
-    // La partida ya está en marcha — unirse ahora dejaría a este jugador solo
-    // viendo la sala de espera mientras bloquea al resto (p.ej. en CAH, cuenta
-    // para las cartas que hacen falta para pasar de ronda sin poder jugar
-    // ninguna). Hasta que exista un flujo real de "unirse a mitad de partida",
-    // se bloquea con un mensaje claro en vez de dejarlo entrar a medias.
-    if (rooms[roomCode].gameState !== "waiting") {
-      socket.emit("joinError", "La partida ya ha empezado — espera a que termine para unirte")
+    // La partida ya está en marcha. Meter a alguien en room.users ahora mismo
+    // lo dejaría a medias dentro de una ronda viva (en CAH contaría para las
+    // cartas que hacen falta para avanzar sin tener mano que jugar), así que
+    // los juegos que admiten entrada tardía lo aparcan en una cola aparte y lo
+    // absorben ellos en un punto seguro. Los que no, siguen rechazando.
+    const targetRoom = rooms[roomCode]
+    if (targetRoom.gameState !== "waiting") {
+      const canLateJoin = games[targetRoom.game].supportsLateJoin === true &&
+        targetRoom.gameState === "playing"
+
+      if (!canLateJoin) {
+        socket.emit("joinError", "La partida ya ha empezado — espera a que termine para unirte")
+        return
+      }
+
+      const pendingUser = connectedUsers.find(u => u.id === socket.id)
+      if (!pendingUser) return
+
+      if (!targetRoom.pendingJoins) targetRoom.pendingJoins = []
+      if (!targetRoom.pendingJoins.some(p => p.id === socket.id)) {
+        targetRoom.pendingJoins.push({ id: socket.id, name: pendingUser.name })
+      }
+
+      pendingUser.roomCode = roomCode
+      // Entra ya en el room de Socket.IO para recibir los eventos generales
+      // (fin de partida, vuelta a la sala) mientras espera su turno de entrar.
+      socket.join(roomCode)
+
+      socket.emit("lateJoinPending", {
+        code: roomCode,
+        name: targetRoom.name,
+        game: targetRoom.game,
+        hostId: targetRoom.host,
+        users: targetRoom.users
+      })
       return
     }
 
@@ -313,10 +384,15 @@ io.on("connection", (socket) => {
       // Remover usuario de la sala
       if (rooms[roomCode]) {
         rooms[roomCode].users = rooms[roomCode].users.filter(u => u.id !== socket.id)
+        // También puede estar saliendo desde la pantalla de espera de entrada tardía
+        rooms[roomCode].pendingJoins = (rooms[roomCode].pendingJoins || []).filter(p => p.id !== socket.id)
         socket.leave(roomCode)
 
         // Si la sala quedó vacía, eliminarla
         if (rooms[roomCode].users.length === 0) {
+          if (rooms[roomCode].pendingJoins.length > 0) {
+            io.to(roomCode).emit("lateJoinCancelled", { reason: "roomClosed" })
+          }
           // Sala eliminada
           delete rooms[roomCode]
         } else {
@@ -437,8 +513,13 @@ io.on("connection", (socket) => {
         room.gameState = "waiting"
         room[room.game] = games[room.game].createInitialState()
 
+        // Ya no hay partida en curso que proteger: quien quedara esperando
+        // entrar pasa a ser un jugador normal de la sala de espera.
+        absorbPendingIntoRoom(room)
+
         // Notificar a todos que vuelven a la sala
         io.to(roomCode).emit("backToWaiting")
+        io.to(roomCode).emit("userJoined", { users: room.users, hostId: room.host })
       }
     }
   })
@@ -471,6 +552,18 @@ io.on("connection", (socket) => {
 
     if (room.gameState === "settings" && socket.id === room.host) {
       payload.settingsPayload = gameModule.getSettingsPayload(room)
+    }
+
+    // Quien está esperando entrada tardía no tiene estado de juego que
+    // reconstruir (no ha entrado todavía) — su pantalla es la de espera, y
+    // pedirle su payload al juego devolvería una mano vacía como si fuera un
+    // jugador de verdad al que le falta todo.
+    const isPendingJoin = (room.pendingJoins || []).some(p => p.id === socket.id)
+
+    if (isPendingJoin) {
+      payload.lateJoinPending = true
+      socket.emit("resyncOk", payload)
+      return
     }
 
     if ((room.gameState === "playing" || room.gameState === "ended") &&

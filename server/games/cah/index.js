@@ -28,6 +28,9 @@ function registerSocketHandlers(io, socket, getRoom) {
 
 module.exports = {
   MIN_PLAYERS: roundEngine.MIN_PLAYERS,
+  // CAH tiene un límite natural entre rondas (handleNextRound) donde se puede
+  // meter a un jugador nuevo sin romper la ronda en curso — ver absorbPendingJoins.
+  supportsLateJoin: true,
   createInitialState: roundEngine.createInitialState,
   getSettingsPayload: roundEngine.getSettingsPayload,
   applySettings: roundEngine.applySettings,

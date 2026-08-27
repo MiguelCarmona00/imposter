@@ -314,6 +314,52 @@ function handleCzarPick(io, room, socketId, submissionId) {
   }
 }
 
+// Entrada tardía: quien pide unirse con la partida ya en marcha espera en
+// `room.pendingJoins`, deliberadamente FUERA de `room.users`, para que el motor
+// de ronda no pueda verlo mientras hay una ronda viva — así no cuenta en
+// nonCzarCount ni en ningún reparto a medias. Aquí, en el límite entre rondas,
+// es el único punto donde añadir a alguien no rompe nada en curso.
+function absorbPendingJoins(io, room) {
+  const pending = room.pendingJoins || []
+  if (pending.length === 0) return []
+
+  const state = room.cah
+  const absorbed = []
+  const stillWaiting = []
+
+  pending.forEach(p => {
+    if (room.users.some(u => u.id === p.id)) return
+
+    // Puede estar dentro de su gracia de reconexión (se desconectó hace menos de
+    // RECONNECT_GRACE_MS y su limpieza aún no ha corrido). Meterlo ahora crearía
+    // un jugador fantasma que nunca juega sus cartas y bloquea la ronda para el
+    // resto — se queda en la cola y entrará en el siguiente cambio de ronda si
+    // vuelve; si no vuelve, finalizeDisconnect lo sacará de la cola.
+    const sock = io.sockets.sockets.get(p.id)
+    if (!sock || !sock.connected) {
+      stillWaiting.push(p)
+      return
+    }
+
+    room.users.push({ id: p.id, name: p.name })
+    state.scores[p.id] = 0
+    state.playerNames[p.id] = p.name
+    // Al final de la cola de Czar: czarPos avanza en módulo, así que crecer el
+    // array por el final no altera a quién le toca en las rondas ya previstas.
+    state.czarOrder.push(p.id)
+
+    const { drawn, deck, discard } = deckManager.draw(state.whiteDeck, state.whiteDiscard, HAND_SIZE)
+    state.whiteDeck = deck
+    state.whiteDiscard = discard
+    state.hands[p.id] = drawn
+
+    absorbed.push(p)
+  })
+
+  room.pendingJoins = stillWaiting
+  return absorbed
+}
+
 function handleNextRound(io, room, socketId) {
   const state = room.cah
   if (!state || state.phase !== "result") return
@@ -333,7 +379,28 @@ function handleNextRound(io, room, socketId) {
     }
   })
 
-  dealRound(io, room)
+  // Después de reponer (los recién llegados ya entran con la mano completa) y
+  // antes de repartir, para que dealRound los incluya como jugadores normales.
+  const absorbed = absorbPendingJoins(io, room)
+  let notice = null
+
+  if (absorbed.length > 0) {
+    const names = absorbed.map(p => p.name || "Alguien").join(", ")
+    notice = absorbed.length === 1
+      ? `${names} se ha unido a la partida.`
+      : `${names} se han unido a la partida.`
+
+    // Señal genérica de navegación para los que estaban en la pantalla de
+    // espera: los saca a "playing" justo antes de recibir su cahRoundStart.
+    absorbed.forEach(p => io.to(p.id).emit("gameStarted", {}))
+
+    io.to(room.code).emit("userJoined", {
+      users: room.users,
+      hostId: room.host
+    })
+  }
+
+  dealRound(io, room, notice)
 }
 
 function endGame(io, room, reason) {
