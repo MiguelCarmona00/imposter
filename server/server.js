@@ -8,6 +8,17 @@ const games = require("./games")
 // Cuánto se espera a que un jugador reconecte (misma pestaña, corte de red)
 // antes de tratar su desconexión como definitiva. Ver rebindConnection/finalizeDisconnect.
 const RECONNECT_GRACE_MS = 30000
+// El Impostor es un juego pausado: tras ver la palabra nadie toca el móvil
+// durante minutos de debate y la pantalla se bloquea sola. Nada en ese juego
+// espera a un jugador concreto, así que se le guarda el sitio mucho más tiempo
+// (30 min, a revisar con el uso). En CAH se mantiene corto porque un jugador
+// ausente bloquea la ronda (y el anfitrión ya puede expulsarlo).
+const IMPOSTOR_RECONNECT_GRACE_MS = 30 * 60 * 1000
+
+function reconnectGraceFor(roomCode) {
+  const room = rooms[roomCode]
+  return room && room.game === "impostor" ? IMPOSTOR_RECONNECT_GRACE_MS : RECONNECT_GRACE_MS
+}
 
 const app = express()
 app.use(cors())
@@ -257,10 +268,16 @@ io.on("connection", (socket) => {
 
   // Crear sala
   socket.on("createRoom", (data) => {
-    const { roomName, game } = data
+    const { game } = data
 
     if (!games[game]) {
       socket.emit("joinError", "Juego no soportado")
+      return
+    }
+
+    const roomName = typeof data.roomName === "string" ? data.roomName.trim() : ""
+    if (!roomName) {
+      socket.emit("joinError", "Ponle un nombre a la sala")
       return
     }
 
@@ -312,8 +329,10 @@ io.on("connection", (socket) => {
       return
     }
 
-    // Validar que el nombre de la sala coincide
-    if (rooms[roomCode].name !== roomName) {
+    // Hace falta nombre + código. El nombre se compara sin distinguir
+    // mayúsculas ni espacios de los extremos: era el error más común al unirse.
+    const typedName = typeof roomName === "string" ? roomName.trim().toLowerCase() : ""
+    if (!typedName || rooms[roomCode].name.trim().toLowerCase() !== typedName) {
       socket.emit("joinError", "El nombre de la sala no coincide")
       return
     }
@@ -403,36 +422,23 @@ io.on("connection", (socket) => {
 
     if (user && user.roomCode) {
       const roomCode = user.roomCode
-      // Usuario saliendo de sala
+      socket.leave(roomCode)
 
-      // Remover usuario de la sala
-      if (rooms[roomCode]) {
-        rooms[roomCode].users = rooms[roomCode].users.filter(u => u.id !== socket.id)
-        // También puede estar saliendo desde la pantalla de espera de entrada tardía
-        rooms[roomCode].pendingJoins = (rooms[roomCode].pendingJoins || []).filter(p => p.id !== socket.id)
-        socket.leave(roomCode)
+      // Misma ruta que una desconexión definitiva: así, si se sale a mitad de
+      // partida, el juego se entera (en CAH la ronda deja de esperar su carta
+      // y, si era el Card Czar, se reparte ronda nueva). Antes solo se le
+      // quitaba de room.users y la ronda podía quedarse bloqueada.
+      removePlayerFromRoom(socket.id, roomCode, "disconnect")
 
-        // Si la sala quedó vacía, eliminarla
-        if (rooms[roomCode].users.length === 0) {
-          if (rooms[roomCode].pendingJoins.length > 0) {
-            io.to(roomCode).emit("lateJoinCancelled", { reason: "roomClosed" })
-          }
-          // Sala eliminada
-          delete rooms[roomCode]
-        } else {
-          reassignHostIfNeeded(rooms[roomCode])
-          // Notificar a los demás usuarios
-          io.to(roomCode).emit("userLeft", {
-            users: rooms[roomCode].users,
-            hostId: rooms[roomCode].host
-          })
-        }
-      }
+      // removePlayerFromRoom lo saca de connectedUsers; el socket sigue vivo,
+      // así que vuelve a la lista sin sala para poder crear o unirse a otra.
+      connectedUsers.push({
+        id: user.id,
+        playerId: user.playerId,
+        name: user.name,
+        roomCode: null
+      })
 
-      // Actualizar usuario
-      user.roomCode = null
-
-      // Notificar al usuario que salió
       socket.emit("roomLeft")
     }
   })
@@ -500,6 +506,37 @@ io.on("connection", (socket) => {
         roomCode: null
       })
     }
+  })
+
+  // Pasar el papel de anfitrión a otro jugador (solo el anfitrión). Se limita a
+  // los momentos sin nada a medias: la sala de espera y, en CAH, la pantalla de
+  // resultado entre rondas. En ajustes, cuenta atrás o a mitad de ronda el
+  // anfitrión tiene acciones pendientes (configurar, pasar ronda) que se
+  // quedarían colgadas en manos de alguien que no las esperaba.
+  socket.on("transferHost", (data) => {
+    const user = connectedUsers.find(u => u.id === socket.id)
+    if (!user || !user.roomCode) return
+
+    const room = rooms[user.roomCode]
+    if (!room || room.host !== socket.id) return
+
+    const targetId = data && data.targetId
+    if (!targetId || targetId === socket.id) return
+    if (!room.users.some(u => u.id === targetId)) return
+
+    const betweenRounds = room.gameState === "playing" &&
+      room.game === "cah" && room.cah && room.cah.phase === "result"
+    if (room.gameState !== "waiting" && !betweenRounds) {
+      socket.emit("gameSettingsError", "Solo se puede pasar el anfitrión en la sala de espera o entre rondas")
+      return
+    }
+
+    room.host = targetId
+    io.to(room.code).emit("hostChanged", {
+      users: room.users,
+      hostId: room.host,
+      previousHostId: socket.id
+    })
   })
 
   // Iniciar configuración del juego (solo anfitrión)
@@ -689,7 +726,7 @@ io.on("connection", (socket) => {
     pendingDisconnects[socket.playerId] = {
       socketId: socket.id,
       roomCode: user.roomCode,
-      timer: setTimeout(() => finalizeDisconnect(socket.playerId), RECONNECT_GRACE_MS)
+      timer: setTimeout(() => finalizeDisconnect(socket.playerId), reconnectGraceFor(user.roomCode))
     }
   })
 })

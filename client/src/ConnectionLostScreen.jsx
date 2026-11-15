@@ -1,4 +1,4 @@
-import './styles/ConnectionLostScreen.css'
+import { Table, Spade } from './ui'
 
 const MESSAGES = {
     roomNotFound: "La sala ya no existe.",
@@ -10,14 +10,13 @@ export default function ConnectionLostScreen({ reason, onReload }) {
     const message = MESSAGES[reason] || MESSAGES.connectionLost
 
     return (
-        <div className="connection-lost-container">
-            <div className="connection-lost-card">
-                <h1 className="connection-lost-title">Se perdió la conexión</h1>
-                <p className="connection-lost-message">{message}</p>
-                <button className="connection-lost-button" onClick={onReload}>
-                    Recargar página
-                </button>
+        <Table>
+            <div className="grow center stack" style={{ gap: 16 }} role="alert">
+                <Spade />
+                <h1 className="title-sm" style={{ fontSize: 26 }}>Se perdió la conexión</h1>
+                <p className="soft" style={{ maxWidth: 300 }}>{message}</p>
             </div>
-        </div>
+            <button className="btn btn--primary" onClick={onReload}>Volver a empezar</button>
+        </Table>
     )
 }

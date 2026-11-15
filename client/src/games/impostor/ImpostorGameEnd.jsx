@@ -1,35 +1,29 @@
-import '../../styles/ImpostorGameEnd.css'
+import { Table, TopBar, ExitButton, CodePill, Spade } from '../../ui'
 
-export default function ImpostorGameEnd({ isHost, onRestart, onBackToRoom }) {
+export default function ImpostorGameEnd({ roomCode, isHost, hostName, onRestart, onBackToRoom, onLeave }) {
     return (
-        <div className="impostor-end-container">
-            <h1 className="impostor-end-title">🎮 Partida Terminada</h1>
+        <Table>
+            <TopBar left={<ExitButton onClick={onLeave} label="Salir al menú" />} center={<CodePill code={roomCode} />} />
 
-            {isHost ? (
-                <div>
-                    <p className="end-message">
-                        ¿Qué deseas hacer?
+            <div className="grow center stack" style={{ gap: 12 }}>
+                <Spade className="logo logo--md" alt="" />
+                <span className="eyebrow">El Impostor</span>
+                <h1 className="title" style={{ fontSize: 32 }}>Partida terminada</h1>
+                {isHost && <p className="muted" style={{ fontSize: 15 }}>¿Otra ronda con los mismos ajustes?</p>}
+            </div>
+
+            <div className="stack-sm" style={{ gap: 10 }}>
+                {isHost ? (
+                    <>
+                        <button type="button" className="btn btn--primary" onClick={onRestart}>Otra partida</button>
+                        <button type="button" className="btn" onClick={onBackToRoom}>Volver a la sala</button>
+                    </>
+                ) : (
+                    <p className="notice" role="status" style={{ textAlign: "center" }}>
+                        Esperando a que {hostName} decida qué hacer…
                     </p>
-                    <div className="end-buttons">
-                        <button 
-                            onClick={onRestart}
-                            className="end-button restart-button"
-                        >
-                            🔄 Nueva Partida (Mismos Ajustes)
-                        </button>
-                        <button 
-                            onClick={onBackToRoom}
-                            className="end-button back-button"
-                        >
-                            🏠 Volver a la Sala
-                        </button>
-                    </div>
-                </div>
-            ) : (
-                <p className="waiting-message">
-                    Esperando a que el anfitrión decida qué hacer...
-                </p>
-            )}
-        </div>
+                )}
+            </div>
+        </Table>
     )
 }
