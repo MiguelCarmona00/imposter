@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import './styles/UserNameInput.css'
+import { Table, Spade } from './ui'
 
-export default function UserNameInput({ onNameSubmit }) {
-    const [name, setName] = useState("")
+export default function UserNameInput({ initialName = "", onNameSubmit }) {
+    const [name, setName] = useState(initialName)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -12,22 +12,37 @@ export default function UserNameInput({ onNameSubmit }) {
     }
 
     return (
-        <div className="username-container">
-            <div className="username-card">
-                <h1 className="username-title">Bienvenido</h1>
-                <form className="username-form" onSubmit={handleSubmit}>
-                    <input 
-                        className="username-input"
-                        type="text" 
-                        placeholder="Ingresa tu nombre" 
-                        value={name} 
+        <Table>
+            <form className="grow" onSubmit={handleSubmit} style={{ gap: 24 }}>
+                <div className="grow center stack">
+                    <Spade className="logo logo--lg" />
+                    <h1 className="title-xl">Lounge</h1>
+                </div>
+
+                <div className="grow stack" style={{ justifyContent: "center", gap: 14 }}>
+                    <label htmlFor="player-name" className="title-sm" style={{ textAlign: "center" }}>
+                        ¿Cómo te llamas?
+                    </label>
+                    <input
+                        id="player-name"
+                        className="field field--center"
+                        type="text"
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                         maxLength={20}
+                        autoComplete="nickname"
+                        autoFocus
                         required
                     />
-                    <button className="username-button" type="submit">Continuar</button>
-                </form>
-            </div>
-        </div>
+                    <p className="muted small" style={{ textAlign: "center" }}>Así te verán los demás en la sala</p>
+                </div>
+
+                <div className="grow" style={{ justifyContent: "flex-end" }}>
+                    <button className="btn btn--primary" type="submit" disabled={!name.trim()}>
+                        Continuar
+                    </button>
+                </div>
+            </form>
+        </Table>
     )
 }

@@ -4,19 +4,15 @@ import { getPlayerId, getBreadcrumb, setBreadcrumb, clearBreadcrumb } from './se
 import UserNameInput from './UserNameInput'
 import GameSelector from './GameSelector'
 import RoomSelection from './RoomSelection'
-import CreateRoomForm from './CreateRoomForm'
-import JoinRoomForm from './JoinRoomForm'
 import Room from './Room'
 import ConnectionLostScreen from './ConnectionLostScreen'
-import RoomCodeBadge from './RoomCodeBadge'
+import Countdown from './Countdown'
+import WaitingForSettings from './WaitingForSettings'
+import { WaitingScreen } from './ui'
 import ImpostorGameSettings from './games/impostor/ImpostorGameSettings'
-import ImpostorWaitingForSettings from './games/impostor/ImpostorWaitingForSettings'
-import ImpostorCountdown from './games/impostor/ImpostorCountdown'
 import ImpostorGamePlay from './games/impostor/ImpostorGamePlay'
 import ImpostorGameEnd from './games/impostor/ImpostorGameEnd'
 import CAHGameSettings from './games/cah/CAHGameSettings'
-import CAHWaitingForSettings from './games/cah/CAHWaitingForSettings'
-import CAHCountdown from './games/cah/CAHCountdown'
 import CAHGamePlay from './games/cah/CAHGamePlay'
 import CAHGameEnd from './games/cah/CAHGameEnd'
 import CAHWaitingForNextRound from './games/cah/CAHWaitingForNextRound'
@@ -32,7 +28,9 @@ const FORCE_POLLING = new URLSearchParams(window.location.search).get("forcePoll
 
 const socket = io(SOCKET_URL, {
     auth: { playerId: getPlayerId() },
-    reconnectionAttempts: 20,
+    // Sin tope de intentos: con el móvil bloqueado los intentos no deben
+    // agotarse. El límite real lo pone RECONNECT_TIMEOUT_MS (solo con la app visible).
+    reconnectionAttempts: Infinity,
     reconnectionDelayMax: 5000,
     ...(FORCE_POLLING ? { transports: ["polling"] } : {})
 })
@@ -52,7 +50,7 @@ const TRANSPORT_CHECK_DELAY_MS = 4000
 
 export default function Lobby() {
     // Estados de navegación
-    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "create-room" | "join-room" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting" | "waiting-for-next-round"
+    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting" | "waiting-for-next-round"
 
     // Estados de usuario
     const [myName, setMyName] = useState("")
@@ -85,6 +83,13 @@ export default function Lobby() {
     // que es donde acaba el expulsado, para que sepa qué ha pasado en vez de
     // aparecer ahí de golpe sin explicación.
     const [kickedNotice, setKickedNotice] = useState("")
+    // Aviso breve cuando te pasan el papel de anfitrión
+    const [hostToast, setHostToast] = useState("")
+    useEffect(() => {
+        if (!hostToast) return
+        const t = setTimeout(() => setHostToast(""), 3500)
+        return () => clearTimeout(t)
+    }, [hostToast])
 
     // Estados de conexión: la sala/partida sobreviven a un corte de red breve
     // (ver server.js RECONNECT_GRACE_MS) — isReconnecting es un aviso no
@@ -176,14 +181,37 @@ export default function Lobby() {
         // El timeout de respaldo asegura que, si la reconexión nunca llega a
         // completarse (p.ej. el dispositivo saltó a una red desde la que el
         // servidor no es alcanzable), no se quede colgado para siempre.
-        socket.on("disconnect", () => {
-            setIsReconnecting(true)
+        // El tope de espera solo cuenta con la app en pantalla. Con el móvil
+        // bloqueado el temporizador se congela y, al desbloquear, saltaba al
+        // instante mostrando "Se perdió la conexión" aunque el servidor siguiera
+        // guardando el sitio (en el Impostor, hasta 30 min).
+        const armReconnectTimeout = () => {
             clearReconnectTimeout()
+            if (document.visibilityState !== "visible") return
             reconnectTimeoutRef.current = setTimeout(() => {
                 setIsReconnecting(false)
                 setFatalError("connectionLost")
             }, RECONNECT_TIMEOUT_MS)
+        }
+
+        socket.on("disconnect", () => {
+            setIsReconnecting(true)
+            armReconnectTimeout()
         })
+
+        // Al volver a la app: si la conexión cayó mientras estaba oculta, se
+        // fuerza la reconexión y el tope empieza a contar desde ahora.
+        const handleVisibility = () => {
+            if (document.visibilityState === "visible") {
+                if (!socket.connected) {
+                    if (!socket.active) socket.connect()
+                    armReconnectTimeout()
+                }
+            } else {
+                clearReconnectTimeout()
+            }
+        }
+        document.addEventListener("visibilitychange", handleVisibility)
 
         // Reconectó y el servidor confirma que hay una sala/partida que recuperar:
         // se reconstruye toda la pantalla de una sola vez, sin recargar.
@@ -250,6 +278,8 @@ export default function Lobby() {
                         round: r.round,
                         isCzar: r.isCzar,
                         czarName: r.czarName,
+                        czarId: r.czarId,
+                        submittedIds: r.submittedIds || [],
                         blackCard: r.blackCard,
                         hand: r.hand,
                         scores: r.scores,
@@ -289,6 +319,8 @@ export default function Lobby() {
         // Se agotaron los intentos de reconexión de Socket.IO (p.ej. servidor caído)
         socket.io.on("reconnect_failed", () => {
             clearReconnectTimeout()
+            // Oculta: se reintentará al volver (handleVisibility)
+            if (document.visibilityState !== "visible") return
             setFatalError("connectionLost")
         })
 
@@ -308,6 +340,7 @@ export default function Lobby() {
             setRoomName(data.name)
             setRoomUsers(data.users)
             setHostId(data.hostId)
+            if (data.game) setSelectedGame(data.game)
             setBreadcrumb({ roomCode: data.code })
             setJoinError("")
             setCurrentView("in-room")
@@ -346,6 +379,18 @@ export default function Lobby() {
             setHostId(data.hostId)
         })
 
+        // El anfitrión ha pasado su papel a otro jugador
+        socket.on("hostChanged", (data) => {
+            setRoomUsers(data.users)
+            setHostId(data.hostId)
+            if (data.hostId === socket.id) {
+                setHostToast("Ahora eres el anfitrión de la sala")
+            } else if (data.previousHostId === socket.id) {
+                const newHost = (data.users || []).find(u => u.id === data.hostId)
+                setHostToast(`${newHost ? newHost.name : "Otro jugador"} es ahora el anfitrión`)
+            }
+        })
+
         // Usuario salió de la sala
         socket.on("userLeft", (data) => {
             setRoomUsers(data.users)
@@ -377,14 +422,24 @@ export default function Lobby() {
             setCurrentView("room-selection")
         })
 
-        // Sala abandonada exitosamente
+        // Sala abandonada (desde la sala de espera o a mitad de partida): se
+        // vuelve al menú de juegos con el estado de partida limpio.
         socket.on("roomLeft", () => {
             clearBreadcrumb()
             setRoomCode("")
             setRoomName("")
             setRoomUsers([])
             setHostId(null)
-            setCurrentView("room-selection")
+            setCahState(null)
+            setMyRole(null)
+            setCurrentWord(null)
+            setCurrentHint(null)
+            setCurrentCategory(null)
+            setStarterName("")
+            setSettingsError("")
+            setJoinError("")
+            setKickedNotice("")
+            setCurrentView("game-selection")
         })
 
         // Error al configurar el juego (p.ej. faltan jugadores, ajustes inválidos)
@@ -451,6 +506,8 @@ export default function Lobby() {
                 round: data.round,
                 isCzar: data.isCzar,
                 czarName: data.czarName,
+                czarId: data.czarId,
+                submittedIds: [],
                 blackCard: data.blackCard,
                 hand: data.hand,
                 scores: data.scores,
@@ -470,6 +527,7 @@ export default function Lobby() {
             setCahState(prev => ({
                 ...(prev || {}),
                 submittedCount: data.submittedCount,
+                submittedIds: data.submittedIds || prev?.submittedIds || [],
                 totalNeeded: data.totalNeeded
             }))
         })
@@ -522,6 +580,7 @@ export default function Lobby() {
         return () => {
             clearReconnectTimeout()
             clearTransportCheck()
+            document.removeEventListener("visibilitychange", handleVisibility)
             socket.off("connect")
             socket.off("disconnect")
             socket.off("resyncOk")
@@ -535,6 +594,7 @@ export default function Lobby() {
             socket.off("kicked")
             socket.off("userJoined")
             socket.off("userLeft")
+            socket.off("hostChanged")
             socket.off("roomLeft")
             socket.off("gameSettingsError")
             socket.off("showGameSettings")
@@ -565,37 +625,31 @@ export default function Lobby() {
         setCurrentView("room-selection")
     }
 
-    const handleCreateRoom = () => {
+    // Para crear hace falta nombre de sala; para unirse, nombre + código.
+    const handleCreateRoom = (name) => {
         setKickedNotice("")
-        setCurrentView("create-room")
+        setJoinError("")
+        socket.emit("createRoom", { roomName: name, game: selectedGame })
     }
 
-    const handleJoinRoom = () => {
-        setJoinError("")
+    const handleJoinRoom = (name, code) => {
         setKickedNotice("")
-        setCurrentView("join-room")
+        setJoinError("")
+        socket.emit("joinRoom", { roomName: name, roomCode: code, game: selectedGame })
     }
 
     const handleBackToGameSelection = () => {
         setKickedNotice("")
+        setJoinError("")
         setCurrentView("game-selection")
     }
 
-    const handleCreateRoomSubmit = (name) => {
-        socket.emit("createRoom", { roomName: name, game: selectedGame })
-    }
-
-    const handleJoinRoomSubmit = (name, code) => {
-        socket.emit("joinRoom", { roomName: name, roomCode: code, game: selectedGame })
+    const handleBackToName = () => {
+        setCurrentView("name-input")
     }
 
     const handleLeaveRoom = () => {
         socket.emit("leaveRoom")
-    }
-
-    const handleBack = () => {
-        setJoinError("")
-        setCurrentView("room-selection")
     }
 
     const handleStartGame = () => {
@@ -644,6 +698,10 @@ export default function Lobby() {
         socket.emit("kickPlayer", { targetId, ban })
     }
 
+    const handleTransferHost = (targetId) => {
+        socket.emit("transferHost", { targetId })
+    }
+
     const handleReload = () => {
         window.location.reload()
     }
@@ -653,51 +711,33 @@ export default function Lobby() {
         return <ConnectionLostScreen reason={fatalError} onReload={handleReload} />
     }
 
+    const hostName = roomUsers.find(u => u.id === hostId)?.name || "el anfitrión"
+    // Si el anfitrión se va, el servidor da el papel al primero que queda en la sala.
+    const nextHostName = roomUsers.find(u => u.id !== mySocketId)?.name || null
+
     // Renderizado condicional según vista actual
     const renderView = () => {
         if (currentView === "reconnecting") {
-            return (
-                <div style={{ textAlign: "center", padding: "3rem 1.5rem", color: "#ffd700" }}>
-                    <p>Reconectando con la partida…</p>
-                </div>
-            )
+            return <WaitingScreen title="Reconectando con la partida…" />
         }
 
         if (currentView === "name-input") {
-            return <UserNameInput onNameSubmit={handleNameSubmit} />
+            return <UserNameInput initialName={myName} onNameSubmit={handleNameSubmit} />
         }
 
         if (currentView === "game-selection") {
-            return <GameSelector onGameSelect={handleGameSelect} />
+            return <GameSelector userName={myName} onGameSelect={handleGameSelect} onBack={handleBackToName} />
         }
 
         if (currentView === "room-selection") {
             return (
                 <RoomSelection
-                    userName={myName}
+                    gameId={selectedGame}
                     notice={kickedNotice}
+                    error={joinError}
                     onCreateRoom={handleCreateRoom}
                     onJoinRoom={handleJoinRoom}
                     onBack={handleBackToGameSelection}
-                />
-            )
-        }
-
-        if (currentView === "create-room") {
-            return (
-                <CreateRoomForm
-                    onSubmit={handleCreateRoomSubmit}
-                    onBack={handleBack}
-                />
-            )
-        }
-
-        if (currentView === "join-room") {
-            return (
-                <JoinRoomForm
-                    onSubmit={handleJoinRoomSubmit}
-                    onBack={handleBack}
-                    error={joinError}
                 />
             )
         }
@@ -706,11 +746,13 @@ export default function Lobby() {
             return (
                 <Room
                     onKickPlayer={handleKickPlayer}
+                    onTransferHost={handleTransferHost}
                     roomName={roomName}
                     roomCode={roomCode}
                     users={roomUsers}
                     mySocketId={mySocketId}
                     isHost={isHost}
+                    hostId={hostId}
                     selectedGame={selectedGame}
                     onLeaveRoom={handleLeaveRoom}
                     onStartGame={handleStartGame}
@@ -724,79 +766,90 @@ export default function Lobby() {
             if (selectedGame === "impostor") {
                 return (
                     <ImpostorGameSettings
+                        roomCode={roomCode}
+                        playerCount={roomUsers.length}
                         maxImpostors={maxImpostors}
+                        error={settingsError}
                         onSubmit={handleSubmitGameSettings}
+                        onCancel={handleBackToRoom}
                     />
                 )
             }
             if (selectedGame === "cah") {
                 return (
                     <CAHGameSettings
+                        roomCode={roomCode}
+                        playerCount={roomUsers.length}
                         minPointsToWin={cahState?.minPointsToWin}
                         maxPointsToWin={cahState?.maxPointsToWin}
                         suggestedPointsToWin={cahState?.suggestedPointsToWin}
                         error={settingsError}
                         onSubmit={handleSubmitGameSettings}
+                        onCancel={handleBackToRoom}
                     />
                 )
             }
         }
 
         if (currentView === "waiting-for-settings") {
-            if (selectedGame === "impostor") {
-                return <ImpostorWaitingForSettings />
-            }
-            if (selectedGame === "cah") {
-                return <CAHWaitingForSettings />
-            }
+            return (
+                <WaitingForSettings
+                    roomName={roomName}
+                    roomCode={roomCode}
+                    hostName={hostName}
+                    hostId={hostId}
+                    users={roomUsers}
+                    myId={mySocketId}
+                    gameId={selectedGame}
+                    onLeave={handleLeaveRoom}
+                />
+            )
         }
 
         if (currentView === "waiting-for-next-round") {
-            return <CAHWaitingForNextRound roomName={roomName} roomCode={roomCode} />
+            return <CAHWaitingForNextRound roomCode={roomCode} onLeave={handleLeaveRoom} />
         }
 
         if (currentView === "countdown") {
-            if (selectedGame === "impostor") {
-                return <ImpostorCountdown />
-            }
-            if (selectedGame === "cah") {
-                return <CAHCountdown />
-            }
+            return <Countdown gameId={selectedGame} roomCode={roomCode} />
         }
 
         if (currentView === "playing") {
             if (selectedGame === "impostor") {
                 return (
-                    <>
-                        <RoomCodeBadge roomName={roomName} roomCode={roomCode} />
-                        <ImpostorGamePlay
-                            role={myRole}
-                            word={currentWord}
-                            hint={currentHint}
-                            category={currentCategory}
-                            starterName={starterName}
-                            isHost={isHost}
-                            onEndGame={handleEndGame}
-                        />
-                    </>
+                    <ImpostorGamePlay
+                        role={myRole}
+                        word={currentWord}
+                        hint={currentHint}
+                        category={currentCategory}
+                        starterName={starterName}
+                        roomCode={roomCode}
+                        playerCount={roomUsers.length}
+                        isHost={isHost}
+                        nextHostName={nextHostName}
+                        onEndGame={handleEndGame}
+                        onLeave={handleLeaveRoom}
+                    />
                 )
             }
             if (selectedGame === "cah") {
                 return (
-                    <>
-                        <RoomCodeBadge roomName={roomName} roomCode={roomCode} />
-                        <CAHGamePlay
-                            cahState={cahState}
-                            isHost={isHost}
-                            myId={mySocketId}
-                            onKickPlayer={handleKickPlayer}
-                            onSubmitCards={handleSubmitCahCards}
-                            onDiscardCards={handleDiscardCahCards}
-                            onCzarPick={handleCzarPick}
-                            onNextRound={handleCahNextRound}
-                            onEndGame={handleEndGame}
-                        />
-                    </>
+                    <CAHGamePlay
+                        cahState={cahState}
+                        roomCode={roomCode}
+                        isHost={isHost}
+                        hostName={hostName}
+                        nextHostName={nextHostName}
+                        myId={mySocketId}
+                        onKickPlayer={handleKickPlayer}
+                        onTransferHost={handleTransferHost}
+                        onSubmitCards={handleSubmitCahCards}
+                        onDiscardCards={handleDiscardCahCards}
+                        onCzarPick={handleCzarPick}
+                        onNextRound={handleCahNextRound}
+                        onEndGame={handleEndGame}
+                        onLeave={handleLeaveRoom}
+                    />
                 )
             }
         }
@@ -805,9 +858,12 @@ export default function Lobby() {
             if (selectedGame === "impostor") {
                 return (
                     <ImpostorGameEnd
+                        roomCode={roomCode}
                         isHost={isHost}
+                        hostName={hostName}
                         onRestart={handleRestartGame}
                         onBackToRoom={handleBackToRoom}
+                        onLeave={handleLeaveRoom}
                     />
                 )
             }
@@ -815,10 +871,13 @@ export default function Lobby() {
                 return (
                     <CAHGameEnd
                         cahState={cahState}
+                        roomCode={roomCode}
                         isHost={isHost}
+                        hostName={hostName}
                         myId={mySocketId}
                         onRestart={handleRestartGame}
                         onBackToRoom={handleBackToRoom}
+                        onLeave={handleLeaveRoom}
                     />
                 )
             }
@@ -829,7 +888,12 @@ export default function Lobby() {
 
     return (
         <>
-            {isReconnecting && <div className="reconnect-banner">Reconectando…</div>}
+            {isReconnecting && <div className="reconnect-banner" role="status">Reconectando…</div>}
+            {hostToast && !isReconnecting && (
+                <div className="reconnect-banner toast" role="status" key={hostToast}>
+                    {hostToast}
+                </div>
+            )}
             {renderView()}
         </>
     )

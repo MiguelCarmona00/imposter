@@ -1,70 +1,63 @@
 import { useState } from 'react'
-import '../../styles/ImpostorGameSettings.css'
+import { Table, TopBar, CodePill, Stepper, Switch, BackButton } from '../../ui'
 
-export default function ImpostorGameSettings({ maxImpostors, onSubmit }) {
+export default function ImpostorGameSettings({ roomCode, playerCount, maxImpostors, error, onSubmit, onCancel }) {
+    const max = Math.max(1, maxImpostors || 1)
     const [impostorCount, setImpostorCount] = useState(1)
     const [showHint, setShowHint] = useState(true)
     const [showCategory, setShowCategory] = useState(true)
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit({ impostorCount, showHint, showCategory })
-    }
-
     return (
-        <div className="impostor-settings-container">
-            <h1 className="impostor-settings-title">Configuración del Juego</h1>
-            <form className="settings-form" onSubmit={handleSubmit}>
-                <div className="form-field">
-                    <label htmlFor="impostorCount" className="form-label">
-                        Cantidad de impostores:
-                    </label>
-                    <input 
-                        type="number" 
-                        id="impostorCount"
-                        className="form-input"
-                        min="1"
-                        max={maxImpostors}
-                        value={impostorCount}
-                        onChange={(e) => setImpostorCount(parseInt(e.target.value))}
-                        required
+        <Table>
+            <TopBar left={<BackButton onClick={onCancel} label="Volver a la sala" />} center={<CodePill code={roomCode} />} />
+
+            <div className="center stack" style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                <span className="eyebrow">El Impostor</span>
+                <h1 className="title">Prepara la partida</h1>
+                {playerCount ? <p className="muted" style={{ fontSize: 14 }}>{playerCount} jugadores en la mesa</p> : null}
+            </div>
+
+            <div className="grow stack" style={{ justifyContent: "center", gap: 14 }}>
+                <div className="panel center stack" style={{ display: "flex", gap: 14 }}>
+                    <span id="impostor-count-label" style={{ fontSize: 16, fontWeight: 700 }}>Impostores</span>
+                    <Stepper
+                        value={Math.min(impostorCount, max)}
+                        min={1}
+                        max={max}
+                        onChange={setImpostorCount}
+                        labelId="impostor-count-label"
+                        decLabel="Menos impostores"
+                        incLabel="Más impostores"
                     />
-                    <small className="form-help-text">
-                        Máximo: {maxImpostors} (debe haber al menos un jugador normal)
-                    </small>
+                    <span className="muted small">Máximo {max} · siempre queda al menos un jugador normal</span>
                 </div>
 
-                <div className="checkbox-field">
-                    <label className="checkbox-label">
-                        <input 
-                            type="checkbox"
-                            className="checkbox-input"
-                            checked={showHint}
-                            onChange={(e) => setShowHint(e.target.checked)}
-                        />
-                        <span>Mostrar pista al impostor</span>
-                    </label>
+                <div className="panel" style={{ padding: "6px 18px" }}>
+                    <div className="switch-row">
+                        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+                            <span id="hint-label" style={{ fontSize: 15, fontWeight: 700 }}>Dar una pista al impostor</span>
+                            <span className="muted tiny">Una frase que se acerca a la palabra</span>
+                        </div>
+                        <Switch checked={showHint} onChange={setShowHint} labelId="hint-label" />
+                    </div>
+                    <div className="switch-row">
+                        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+                            <span id="category-label" style={{ fontSize: 15, fontWeight: 700 }}>Decirle la categoría</span>
+                            <span className="muted tiny">Por ejemplo “Animal” o “Comida”</span>
+                        </div>
+                        <Switch checked={showCategory} onChange={setShowCategory} labelId="category-label" />
+                    </div>
                 </div>
+                {error && <p className="notice notice--error" role="alert">{error}</p>}
+            </div>
 
-                <div className="checkbox-field">
-                    <label className="checkbox-label">
-                        <input 
-                            type="checkbox"
-                            className="checkbox-input"
-                            checked={showCategory}
-                            onChange={(e) => setShowCategory(e.target.checked)}
-                        />
-                        <span>Mostrar categoría al impostor</span>
-                    </label>
-                </div>
-
-                <button 
-                    type="submit"
-                    className="start-button"
-                >
-                    Comenzar Partida
-                </button>
-            </form>
-        </div>
+            <button
+                type="button"
+                className="btn btn--primary"
+                onClick={() => onSubmit({ impostorCount: Math.min(impostorCount, max), showHint, showCategory })}
+            >
+                Repartir papeles
+            </button>
+        </Table>
     )
 }

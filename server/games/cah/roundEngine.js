@@ -149,6 +149,7 @@ function dealRound(io, room, notice) {
       round: state.round,
       isCzar,
       czarName: state.playerNames[state.czarId] || "?",
+      czarId: state.czarId,
       blackCard: state.currentBlackCard,
       hand: isCzar ? [] : (state.hands[u.id] || []).map(id => whiteCardsById.get(id)).filter(Boolean),
       scores: scoresPayload,
@@ -159,6 +160,7 @@ function dealRound(io, room, notice) {
 
   io.to(room.code).emit("cahSubmissionsProgress", {
     submittedCount: 0,
+    submittedIds: [],
     totalNeeded: nonCzarCount(room, state)
   })
 }
@@ -192,7 +194,7 @@ function handleSubmitCards(io, room, socketId, cardIds) {
   const totalNeeded = nonCzarCount(room, state)
   const submittedCount = Object.keys(state.submissions).length
 
-  io.to(room.code).emit("cahSubmissionsProgress", { submittedCount, totalNeeded })
+  io.to(room.code).emit("cahSubmissionsProgress", { submittedCount, submittedIds: Object.keys(state.submissions), totalNeeded })
 
   if (submittedCount >= totalNeeded) {
     revealSubmissions(io, room)
@@ -469,7 +471,7 @@ function onPlayerDisconnect(io, room, socketId, reason) {
   if (!wasCzar && state.phase === "submitting") {
     const totalNeeded = nonCzarCount(room, state)
     const submittedCount = Object.keys(state.submissions).length
-    io.to(room.code).emit("cahSubmissionsProgress", { submittedCount, totalNeeded })
+    io.to(room.code).emit("cahSubmissionsProgress", { submittedCount, submittedIds: Object.keys(state.submissions), totalNeeded })
     if (totalNeeded > 0 && submittedCount >= totalNeeded) {
       revealSubmissions(io, room)
     }
@@ -537,11 +539,13 @@ function getResyncPayload(room, socketId) {
     round: state.round,
     isCzar,
     czarName: state.playerNames[state.czarId] || "?",
+    czarId: state.czarId,
     blackCard: state.currentBlackCard,
     hand: isCzar ? [] : (state.hands[socketId] || []).map(id => whiteCardsById.get(id)).filter(Boolean),
     scores: buildScoresPayload(state),
     pointsToWin: state.settings.pointsToWin,
     submittedCount: Object.keys(state.submissions).length,
+    submittedIds: Object.keys(state.submissions),
     totalNeeded: nonCzarCount(room, state),
     hasSubmitted: !!state.submissions[socketId],
     hasDiscarded: !!state.discards[socketId]

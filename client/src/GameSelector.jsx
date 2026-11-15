@@ -1,40 +1,33 @@
 import games from './gameConfig'
-import './styles/GameSelector.css'
+import { Table, TopBar, BackButton, GameIcon } from './ui'
 
-export default function GameSelector({ onGameSelect }) {
+export default function GameSelector({ userName, onGameSelect, onBack }) {
     return (
-        <div className="game-selector-container">
-            <h1 className="game-selector-title">
-                Selecciona un Minijuego
-            </h1>
+        <Table variant="wide">
+            <TopBar left={<BackButton onClick={onBack} label="Cambiar nombre" />} />
 
-            <div className="games-grid">
-                {games.map(game => (
-                    <div
+            <div className="screen-center">
+            <div className="center stack" style={{ gap: 6, display: "flex" }}>
+                <p className="muted" style={{ fontSize: 15 }}>Hola, {userName}</p>
+                <h1 className="title">¿A qué jugamos?</h1>
+            </div>
+
+            <div className="game-grid">
+                {games.filter(g => g.available).map(game => (
+                    <button
                         key={game.id}
-                        className={`game-card ${!game.available ? 'unavailable' : ''}`}
-                        onClick={() => game.available && onGameSelect(game.id)}
+                        type="button"
+                        className="game-card"
+                        onClick={() => onGameSelect(game.id)}
                     >
-                        <div className="game-icon">
-                            {game.icon}
-                        </div>
-                        <h2 className="game-name">
-                            {game.name}
-                        </h2>
-                        <p className="game-description">
-                            {game.description}
-                        </p>
-                        <p className="game-players">
-                            {game.minPlayers}-{game.maxPlayers} jugadores
-                        </p>
-                        {!game.available && (
-                            <p className="game-unavailable-badge">
-                                Próximamente
-                            </p>
-                        )}
-                    </div>
+                        <span className="game-card__icon"><GameIcon gameId={game.id} /></span>
+                        <span className="game-card__name">{game.name}</span>
+                        <span className="game-card__desc">{game.description}</span>
+                        <span className="game-card__players">{game.minPlayers}–{game.maxPlayers} jugadores</span>
+                    </button>
                 ))}
             </div>
-        </div>
+            </div>
+        </Table>
     )
 }
