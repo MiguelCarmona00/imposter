@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { getGameConfig } from './gameConfig'
 import { Table, TopBar, ExitButton, CopyIcon, CrownIcon, DotsIcon, Dots } from './ui'
 import { useCopy } from './useCopy'
+import InviteButton from './InviteButton'
 
 export default function Room({ roomName, roomCode, users, mySocketId, isHost, hostId, selectedGame, onLeaveRoom, onStartGame, onKickPlayer, onTransferHost, settingsError, usingSlowTransport }) {
     const [openMenu, setOpenMenu] = useState(null)
@@ -32,16 +33,15 @@ export default function Room({ roomName, roomCode, users, mySocketId, isHost, ho
                 {game && <span className="eyebrow">{game.name}</span>}
                 {roomName && <h1 className="title-sm" style={{ overflowWrap: "anywhere" }}>{roomName}</h1>}
                 <p className="muted" style={{ fontSize: 14 }}>
-                    {isHost ? "Comparte el nombre y este código con tus amigos" : "Estás en la sala"}
+                    {isHost ? "Invita a tus amigos con el enlace o pásales el nombre y el código" : "Estás en la sala · ¿falta alguien? Invítale"}
                 </p>
                 <p className="big-code" aria-label={`Código de sala ${roomCode.split("").join(" ")}`}>{roomCode}</p>
-                {isHost ? (
+                <div className="invite-row">
+                    <InviteButton roomCode={roomCode} roomName={roomName} gameId={selectedGame} variant="pill" />
                     <button type="button" className="btn btn--pill" onClick={copy}>
                         <CopyIcon /> {copied ? "¡Copiado!" : "Copiar código"}
                     </button>
-                ) : (
-                    <p className="muted small">¿Falta alguien? Pásale el nombre y el código</p>
-                )}
+                </div>
             </div>
 
             <section className="room-layout__players">

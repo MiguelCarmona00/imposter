@@ -15,6 +15,7 @@ export const BackIcon = () => <svg {...iconProps}><path d="M15 5l-7 7 7 7" /></s
 export const NextIcon = () => <svg {...iconProps}><path d="M9 5l7 7-7 7" /></svg>
 export const ExitIcon = () => <svg {...iconProps}><path d="M14 4h5v16h-5" /><path d="M10 8l-4 4 4 4" /><path d="M6 12h10" /></svg>
 export const DotsIcon = () => <svg {...iconProps} fill="currentColor" stroke="none"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>
+export const ShareIcon = () => <svg {...iconProps} width={18} height={18}><path d="M12 15V3" /><path d="M7 8l5-5 5 5" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" /></svg>
 export const CopyIcon = () => <svg {...iconProps} width={16} height={16}><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></svg>
 export const CheckIcon = ({ size = 11 }) => <svg {...iconProps} width={size} height={size} strokeWidth={3}><path d="M5 12l5 5 9-10" /></svg>
 export const CrownIcon = ({ size = 16 }) => <svg {...iconProps} width={size} height={size}><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" /></svg>

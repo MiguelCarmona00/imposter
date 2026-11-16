@@ -4,10 +4,10 @@ import { Table, TopBar, BackButton } from './ui'
 
 // Crear o unirse. Para crear hace falta nombre de sala; para unirse, el
 // nombre y el código de 4 letras (los dos los da quien creó la sala).
-export default function RoomSelection({ gameId, notice, error, onCreateRoom, onJoinRoom, onBack }) {
-    const [mode, setMode] = useState("create")
-    const [name, setName] = useState("")
-    const [code, setCode] = useState("")
+export default function RoomSelection({ gameId, notice, error, onCreateRoom, onJoinRoom, onBack, initialMode = "create", initialName = "", initialCode = "" }) {
+    const [mode, setMode] = useState(initialMode)
+    const [name, setName] = useState(initialName)
+    const [code, setCode] = useState(initialCode)
     const game = getGameConfig(gameId)
 
     const trimmed = name.trim()

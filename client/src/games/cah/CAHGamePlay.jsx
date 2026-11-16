@@ -4,10 +4,11 @@ import CAHHand from './CAHHand'
 import CAHSubmissionsReveal from './CAHSubmissionsReveal'
 import CAHRoundResult from './CAHRoundResult'
 import GameExitSheet from '../../GameExitSheet'
+import InviteButton from '../../InviteButton'
 import { Table, TopBar, ExitButton, CodePill, Sheet, CheckIcon, CrownIcon, Spade } from '../../ui'
 
 export default function CAHGamePlay({
-    cahState, roomCode, isHost, hostName, nextHostName, myId,
+    cahState, roomCode, roomName, isHost, hostName, nextHostName, myId,
     onSubmitCards, onDiscardCards, onCzarPick, onNextRound, onEndGame, onKickPlayer, onTransferHost, onLeave
 }) {
     const [exitOpen, setExitOpen] = useState(false)
@@ -52,7 +53,12 @@ export default function CAHGamePlay({
         <Table variant="tight wide">
             <TopBar
                 left={<ExitButton onClick={() => setExitOpen(true)} label="Salir de la partida" />}
-                center={<CodePill code={roomCode} />}
+                center={
+                    <span className="topbar-center-group">
+                        <CodePill code={roomCode} />
+                        <InviteButton roomCode={roomCode} roomName={roomName} gameId="cah" />
+                    </span>
+                }
                 right={<span className="topbar-note">Ronda {round}</span>}
             />
 

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { io } from 'socket.io-client'
 import { getPlayerId, getBreadcrumb, setBreadcrumb, clearBreadcrumb } from './session'
+import { readInviteFromUrl } from './invite'
 import UserNameInput from './UserNameInput'
 import GameSelector from './GameSelector'
 import RoomSelection from './RoomSelection'
@@ -26,6 +27,16 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000"
 // práctica, muchas versiones de Chrome no lo cubren). Solo para pruebas.
 const FORCE_POLLING = new URLSearchParams(window.location.search).get("forcePolling") === "1"
 
+// Invitación por enlace (?sala=…&nombre=…&juego=…). Se lee una sola vez al
+// cargar el módulo (no en un render: StrictMode lo ejecutaría dos veces y la
+// segunda ya no la encontraría). Si esta pestaña venía de otra sala, la
+// invitación manda: se olvida la sala anterior en vez de reconectar a ella.
+const INITIAL_INVITE = readInviteFromUrl()
+if (INITIAL_INVITE) {
+    const crumb = getBreadcrumb()
+    if (crumb && crumb.roomCode !== INITIAL_INVITE.code) clearBreadcrumb()
+}
+
 const socket = io(SOCKET_URL, {
     auth: { playerId: getPlayerId() },
     // Sin tope de intentos: con el móvil bloqueado los intentos no deben
@@ -50,7 +61,12 @@ const TRANSPORT_CHECK_DELAY_MS = 4000
 
 export default function Lobby() {
     // Estados de navegación
-    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting" | "waiting-for-next-round"
+    const [currentView, setCurrentView] = useState(() => getBreadcrumb() ? "reconnecting" : "name-input") // "name-input" | "game-selection" | "room-selection" | "joining" | "in-room" | "game-settings" | "waiting-for-settings" | "countdown" | "playing" | "game-end" | "reconnecting" | "waiting-for-next-round"
+    // Invitación pendiente de usar (se consume al enviar el nombre) y datos
+    // para rellenar la pantalla de unirse si la entrada por enlace falla.
+    const [invite, setInvite] = useState(INITIAL_INVITE)
+    const [joinDraft, setJoinDraft] = useState(null)
+    const inviteJoiningRef = useRef(false)
 
     // Estados de usuario
     const [myName, setMyName] = useState("")
@@ -336,6 +352,8 @@ export default function Lobby() {
 
         // Unido a sala exitosamente
         socket.on("roomJoined", (data) => {
+            inviteJoiningRef.current = false
+            setJoinDraft(null)
             setRoomCode(data.code)
             setRoomName(data.name)
             setRoomUsers(data.users)
@@ -349,12 +367,20 @@ export default function Lobby() {
         // Error al unirse a sala
         socket.on("joinError", (errorMessage) => {
             setJoinError(errorMessage)
+            // Falló la entrada por enlace: a la pantalla de unirse, con el
+            // nombre y el código ya rellenados y el error a la vista.
+            if (inviteJoiningRef.current) {
+                inviteJoiningRef.current = false
+                setCurrentView("room-selection")
+            }
         })
 
         // Se unió con la partida ya empezada: está dentro de la sala pero aún no
         // juega. El servidor lo mete en la partida al pasar de ronda, y entonces
         // llegan "gameStarted" + "cahRoundStart" como a cualquier otro jugador.
         socket.on("lateJoinPending", (data) => {
+            inviteJoiningRef.current = false
+            setJoinDraft(null)
             setRoomCode(data.code)
             setRoomName(data.name)
             setRoomUsers(data.users)
@@ -617,6 +643,17 @@ export default function Lobby() {
     const handleNameSubmit = (name) => {
         setMyName(name)
         socket.emit("setName", name)
+        if (invite) {
+            // Entrada directa por enlace: sin elegir juego ni teclear sala.
+            setSelectedGame(invite.game)
+            setJoinDraft({ name: invite.name, code: invite.code })
+            setJoinError("")
+            inviteJoiningRef.current = true
+            socket.emit("joinRoom", { roomName: invite.name, roomCode: invite.code, game: invite.game })
+            setInvite(null)
+            setCurrentView("joining")
+            return
+        }
         setCurrentView("game-selection")
     }
 
@@ -641,6 +678,7 @@ export default function Lobby() {
     const handleBackToGameSelection = () => {
         setKickedNotice("")
         setJoinError("")
+        setJoinDraft(null)
         setCurrentView("game-selection")
     }
 
@@ -722,7 +760,11 @@ export default function Lobby() {
         }
 
         if (currentView === "name-input") {
-            return <UserNameInput initialName={myName} onNameSubmit={handleNameSubmit} />
+            return <UserNameInput initialName={myName} invite={invite} onNameSubmit={handleNameSubmit} />
+        }
+
+        if (currentView === "joining") {
+            return <WaitingScreen title="Entrando en la sala…" />
         }
 
         if (currentView === "game-selection") {
@@ -732,7 +774,11 @@ export default function Lobby() {
         if (currentView === "room-selection") {
             return (
                 <RoomSelection
+                    key={joinDraft ? `${joinDraft.code}-${joinDraft.name}` : "nueva"}
                     gameId={selectedGame}
+                    initialMode={joinDraft ? "join" : "create"}
+                    initialName={joinDraft?.name}
+                    initialCode={joinDraft?.code}
                     notice={kickedNotice}
                     error={joinError}
                     onCreateRoom={handleCreateRoom}
@@ -837,6 +883,7 @@ export default function Lobby() {
                     <CAHGamePlay
                         cahState={cahState}
                         roomCode={roomCode}
+                        roomName={roomName}
                         isHost={isHost}
                         hostName={hostName}
                         nextHostName={nextHostName}

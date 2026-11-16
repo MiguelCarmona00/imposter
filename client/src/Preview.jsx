@@ -36,12 +36,13 @@ const baseCah = {
     pointsToWin: 7, submittedCount: 4, submittedIds: ["a", "l", "s", "p"], totalNeeded: 5,
     hasSubmitted: false, hasDiscarded: false
 }
-const cahProps = { roomCode: "K7QF", isHost: true, hostName: "Miguel", nextHostName: "Ana", myId: "me",
+const cahProps = { roomCode: "K7QF", roomName: "Viernes en casa de Ana", isHost: true, hostName: "Miguel", nextHostName: "Ana", myId: "me",
     onSubmitCards: noop, onDiscardCards: noop, onCzarPick: noop, onNextRound: noop, onEndGame: noop, onKickPlayer: noop, onLeave: noop }
 
 const screens = {
     name: () => <UserNameInput onNameSubmit={noop} />,
     games: () => <GameSelector userName="Miguel" onGameSelect={noop} onBack={noop} />,
+    invited: () => <UserNameInput invite={{ code: "K7QF", name: "Viernes en casa de Ana", game: "cah" }} onNameSubmit={noop} />,
     join: () => <RoomSelection gameId="cah" onCreateRoom={noop} onJoinRoom={noop} onBack={noop} />,
     "room-host": () => <Room roomName="Viernes en casa de Ana" roomCode="K7QF" users={users.slice(0, 4)} mySocketId="me" isHost hostId="me" selectedGame="cah" onLeaveRoom={noop} onStartGame={noop} onKickPlayer={noop} />,
     "room-guest": () => <Room roomName="Viernes en casa de Ana" roomCode="K7QF" users={users.slice(0, 4)} mySocketId="me" isHost={false} hostId="a" selectedGame="cah" onLeaveRoom={noop} onStartGame={noop} onKickPlayer={noop} />,

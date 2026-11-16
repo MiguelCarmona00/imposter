@@ -737,6 +737,35 @@ button.white-card:hover:not(:disabled) { transform: translateY(-2px); box-shadow
 @keyframes toast-in { from { opacity: 0; transform: translate(-50%, -12px); } to { opacity: 1; transform: translate(-50%, 0); } }
 .toast { animation: toast-in 0.3s ease-out both; }
 
+/* --- Invitar por enlace ---------------------------------------------------- */
+
+.topbar-center-group { display: inline-flex; align-items: center; gap: 6px; }
+.invite { position: relative; display: inline-flex; }
+.invite-btn {
+  height: 34px; min-width: 34px; padding: 0 8px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--ink); border: 1px solid var(--rail-line); border-radius: 8px;
+  color: var(--brass); font-size: 13px; font-weight: 700;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.invite-btn:hover { background: rgba(209, 167, 78, 0.12); }
+.invite-btn:active { transform: scale(0.95); }
+.invite-btn__text { display: none; }
+.invite__feedback {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  white-space: nowrap; z-index: 30;
+  background: var(--ink); border: 1px solid var(--rail-line); color: var(--brass);
+  padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  box-shadow: var(--shadow-card);
+  animation: rise-in 0.2s ease-out both;
+}
+.invite-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.btn--invite { border-color: var(--rail-line); color: var(--brass); }
+.btn--invite:hover:not(:disabled) { background: rgba(209, 167, 78, 0.12); }
+.invite-banner { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; margin-top: 8px; }
+.invite-banner strong { color: var(--brass); }
+@media (min-width: 760px) { .invite-btn__text { display: inline; } .invite-btn { padding: 0 12px; } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
