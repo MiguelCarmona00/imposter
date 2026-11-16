@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Table, Spade } from './ui'
+import { getGameConfig } from './gameConfig'
 
-export default function UserNameInput({ initialName = "", onNameSubmit }) {
+export default function UserNameInput({ initialName = "", invite = null, onNameSubmit }) {
     const [name, setName] = useState(initialName)
 
     const handleSubmit = (e) => {
@@ -17,6 +18,12 @@ export default function UserNameInput({ initialName = "", onNameSubmit }) {
                 <div className="grow center stack">
                     <Spade className="logo logo--lg" />
                     <h1 className="title-xl">Lounge</h1>
+                    {invite && (
+                        <p className="notice notice--brass invite-banner">
+                            Te han invitado a <strong>«{invite.name}»</strong>
+                            <span className="muted small">{getGameConfig(invite.game)?.name || ""}</span>
+                        </p>
+                    )}
                 </div>
 
                 <div className="grow stack" style={{ justifyContent: "center", gap: 14 }}>
@@ -39,7 +46,7 @@ export default function UserNameInput({ initialName = "", onNameSubmit }) {
 
                 <div className="grow" style={{ justifyContent: "flex-end" }}>
                     <button className="btn btn--primary" type="submit" disabled={!name.trim()}>
-                        Continuar
+                        {invite ? "Entrar en la sala" : "Continuar"}
                     </button>
                 </div>
             </form>
